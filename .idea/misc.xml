@@ -3,11 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/activity_main.xml" value="0.21603260869565216" />
+        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/home_list_row.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/home_page.xml" value="0.21603260869565216" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_home_list_row.xml" value="0.20436083796494228" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_home_page.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_question_page.xml" value="0.20436083796494228" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_questions.xml" value="0.20436083796494228" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_results_page.xml" value="0.20350577169730655" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/menu/home_menu.xml" value="0.24791666666666667" />
