@@ -3,21 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/learningSort"
+        android:id="@+id/lessonSort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="Sort"
         app:showAsAction="always">
         <menu >
             <item
-                android:id="@+id/learningSortName"
+                android:id="@+id/lessonSortName"
                 android:title="Name" />
             <item
-                android:id="@+id/learningSortDifficulty"
+                android:id="@+id/lessonSortDifficulty"
                 android:title="Difficulty" />
         </menu>
     </item>
     <item
-        android:id="@+id/learningHomeSearch"
+        android:id="@+id/lessonHomeSearch"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"

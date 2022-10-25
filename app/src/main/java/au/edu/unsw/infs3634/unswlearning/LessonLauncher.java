@@ -14,54 +14,55 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeLauncher extends AppCompatActivity implements RecyclerViewInterface{
-    private RecyclerView recyclerViewHome;
-    private HomeExerciseGroupAdapter exerciseGroupAdapter;
+public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
+    private static final String TAG = "LessonLauncher";
+    private RecyclerView recyclerViewLesson;
+    private LessonAdapter lessonAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
-        recyclerViewHome = findViewById(R.id.rvListHome);
+        setContentView(R.layout.lesson_home_page);
+        recyclerViewLesson = findViewById(R.id.rvListLesson);
 
         layoutManager = new LinearLayoutManager(this);
-        recyclerViewHome.setLayoutManager(layoutManager);
+        recyclerViewLesson.setLayoutManager(layoutManager);
 
+        lessonAdapter = new LessonAdapter(this, Lesson.getLesson(), this);
 
-        exerciseGroupAdapter = new HomeExerciseGroupAdapter(this, ExerciseGroup.getExerciseGroup(), this);
-
-        recyclerViewHome.setAdapter(exerciseGroupAdapter);
+        recyclerViewLesson.setAdapter(lessonAdapter);
     }
 
 
-    public void launchYoutube(String msg) {
-        Intent intent = new Intent(HomeLauncher.this, LessonLauncher.class);
+    public void launchLesson(String msg) {
+        Intent intent = new Intent(LessonLauncher.this, YoutubeAPI.class);
+        intent.putExtra(YoutubeAPI.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 
     @Override
-    public void onItemClick(String group) {
-        launchYoutube(group);
+    public void onItemClick(String lesson) {
+        launchLesson("Incline Hammer Curls");
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_menu, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.homeSearch).getActionView();
+        inflater.inflate(R.menu.lesson_home_menu, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.lessonHomeSearch).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                exerciseGroupAdapter.getFilter().filter(query);
+                lessonAdapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                exerciseGroupAdapter.getFilter().filter(newText);
+                lessonAdapter.getFilter().filter(newText);
                 return false;
             }
 
@@ -72,8 +73,11 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.homeSortName:
-                exerciseGroupAdapter.sort(HomeExerciseGroupAdapter.SORT_METHOD_NAME);
+            case R.id.lessonSortName:
+                lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
+                return true;
+            case R.id.lessonSortDifficulty:
+                lessonAdapter.sort(LessonAdapter.SORT_METHOD_DIFFICULTY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

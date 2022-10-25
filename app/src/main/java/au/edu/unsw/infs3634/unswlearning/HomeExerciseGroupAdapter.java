@@ -23,13 +23,13 @@ import java.util.Locale;
 
 public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseGroupAdapter.MyViewHolder> implements Filterable {
 
-    Context mcontextExerciseGroups;
+    Context mContextExerciseGroups;
     private ArrayList<ExerciseGroup> mExerciseGroups, mExerciseGroupsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
 
     public HomeExerciseGroupAdapter(Context context, ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface) {
-        mcontextExerciseGroups = context;
+        mContextExerciseGroups = context;
         mExerciseGroups = exerciseGroups;
         mExerciseGroupsFiltered = exerciseGroups;
         recyclerViewInterface = rvInterface;
@@ -49,7 +49,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
         holder.tvTargetArea.setText(exerciseGroup.getName());
 
 
-        holder.ivExerciseGroup.setImageResource(mcontextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
+        holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
                 "drawable", "au.edu.unsw.infs3634.unswlearning"));
     }
 
