@@ -21,7 +21,7 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
 
 
     @Override
-    protected void OnCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
         recyclerViewHome = findViewById(R.id.rvListHome);
@@ -30,12 +30,10 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
         recyclerViewHome.setLayoutManager(layoutManager);
 
 
-        exerciseGroupAdapter = new HomeExerciseGroupAdapter(ExerciseGroup.getExerciseGroup(), this);
+        exerciseGroupAdapter = new HomeExerciseGroupAdapter(this, ExerciseGroup.getExerciseGroup(), this);
 
         recyclerViewHome.setAdapter(exerciseGroupAdapter);
     }
-
-
 
 
     public void launchYoutube(String msg) {
@@ -72,7 +70,7 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
     }
 
     @Override
-    public boolean onOptionsItemsSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.homeSortName:
                 exerciseGroupAdapter.sort(HomeExerciseGroupAdapter.SORT_METHOD_NAME);

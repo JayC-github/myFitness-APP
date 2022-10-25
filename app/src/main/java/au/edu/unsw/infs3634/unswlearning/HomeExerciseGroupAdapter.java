@@ -1,23 +1,37 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
-public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseGroupAdapter.MyViewHolder> {
+public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseGroupAdapter.MyViewHolder> implements Filterable {
 
-    private List<ExerciseGroup> mExerciseGroups;
+    Context mcontextExerciseGroups;
+    private ArrayList<ExerciseGroup> mExerciseGroups, mExerciseGroupsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
+    public static final int SORT_METHOD_NAME = 1;
 
-    public HomeExerciseGroupAdapter(List<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface) {
+    public HomeExerciseGroupAdapter(Context context, ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface) {
+        mcontextExerciseGroups = context;
         mExerciseGroups = exerciseGroups;
+        mExerciseGroupsFiltered = exerciseGroups;
         recyclerViewInterface = rvInterface;
     }
 
@@ -31,14 +45,48 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
 
     @Override
     public void onBindViewHolder(@NonNull HomeExerciseGroupAdapter.MyViewHolder holder, int position) {
-        ExerciseGroup exerciseGroup = mExerciseGroups.get(position);
+        ExerciseGroup exerciseGroup = mExerciseGroupsFiltered.get(position);
         holder.tvTargetArea.setText(exerciseGroup.getName());
-        //holder.ivExerciseGroup.setImageAlpha(); whatever the field is for images);
+
+
+        holder.ivExerciseGroup.setImageResource(mcontextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
+                "drawable", "au.edu.unsw.infs3634.unswlearning"));
     }
 
     @Override
     public int getItemCount() {
-        return mExerciseGroups.size();
+        return mExerciseGroupsFiltered.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mExerciseGroupsFiltered = mExerciseGroups;
+                } else {
+                    ArrayList<ExerciseGroup> filteredList = new ArrayList<>();
+                    for (ExerciseGroup group: mExerciseGroups) {
+                        if (group.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(group);
+                        }
+                    }
+                    mExerciseGroupsFiltered = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mExerciseGroupsFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mExerciseGroupsFiltered = (ArrayList<ExerciseGroup>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,4 +109,21 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
 
     }
 
+    public void sort(final int sortMethod) {
+        if (mExerciseGroupsFiltered.size() > 0) {
+            Collections.sort(mExerciseGroupsFiltered, new Comparator<ExerciseGroup>() {
+                @Override
+                public int compare(ExerciseGroup g1, ExerciseGroup g2) {
+                    if (sortMethod == SORT_METHOD_NAME) {
+                        return g1.getName().compareTo(g2.getName());
+                    }
+                    // By default sort the list by coin name
+                    return g1.getName().compareTo(g2.getName());
+                }
+
+            });
+        }
+        notifyDataSetChanged();
+    }
 }
+
