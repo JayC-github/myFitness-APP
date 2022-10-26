@@ -2,6 +2,7 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
     private static final String TAG = "LessonLauncher";
+    public static final String INTENT_MESSAGE = "intent_message";
+
     private RecyclerView recyclerViewLesson;
     private LessonAdapter lessonAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -25,20 +27,55 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lesson_home_page);
-        recyclerViewLesson = findViewById(R.id.rvListLesson);
 
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViewLesson.setLayoutManager(layoutManager);
 
-        lessonAdapter = new LessonAdapter(this, Lesson.getLesson(), this);
 
-        recyclerViewLesson.setAdapter(lessonAdapter);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(INTENT_MESSAGE)) {
+            String message = intent.getStringExtra(INTENT_MESSAGE);
+            Log.d(TAG, "Intent Message = " + message);
+            ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
+            if(exerciseGroup != null) {
+                setTitle(exerciseGroup.getName());
+                ArrayList<Lesson> allLesson = new ArrayList<>();
+                ArrayList<Lesson> tempLesson = new ArrayList<>();
+
+                allLesson = Lesson.getLesson();
+                for (Lesson lesson: allLesson) {
+                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
+                        tempLesson.add(lesson);
+                    }
+                }
+
+                recyclerViewLesson = findViewById(R.id.rvListLesson);
+
+                layoutManager = new LinearLayoutManager(this);
+                recyclerViewLesson.setLayoutManager(layoutManager);
+
+                lessonAdapter = new LessonAdapter(this, tempLesson, this);
+
+                recyclerViewLesson.setAdapter(lessonAdapter);
+
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+
     }
 
 
     public void launchLesson(String msg) {
-        Intent intent = new Intent(LessonLauncher.this, YoutubeAPI.class);
-        intent.putExtra(YoutubeAPI.INTENT_MESSAGE, msg);
+        Intent intent = new Intent(LessonLauncher.this, ExerciseDetail.class);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 

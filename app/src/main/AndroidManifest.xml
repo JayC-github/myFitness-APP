@@ -15,10 +15,13 @@
         android:theme="@style/Theme.UNSWLearning"
         tools:targetApi="31">
         <activity
-            android:name=".YoutubeAPI"
+            android:name=".ExerciseDetail"
             android:exported="true"/>
         <activity
             android:name=".LessonLauncher"
+            android:exported="true"/>
+        <activity
+            android:name=".HubController"
             android:exported="true"/>
         <activity
             android:name=".HomeLauncher"

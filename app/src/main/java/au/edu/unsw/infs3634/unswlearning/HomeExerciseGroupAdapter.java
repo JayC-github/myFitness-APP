@@ -51,6 +51,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
 
         holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
                 "drawable", "au.edu.unsw.infs3634.unswlearning"));
+        holder.itemView.setTag(exerciseGroup.getName());
     }
 
     @Override

@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 
-public class YoutubeAPI extends YouTubeBaseActivity {
+public class ExerciseDetail extends YouTubeBaseActivity {
 
     String api_key = "AIzaSyCvTBA8V3W0z7v8m9aTMj_U0EoEEpKIFEk";
 

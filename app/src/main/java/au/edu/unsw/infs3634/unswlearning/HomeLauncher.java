@@ -20,6 +20,7 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
     private RecyclerView.LayoutManager layoutManager;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +37,17 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
     }
 
 
-    public void launchYoutube(String msg) {
-        Intent intent = new Intent(HomeLauncher.this, LessonLauncher.class);
+    public void launchLesson(String msg) {
+
+        Intent intent = new Intent(HomeLauncher.this, HubController.class);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);
+
     }
 
     @Override
     public void onItemClick(String group) {
-        launchYoutube(group);
+        launchLesson(group);
     }
 
 
