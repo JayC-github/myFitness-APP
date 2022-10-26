@@ -48,6 +48,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         holder.tvLessonDifficulty.setText(lesson.getDifficulty());
         holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier(lesson.getName(),
                 "drawable", "au.edu.unsw.infs3634.unswlearning"));
+        holder.itemView.setTag(lesson.getName());
     }
 
     @Override

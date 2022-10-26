@@ -44,7 +44,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
 
     @Override
     public void onItemClick(String lesson) {
-        launchLesson("Incline Hammer Curls");
+        launchLesson(lesson);
     }
 
 
