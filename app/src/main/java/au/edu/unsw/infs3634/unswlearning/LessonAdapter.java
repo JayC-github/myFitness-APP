@@ -15,16 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> implements Filterable {
 
     Context mContextLessons;
-    private ArrayList<Lesson> mLessons, mLessonsFiltered;
+    private List<Lesson> mLessons, mLessonsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
     public static final int SORT_METHOD_DIFFICULTY = 2;
 
-    public LessonAdapter(Context context, ArrayList<Lesson> lessons, RecyclerViewInterface rvInterface) {
+    public LessonAdapter(Context context, List<Lesson> lessons, RecyclerViewInterface rvInterface) {
         mContextLessons = context;
         mLessons = lessons;
         mLessonsFiltered = lessons;
@@ -46,7 +47,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         Lesson lesson = mLessonsFiltered.get(position);
         holder.tvLessonName.setText(lesson.getName());
         holder.tvLessonDifficulty.setText(lesson.getDifficulty());
-        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier(lesson.getName(),
+        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
                 "drawable", "au.edu.unsw.infs3634.unswlearning"));
         holder.itemView.setTag(lesson.getName());
     }

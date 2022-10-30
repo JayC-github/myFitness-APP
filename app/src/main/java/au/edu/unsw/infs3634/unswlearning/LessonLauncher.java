@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
     private static final String TAG = "LessonLauncher";
@@ -22,45 +23,48 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     private LessonAdapter lessonAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    // a list of exercise/lesson
+    private List<Lesson> lessonList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lesson_home_page);
 
-
-
-
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
+            // get the name of the exerciseGroup
             String message = intent.getStringExtra(INTENT_MESSAGE);
-            Log.d(TAG, "Intent Message = " + message);
+            Log.d(TAG, "Exercise Group name = " + message);
+
+
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
-            if(exerciseGroup != null) {
+            if (exerciseGroup != null) {
+                Log.d(TAG, "exerciseGroup exist");
                 setTitle(exerciseGroup.getName());
-                ArrayList<Lesson> allLesson = new ArrayList<>();
-                ArrayList<Lesson> tempLesson = new ArrayList<>();
 
-                allLesson = Lesson.getLesson();
-                for (Lesson lesson: allLesson) {
-                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
-                        tempLesson.add(lesson);
-                    }
-                }
-
+                // this part is always similar
                 recyclerViewLesson = findViewById(R.id.rvListLesson);
-
                 layoutManager = new LinearLayoutManager(this);
                 recyclerViewLesson.setLayoutManager(layoutManager);
 
-                lessonAdapter = new LessonAdapter(this, tempLesson, this);
+
+                // create exercises' list of the exercise group
+                // get all manually created lessons for now
+                ArrayList<Lesson> allLesson = Lesson.getLesson();
+                // tempLesson
+                // ArrayList<Lesson> tempLesson = new ArrayList<>();
+
+                for (Lesson lesson: allLesson) {
+                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
+                        lessonList.add(lesson);
+                    }
+                }
+
+                lessonAdapter = new LessonAdapter(this, lessonList, this);
 
                 recyclerViewLesson.setAdapter(lessonAdapter);
-
-
-
-
-
             }
         }
 
