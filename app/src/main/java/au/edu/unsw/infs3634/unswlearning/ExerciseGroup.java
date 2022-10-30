@@ -39,6 +39,4 @@ public class ExerciseGroup {
         return null;
     }
 
-
-
 }

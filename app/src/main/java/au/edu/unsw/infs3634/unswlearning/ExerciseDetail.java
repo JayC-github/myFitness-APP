@@ -97,7 +97,6 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                 Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
-
             }
 
         }
