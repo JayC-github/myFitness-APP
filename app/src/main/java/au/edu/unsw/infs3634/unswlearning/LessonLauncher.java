@@ -15,6 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBResponse;
+import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
     private static final String TAG = "LessonLauncher";
     public static final String INTENT_MESSAGE = "intent_message";
@@ -61,6 +69,29 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                         lessonList.add(lesson);
                     }
                 }
+
+                /** execute an API call to get all lessons of that body part(muscle)*/
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://exercisedb.p.rapidapi.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                ExerciseDBService service = retrofit.create(ExerciseDBService.class);
+                Call<ExerciseDBResponse> exerciseCall =service.getExercisebyBody(message);
+
+                exerciseCall.enqueue(new Callback<ExerciseDBResponse>() {
+                    @Override
+                    public void onResponse(Call<ExerciseDBResponse> call, Response<ExerciseDBResponse> response) {
+                        Log.d(TAG, "API success");
+                        // List<Lesson> lessons = response.body().getData();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ExerciseDBResponse> call, Throwable t) {
+                        Log.d(TAG, "API failure");
+                    }
+                });
+
 
                 lessonAdapter = new LessonAdapter(this, lessonList, this);
 
