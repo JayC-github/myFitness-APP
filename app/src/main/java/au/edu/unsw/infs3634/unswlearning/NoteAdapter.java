@@ -17,5 +17,5 @@ public class NoteAdapter extends ArrayAdapter<Note> {
     }
 
 
-    puvlic VIew getView
+    //puvlic VIew getView
 }

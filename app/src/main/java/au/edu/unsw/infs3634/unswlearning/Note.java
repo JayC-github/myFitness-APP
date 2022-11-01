@@ -5,28 +5,34 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+
 @Entity
 public class Note {
     @PrimaryKey
     @NonNull
 
-    private String noteID;
+    private int noteID;
     private String selectedExercise;
-    private String note;
+    private String noteBody;
+    private String noteTitle;
 
-    public Note(String noteID, String selectedExercise, String note) {
+    public Note(int noteID, String selectedExercise, String noteBody, String noteTitle) {
         this.noteID = noteID;
         this.selectedExercise = selectedExercise;
-        this.note = note;
+        this.noteBody= noteBody;
+        this.noteTitle = noteTitle;
     }
+
+
 
     public Note() {}
 
-    public String getNoteID() {
+    public int getNoteID() {
         return noteID;
     }
 
-    public void setNoteID(String noteID) {
+    public void setNoteID(int noteID) {
         this.noteID = noteID;
     }
 
@@ -38,11 +44,21 @@ public class Note {
         this.selectedExercise = selectedExercise;
     }
 
-    public String getNote() {
-        return note;
+    public String getNoteTitle() {
+        return noteTitle;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
     }
+
+    public String getNoteBody() {
+        return noteBody;
+    }
+
+    public void setNoteBody(String noteBody) {
+        this.noteBody = noteBody;
+    }
+
+
 }

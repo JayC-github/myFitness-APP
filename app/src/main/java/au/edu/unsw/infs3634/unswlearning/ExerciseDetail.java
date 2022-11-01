@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
     private TextView mEquipment;
     private TextView mDifficulty;
     private TextView mInstructions;
+    private Button mNoteLaunch;
     //private YouTubePlayerView mPlayer;
 
     @Override
@@ -45,6 +47,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         mEquipment = findViewById(R.id.tvExerciseEquipment);
         mDifficulty = findViewById(R.id.tvExerciseDifficulty);
         mInstructions = findViewById(R.id.tvExerciseInstruction);
+        mNoteLaunch = findViewById(R.id.btnTakeNote);
         //mPlayer = findViewById(R.id.ytPlayer);
 
 
@@ -102,8 +105,12 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
         }
 
+    }
 
-
-
+    public void startNoteDetail(View view) {
+        String group = mMuscle.getText().toString();
+        Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);//not sure about where this leads tbh
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        startActivity(intent);
     }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ExerciseDetail">
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/ytPlayer"
@@ -50,7 +50,7 @@
         android:id="@+id/tvExerciseMuscle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="60dp"
         android:text="MuscleGroup"
         app:layout_constraintStart_toEndOf="@+id/tvExerciseType"
@@ -80,11 +80,12 @@
         android:id="@+id/btnTakeNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginBottom="27dp"
-        android:text="Note"
-        app:layout_constraintBottom_toTopOf="@+id/ytPlayer"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="56dp"
+        android:text="Button"
+        android:onClick="startNoteDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseInstruction" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
