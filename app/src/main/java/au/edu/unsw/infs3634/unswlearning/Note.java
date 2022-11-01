@@ -6,27 +6,27 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Notes {
+public class Note {
     @PrimaryKey
     @NonNull
 
-    private int noteID;
+    private String noteID;
     private String selectedExercise;
     private String note;
 
-    public Notes(int noteID, String selectedExercise, String note) {
+    public Note(String noteID, String selectedExercise, String note) {
         this.noteID = noteID;
         this.selectedExercise = selectedExercise;
         this.note = note;
     }
 
-    public Notes() {}
+    public Note() {}
 
-    public int getNoteID() {
+    public String getNoteID() {
         return noteID;
     }
 
-    public void setNoteID(int noteID) {
+    public void setNoteID(String noteID) {
         this.noteID = noteID;
     }
 

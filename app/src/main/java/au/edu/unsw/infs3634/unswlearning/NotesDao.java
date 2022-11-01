@@ -8,19 +8,19 @@ import java.util.List;
 
 public interface NotesDao {
 
-    @Query("SELECT * FROM notes")
-    List<Notes> getNotes();
+    @Query("SELECT * FROM Note")
+    List<Note> getNotes();
 
-    @Query("SELECT * FROM notes where noteID == :id")
-    Notes getNotes(int id);
+    @Query("SELECT * FROM Note where noteID == :id")
+    Note getNotes(int id);
 
     @Delete
-    void deleteNotes(Notes... notes);
+    void deleteNotes(Note... notes);
 
-    @Query("DELETE FROM notes")
+    @Query("DELETE FROM Note")
     void deleteAll();
 
     @Insert
-    void insertNotes(Notes... notes);
+    void insertNotes(Note... notes);
 
 }
