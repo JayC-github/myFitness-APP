@@ -1,11 +1,13 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
 
+@Dao
 public interface NotesDao {
 
     @Query("SELECT * FROM Note")
