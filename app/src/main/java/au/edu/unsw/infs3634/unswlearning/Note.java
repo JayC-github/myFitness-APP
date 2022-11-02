@@ -12,12 +12,12 @@ public class Note {
     @PrimaryKey
     @NonNull
 
-    private int noteID;
+    private String noteID;
     private String selectedExercise;
     private String noteBody;
     private String noteTitle;
 
-    public Note(int noteID, String selectedExercise, String noteBody, String noteTitle) {
+    public Note(String noteID, String selectedExercise, String noteBody, String noteTitle) {
         this.noteID = noteID;
         this.selectedExercise = selectedExercise;
         this.noteBody= noteBody;
@@ -28,11 +28,11 @@ public class Note {
 
     public Note() {}
 
-    public int getNoteID() {
+    public String getNoteID() {
         return noteID;
     }
 
-    public void setNoteID(int noteID) {
+    public void setNoteID(String noteID) {
         this.noteID = noteID;
     }
 

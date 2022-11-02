@@ -11,10 +11,10 @@ import java.util.List;
 public interface NotesDao {
 
     @Query("SELECT * FROM Note")
-    List<Note> getNotes();
+    List<Note> getAllNotes();
 
     @Query("SELECT * FROM Note where noteID == :id")
-    Note getNotes(int id);
+    Note getNotes(String id);
 
     @Delete
     void deleteNotes(Note... notes);

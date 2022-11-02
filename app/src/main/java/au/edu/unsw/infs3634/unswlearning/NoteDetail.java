@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import java.security.PrivateKey;
+import java.util.concurrent.Executors;
 
 public class NoteDetail extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "intent_message";
@@ -39,15 +40,26 @@ public class NoteDetail extends AppCompatActivity {
         mNoteBodyText = findViewById(R.id.editTextNoteBody);
         mSaveNote = findViewById(R.id.btnConfirmNote);
 
-        noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database").build();
+        noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
+                .fallbackToDestructiveMigration()
+                .build();
 
     }
 
     public void confirmNote(View view) {
+        Log.d(TAG, "note added");
 
-        Note newNote = new Note(idCounter, mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
-        noteDb.notesDao().insertNotes(newNote);
-        idCounter = idCounter + 1;
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                Note newNote = new Note(String.valueOf(idCounter), mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
+                noteDb.notesDao().insertNotes(newNote);
+                idCounter = idCounter + 1;
+                noteDb.notesDao().getAllNotes();
+            }
+        });
+
+
         Intent intent = new Intent(NoteDetail.this, HubController.class);
         startActivity(intent);
     }
