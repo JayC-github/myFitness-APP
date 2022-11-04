@@ -27,6 +27,9 @@
             android:name=".HubController"
             android:exported="true"/>
         <activity
+            android:name=".NoteLauncher"
+            android:exported="true"/>
+        <activity
             android:name=".HomeLauncher"
             android:exported="true">
             <intent-filter>

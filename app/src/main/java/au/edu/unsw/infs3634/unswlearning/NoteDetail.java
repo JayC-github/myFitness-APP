@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 public class NoteDetail extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "NoteDetail";
-    private int idCounter = 0;
+
     private NotesDatabase noteDb;
 
     private TextView mNoteMuscleGroup;
@@ -44,6 +44,9 @@ public class NoteDetail extends AppCompatActivity {
                 .fallbackToDestructiveMigration()
                 .build();
 
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(INTENT_MESSAGE);
+        mNoteMuscleGroup.setText(message);
     }
 
     public void confirmNote(View view) {
@@ -52,15 +55,18 @@ public class NoteDetail extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
+                int idCounter = noteDb.notesDao().getTableSize();
+                System.out.println(idCounter);
+                idCounter = idCounter + 1;
                 Note newNote = new Note(String.valueOf(idCounter), mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
                 noteDb.notesDao().insertNotes(newNote);
-                idCounter = idCounter + 1;
+
                 noteDb.notesDao().getAllNotes();
             }
         });
 
 
-        Intent intent = new Intent(NoteDetail.this, HubController.class);
+        Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
         startActivity(intent);
     }
 

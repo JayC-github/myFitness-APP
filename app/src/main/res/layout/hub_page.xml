@@ -58,4 +58,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnHubNote"
+        android:layout_width="177dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="68dp"
+        android:onClick="startNoteHomePage"
+        android:text="Notes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnHubQuiz" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

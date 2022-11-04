@@ -7,8 +7,12 @@
         android:title="noteSort"
         app:showAsAction="always">
         <menu>
-            <item android:title="noteSortCategory" />
-            <item android:title="noteSortName" />
+            <item
+                android:id="@+id/noteSortCategory"
+                android:title="noteSortCategory" />
+            <item
+                android:id="@+id/noteSortName"
+                android:title="noteSortName" />
         </menu>
     </item>
     <item

@@ -16,6 +16,9 @@ public interface NotesDao {
     @Query("SELECT * FROM Note where noteID == :id")
     Note getNotes(String id);
 
+    @Query("SELECT COUNT(*) FROM Note")
+    int getTableSize();
+
     @Delete
     void deleteNotes(Note... notes);
 
