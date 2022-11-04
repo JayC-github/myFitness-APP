@@ -60,7 +60,7 @@ public class NoteDetail extends AppCompatActivity {
                 idCounter = idCounter + 1;
                 Note newNote = new Note(String.valueOf(idCounter), mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
                 noteDb.notesDao().insertNotes(newNote);
-
+                System.out.print(noteDb.notesDao().getAllNotes());
                 noteDb.notesDao().getAllNotes();
             }
         });

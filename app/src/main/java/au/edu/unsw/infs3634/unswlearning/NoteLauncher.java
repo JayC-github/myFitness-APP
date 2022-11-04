@@ -32,6 +32,14 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_home_page);
 
+        recyclerViewNote = findViewById(R.id.rvListNote);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerViewNote.setLayoutManager(layoutManager);
+
+        noteAdapter = new NoteAdapter(this, new ArrayList<>(), this);
+
+
         List<Note> allNote = new ArrayList<>();
         List<Note> finalNote = new ArrayList<>();
 
@@ -44,46 +52,43 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
             String message = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Intent Message = " + message);
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
-            if(exerciseGroup != null) {
-                setTitle(exerciseGroup.getName());
+            setTitle(exerciseGroup.getName());
+            System.out.println(exerciseGroup.getName());
+
+            recyclerViewNote.setAdapter(noteAdapter);
+            Executors.newSingleThreadExecutor().execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    List<Note> tempNote = new ArrayList<>();
+                    tempNote = noteDb.notesDao().getAllNotes();
+
+                    for (Note note: tempNote) {
+                        System.out.println(note.getNoteID());
+                        System.out.println(note.getSelectedExercise());
+                        System.out.println(note.getNoteTitle());
 
 
-                Executors.newSingleThreadExecutor().execute(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        List<Note> tempNote = new ArrayList<>();
-                        tempNote = noteDb.notesDao().getAllNotes();
-
-                        for (Note note: tempNote) {
-                            System.out.println(note.getSelectedExercise());
-                            if (note.getSelectedExercise().toLowerCase().contains(exerciseGroup.getName().toLowerCase())) {
-                                finalNote.add(note);
-                            }
+                        if (note.getSelectedExercise().toLowerCase().contains(exerciseGroup.getName().toLowerCase())) {
+                            finalNote.add(note);
                         }
                     }
-                });
+                    //System.out.println(finalNote.get(1).getNoteTitle());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //System.out.println(finalNote.get(1).getNoteTitle());
+                            noteAdapter.setNoteData((ArrayList<Note>) finalNote);
+                        }
+                    });
 
+                }
 
+            });
 
-                recyclerViewNote = findViewById(R.id.rvListNote);
-
-                layoutManager = new LinearLayoutManager(this);
-                recyclerViewNote.setLayoutManager(layoutManager);
-
-                noteAdapter = new NoteAdapter(this, finalNote, this);
-
-                recyclerViewNote.setAdapter(noteAdapter);
-
-
-
-
-
+            //System.out.println(finalNote); //at this point finalNote is empty for some reason
             }
         }
-
-
-    }
 
 
     public void launchNote(String msg) {

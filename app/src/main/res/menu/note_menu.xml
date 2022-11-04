@@ -3,16 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/noteSort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="noteSort"
         app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/noteSortCategory"
-                android:title="noteSortCategory" />
+                android:title="Category" />
             <item
                 android:id="@+id/noteSortName"
-                android:title="noteSortName" />
+                android:title="Name" />
         </menu>
     </item>
     <item

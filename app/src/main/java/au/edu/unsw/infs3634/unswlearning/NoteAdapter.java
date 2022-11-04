@@ -1,6 +1,7 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,14 +21,13 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> implements Filterable {
 
     Context mContextNotes;
-    private List<Note> mNotes;
-    private List<Note> mNotesFiltered;
+    private ArrayList<Note> mNotes, mNotesFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
     public static final int SORT_METHOD_DIFFICULTY = 2;
 
 
-    public NoteAdapter(Context context, List<Note> notes, RecyclerViewInterface rvInterface) {
+    public NoteAdapter(Context context, ArrayList<Note> notes, RecyclerViewInterface rvInterface) {
         mContextNotes = context;
         mNotes = notes;
         mNotesFiltered = notes;
@@ -45,12 +46,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
         Note note = mNotesFiltered.get(position);
         holder.tvNoteTitle.setText(note.getNoteTitle());
+        //System.out.println(note.getNoteTitle());
+        //System.out.println(note.getNoteBody());
         holder.tvNoteBody.setText(note.getNoteBody());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNotesFiltered.size();
     }
 
 
@@ -121,11 +124,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
+    public void setNoteData(ArrayList<Note> notes) {
+        mNotes.addAll(notes);
+        notifyDataSetChanged();
+
+    }
 
 
-
-
-
-
-    //puvlic VIew getView
 }

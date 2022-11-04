@@ -54,6 +54,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                 recyclerViewLesson.setLayoutManager(layoutManager);
 
                 lessonAdapter = new LessonAdapter(this, tempLesson, this);
+                System.out.println(tempLesson);
 
                 recyclerViewLesson.setAdapter(lessonAdapter);
 
