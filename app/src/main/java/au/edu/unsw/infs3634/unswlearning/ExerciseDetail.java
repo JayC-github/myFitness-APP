@@ -116,9 +116,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                             Log.d(TAG, String.valueOf(response.body()));
                             String videoId = response.body().getItems().get(0).getId().getVideoId();
                             Log.d(TAG, videoId);
-                            ytPlayer.initialize(
-                                    api_key,
-                                    new YouTubePlayer.OnInitializedListener() {
+                            ytPlayer.initialize(api_key, new YouTubePlayer.OnInitializedListener() {
                                         // Implement two methods by clicking on red
                                         // error bulb inside onInitializationSuccess
                                         // method add the video link or the playlist
@@ -128,8 +126,8 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                         @Override
                                         public void onInitializationSuccess(
                                                 YouTubePlayer.Provider provider,
-                                                YouTubePlayer youTubePlayer, boolean b)
-                                        {
+                                                YouTubePlayer youTubePlayer, boolean b
+                                        ) {
                                             youTubePlayer.loadVideo(videoId);
                                             youTubePlayer.play();
                                         }
@@ -140,8 +138,8 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                         @Override
                                         public void onInitializationFailure(YouTubePlayer.Provider provider,
                                                                             YouTubeInitializationResult
-                                                                                    youTubeInitializationResult)
-                                        {
+                                                                                    youTubeInitializationResult
+                                        ) {
                                             Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
                                         }
                                     });
