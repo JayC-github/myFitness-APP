@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
+import au.edu.unsw.infs3634.unswlearning.API.VideoItem;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -102,7 +105,6 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                         Log.d(TAG, t.toString());
                     }
                 });
-
 
                 // lessonAdapter = new LessonAdapter(this, lessonList, this);
                 recyclerViewLesson.setAdapter(lessonAdapter);

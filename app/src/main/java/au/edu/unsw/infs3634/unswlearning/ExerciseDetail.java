@@ -20,6 +20,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,8 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_detail);
 
+        Log.d(TAG, "WHY IT'S NOT SHOWING IN THE logcat");
+
         mName = findViewById(R.id.tvExerciseName);
         mType = findViewById(R.id.tvExerciseType);
         mMuscle = findViewById(R.id.tvExerciseMuscle);
@@ -59,8 +63,6 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
         // Get reference to the view of Video player
         YouTubePlayerView ytPlayer = (YouTubePlayerView)findViewById(R.id.ytPlayer);
-
-        Log.d(TAG, "???????????????????????????????????????????");
 
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
@@ -83,7 +85,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                     Log.d(TAG, "API success");
                     Log.d(TAG, response.toString());
                     Log.d(TAG, String.valueOf(response.body()));
-                    // get the lessonlist here
+                    // get the lesson here
                     //lessonList = response.body();
                     Lesson lesson = response.body().get(0);
                     // get the lesson's info, set it
@@ -95,35 +97,62 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                     mDifficulty.setText(lesson.getDifficulty());
                     mInstructions.setText(lesson.getInstructions());
 
-                    ytPlayer.initialize(
-                            api_key,
-                            new YouTubePlayer.OnInitializedListener() {
-                                // Implement two methods by clicking on red
-                                // error bulb inside onInitializationSuccess
-                                // method add the video link or the playlist
-                                // link that you want to play In here we
-                                // also handle the play and pause
-                                // functionality
-                                @Override
-                                public void onInitializationSuccess(
-                                        YouTubePlayer.Provider provider,
-                                        YouTubePlayer youTubePlayer, boolean b)
-                                {
-                                    youTubePlayer.loadVideo("NXsAQtcfOyY");
-                                    youTubePlayer.play();
-                                }
+                    // Use another API to get the URL link of the name
+                    /** execute an API call to get the youtube video id based on searched (muscle)*/
+                    Retrofit retrofit2 = new Retrofit.Builder()
+                            .baseUrl("https://www.googleapis.com/youtube/v3/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
 
-                                // Inside onInitializationFailure
-                                // implement the failure functionality
-                                // Here we will show toast
-                                @Override
-                                public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                                    YouTubeInitializationResult
-                                                                            youTubeInitializationResult)
-                                {
-                                    Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
+                    // add an exercise keyword to get the actual exercise video haha
+                    Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
+
+                    youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
+                        @Override
+                        public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
+                            Log.d(TAG, "Second API success");
+                            Log.d(TAG, response.toString());
+                            Log.d(TAG, String.valueOf(response.body()));
+                            String videoId = response.body().getItems().get(0).getId().getVideoId();
+                            Log.d(TAG, videoId);
+                            ytPlayer.initialize(
+                                    api_key,
+                                    new YouTubePlayer.OnInitializedListener() {
+                                        // Implement two methods by clicking on red
+                                        // error bulb inside onInitializationSuccess
+                                        // method add the video link or the playlist
+                                        // link that you want to play In here we
+                                        // also handle the play and pause
+                                        // functionality
+                                        @Override
+                                        public void onInitializationSuccess(
+                                                YouTubePlayer.Provider provider,
+                                                YouTubePlayer youTubePlayer, boolean b)
+                                        {
+                                            youTubePlayer.loadVideo(videoId);
+                                            youTubePlayer.play();
+                                        }
+
+                                        // Inside onInitializationFailure
+                                        // implement the failure functionality
+                                        // Here we will show toast
+                                        @Override
+                                        public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                                            YouTubeInitializationResult
+                                                                                    youTubeInitializationResult)
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void onFailure(Call<YoutubeDataResponse> call, Throwable t) {
+                            Log.d(TAG, "API failure");
+                            Log.d(TAG, t.toString());
+                        }
+                    });
 
                 }
 

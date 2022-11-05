@@ -47,6 +47,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         Lesson lesson = mLessonsFiltered.get(position);
         holder.tvLessonName.setText(lesson.getName());
         holder.tvLessonDifficulty.setText(lesson.getDifficulty());
+        // https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
         holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
                 "drawable", "au.edu.unsw.infs3634.unswlearning"));
         holder.itemView.setTag(lesson.getName());
