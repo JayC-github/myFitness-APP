@@ -1,20 +1,10 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 // import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
-import au.edu.unsw.infs3634.unswlearning.API.ExerciseData;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 // @Generated("jsonschema2pojo")
 public class Lesson {

@@ -8,6 +8,5 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
 public interface YoutubeDataService {
-    @GET("exercises/bodyPart/{bodyPart}")
-    Call<ArrayList<ExerciseData>> getExerciseByBody(@Path("bodyPart") String bodyPart);
+
 }

@@ -12,14 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
-import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBResponse;
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
-import au.edu.unsw.infs3634.unswlearning.API.ExerciseData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
