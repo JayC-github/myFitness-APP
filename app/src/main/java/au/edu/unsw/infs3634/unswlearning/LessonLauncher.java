@@ -94,6 +94,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                         //lessonList = response.body();
                         lessonList = response.body();
                         Log.d(TAG, lessonList.get(0).getName());
+
                         // udpate the lesson list in the adapater
                         lessonAdapter.setData(lessonList);
                         lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);

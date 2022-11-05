@@ -1,10 +1,23 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 // import javax.annotation.Generated;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 // @Generated("jsonschema2pojo")
 public class Lesson {
@@ -27,8 +40,8 @@ public class Lesson {
     @SerializedName("instructions")
     @Expose
     private String instructions;
-    // Youtube VideoID
-    private String videoLink;
+    // try to get an image for the exercise
+    private String image_url;
 
 
     public Lesson(String name, String type, String muscle, String equipment, String difficulty,
@@ -39,7 +52,6 @@ public class Lesson {
         this.equipment = equipment;
         this.difficulty = difficulty;
         this.instructions = instructions;
-        this.videoLink = getYoutubeVideo();
     }
 
 
@@ -91,19 +103,11 @@ public class Lesson {
         this.instructions = instructions;
     }
 
-    public String getVideoLink() {
-        return videoLink;
+    public String getImage_url() {
+        return this.image_url;
     }
 
-    public void setVideoLink(String videoLink) {
-        this.videoLink = videoLink;
-    }
-
-    // use this method to generate youtube video ID based on the given name
-    public String getYoutubeVideo() {
-        return "DHi6NeBPujg";
-    }
-
+    public void setImage_url(String image_url) { this.image_url = image_url; }
 
     // this was used to generate lesson but useless now
     public static ArrayList<Lesson> getLesson() {
@@ -120,6 +124,5 @@ public class Lesson {
         }
         return null;
     }
-
 
 }

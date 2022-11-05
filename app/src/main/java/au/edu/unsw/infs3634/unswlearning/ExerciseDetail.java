@@ -114,8 +114,15 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                             Log.d(TAG, "Second API success");
                             Log.d(TAG, response.toString());
                             Log.d(TAG, String.valueOf(response.body()));
-                            String videoId = response.body().getItems().get(0).getId().getVideoId();
-                            Log.d(TAG, videoId);
+                            String videoId = " ";
+
+                            // again handle the Youtube exceed quota
+                            if (response.code() == 200) {
+                                videoId = response.body().getItems().get(0).getId().getVideoId();
+                                Log.d(TAG, videoId);
+                            }
+
+                            String finalVideoId = videoId;
                             ytPlayer.initialize(api_key, new YouTubePlayer.OnInitializedListener() {
                                         // Implement two methods by clicking on red
                                         // error bulb inside onInitializationSuccess
@@ -128,7 +135,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                                 YouTubePlayer.Provider provider,
                                                 YouTubePlayer youTubePlayer, boolean b
                                         ) {
-                                            youTubePlayer.loadVideo(videoId);
+                                            youTubePlayer.loadVideo(finalVideoId);
                                             youTubePlayer.play();
                                         }
 
