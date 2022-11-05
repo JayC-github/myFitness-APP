@@ -88,6 +88,13 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         };
     }
 
+    /**Lesson adapter set data from week 08*/
+    public void setData(List<Lesson> lessons) {
+        mLessons.clear();
+        mLessons.addAll(lessons);
+        notifyDataSetChanged();
+    }
+
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
         ImageView ivLesson;
         TextView tvLessonName;

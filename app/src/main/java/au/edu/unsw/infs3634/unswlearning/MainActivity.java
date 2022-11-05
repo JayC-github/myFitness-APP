@@ -24,6 +24,7 @@ public class MainActivity extends YouTubeBaseActivity {
         // Get reference to the view of Video player
         YouTubePlayerView ytPlayer = (YouTubePlayerView)findViewById(R.id.ytPlayer);
 
+        // Initialize listener
         ytPlayer.initialize(
                 api_key,
                 new YouTubePlayer.OnInitializedListener() {

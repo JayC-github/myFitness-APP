@@ -12,11 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBResponse;
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
+import au.edu.unsw.infs3634.unswlearning.API.ExerciseData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,51 +63,55 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
 
                 // create exercises' list of the exercise group
                 // get all manually created lessons for now
-                ArrayList<Lesson> allLesson = Lesson.getLesson();
-                // tempLesson
-                // ArrayList<Lesson> tempLesson = new ArrayList<>();
+//                ArrayList<Lesson> allLesson = Lesson.getLesson();
+//                // tempLesson
+//                // ArrayList<Lesson> tempLesson = new ArrayList<>();
+//
+//                for (Lesson lesson: allLesson) {
+//                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
+//                        lessonList.add(lesson);
+//                    }
+//                }
 
-                for (Lesson lesson: allLesson) {
-                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
-                        lessonList.add(lesson);
-                    }
-                }
+                // create a new empty adapter
+                lessonAdapter = new LessonAdapter(this, lessonList, this);
 
                 /** execute an API call to get all lessons of that body part(muscle)*/
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://exercisedb.p.rapidapi.com/")
+                        .baseUrl("https://exercises-by-api-ninjas.p.rapidapi.com/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 ExerciseDBService service = retrofit.create(ExerciseDBService.class);
-                Call<ExerciseDBResponse> exerciseCall =service.getExercisebyBody(message);
+                Call<ArrayList<Lesson>> exerciseCall = service.getExerciseByBody(message);
 
-                exerciseCall.enqueue(new Callback<ExerciseDBResponse>() {
+                exerciseCall.enqueue(new Callback<ArrayList<Lesson>>() {
                     @Override
-                    public void onResponse(Call<ExerciseDBResponse> call, Response<ExerciseDBResponse> response) {
+                    public void onResponse(Call<ArrayList<Lesson>> call, Response<ArrayList<Lesson>> response) {
                         Log.d(TAG, "API success");
-                        // List<Lesson> lessons = response.body().getData();
+                        Log.d(TAG, response.toString());
+                        Log.d(TAG, String.valueOf(response.body()));
+                        // get the lessonlist here
+                        //lessonList = response.body();
+                        lessonList = response.body();
+                        Log.d(TAG, lessonList.get(0).getName());
+                        // udpate the lesson list in the adapater
+                        lessonAdapter.setData(lessonList);
+                        lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
                     }
 
                     @Override
-                    public void onFailure(Call<ExerciseDBResponse> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<Lesson>> call, Throwable t) {
                         Log.d(TAG, "API failure");
+                        Log.d(TAG, t.toString());
                     }
                 });
 
 
-                lessonAdapter = new LessonAdapter(this, lessonList, this);
-
+                // lessonAdapter = new LessonAdapter(this, lessonList, this);
                 recyclerViewLesson.setAdapter(lessonAdapter);
             }
         }
-
-
-
-
-
-
-
     }
 
 
