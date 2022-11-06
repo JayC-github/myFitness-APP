@@ -109,12 +109,14 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
 
                 // lessonAdapter = new LessonAdapter(this, lessonList, this);
                 recyclerViewLesson.setAdapter(lessonAdapter);
+
             }
         }
     }
 
 
     public void launchLesson(String msg) {
+        System.out.println(msg);
         Intent intent = new Intent(LessonLauncher.this, ExerciseDetail.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);

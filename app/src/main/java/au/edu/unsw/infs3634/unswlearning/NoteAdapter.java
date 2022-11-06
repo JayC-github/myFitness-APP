@@ -1,7 +1,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> implements Filterable {
 
@@ -49,6 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         //System.out.println(note.getNoteTitle());
         //System.out.println(note.getNoteBody());
         holder.tvNoteBody.setText(note.getNoteBody());
+        holder.itemView.setTag(note.getNoteTitle());
     }
 
     @Override
@@ -94,7 +92,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         public NoteViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            tvNoteTitle = itemView.findViewById(R.id.tvNoteExerciseGroup);
+            tvNoteTitle = itemView.findViewById(R.id.tvNoteTitle);
             tvNoteBody = itemView.findViewById(R.id.tvNoteContent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

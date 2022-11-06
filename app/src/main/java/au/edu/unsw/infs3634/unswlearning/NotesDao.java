@@ -16,6 +16,9 @@ public interface NotesDao {
     @Query("SELECT * FROM Note where noteID == :id")
     Note getNotes(String id);
 
+    @Query("SELECT * FROM Note where noteTitle == :title")
+    Note getNoteTitle(String title);
+
     @Query("SELECT COUNT(*) FROM Note")
     int getTableSize();
 

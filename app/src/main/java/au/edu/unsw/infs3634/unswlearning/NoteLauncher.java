@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +42,7 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         noteAdapter = new NoteAdapter(this, new ArrayList<>(), this);
 
 
-        List<Note> allNote = new ArrayList<>();
+
         List<Note> finalNote = new ArrayList<>();
 
         noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
@@ -53,32 +55,33 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
             Log.d(TAG, "Intent Message = " + message);
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
             setTitle(exerciseGroup.getName());
-            System.out.println(exerciseGroup.getName());
+            //System.out.println(exerciseGroup.getName());
 
-            recyclerViewNote.setAdapter(noteAdapter);
+
             Executors.newSingleThreadExecutor().execute(new Runnable() {
 
                 @Override
                 public void run() {
-                    List<Note> tempNote = new ArrayList<>();
-                    tempNote = noteDb.notesDao().getAllNotes();
+                    List<Note> allNote = new ArrayList<>();
+                    allNote = noteDb.notesDao().getAllNotes();
 
-                    for (Note note: tempNote) {
-                        System.out.println(note.getNoteID());
-                        System.out.println(note.getSelectedExercise());
-                        System.out.println(note.getNoteTitle());
-
+                    for (Note note: allNote) {
 
                         if (note.getSelectedExercise().toLowerCase().contains(exerciseGroup.getName().toLowerCase())) {
                             finalNote.add(note);
                         }
                     }
-                    //System.out.println(finalNote.get(1).getNoteTitle());
+
+                    allNote = finalNote;
+
+
+                    List<Note> finalAllNote = allNote;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //System.out.println(finalNote.get(1).getNoteTitle());
-                            noteAdapter.setNoteData((ArrayList<Note>) finalNote);
+                            noteAdapter.setNoteData((ArrayList<Note>) finalAllNote);
+                            System.out.println(noteAdapter.getItemCount() + "hi");
+                            recyclerViewNote.setAdapter(noteAdapter);
                         }
                     });
 
@@ -86,21 +89,22 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
 
             });
 
-            //System.out.println(finalNote); //at this point finalNote is empty for some reason
+            recyclerViewNote.setAdapter(noteAdapter);
+            System.out.println();
             }
         }
 
 
     public void launchNote(String msg) {
+        System.out.println(msg);
         Intent intent = new Intent(NoteLauncher.this, NoteDetail.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 
     @Override
-    public void onItemClick(String note) {
-        launchNote(note);
-    }
+    public void onItemClick(String note) { launchNote(note); }
+
 
 
     @Override

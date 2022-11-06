@@ -46,11 +46,14 @@ public class NoteDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(INTENT_MESSAGE);
+        //System.out.println(INTENT_MESSAGE);
         mNoteMuscleGroup.setText(message);
+        //mNoteTitleText.setText(noteDb.notesDao().get);
+        //mNoteBodyText.setText();
     }
 
     public void confirmNote(View view) {
-        Log.d(TAG, "note added");
+
 
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
@@ -64,6 +67,16 @@ public class NoteDetail extends AppCompatActivity {
                 noteDb.notesDao().getAllNotes();
             }
         });
+
+        Log.d(TAG, "note added");
+        Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
+        startActivity(intent);
+
+    }
+
+    public void deleteNote(View view) {
+
+
 
 
         Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
