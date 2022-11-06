@@ -13,6 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
+import au.edu.unsw.infs3634.unswlearning.API.VideoItem;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
     private static final String TAG = "LessonLauncher";
@@ -22,55 +33,84 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     private LessonAdapter lessonAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    // a list of exercise/lesson
+    private List<Lesson> lessonList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lesson_home_page);
 
-
-
-
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
+            // get the name of the exerciseGroup
             String message = intent.getStringExtra(INTENT_MESSAGE);
-            Log.d(TAG, "Intent Message = " + message);
+            Log.d(TAG, "Exercise Group name = " + message);
+
+
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
-            if(exerciseGroup != null) {
+            if (exerciseGroup != null) {
+                Log.d(TAG, "exerciseGroup exist");
                 setTitle(exerciseGroup.getName());
-                ArrayList<Lesson> allLesson = new ArrayList<>();
-                ArrayList<Lesson> tempLesson = new ArrayList<>();
 
-                allLesson = Lesson.getLesson();
-                for (Lesson lesson: allLesson) {
-                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
-                        tempLesson.add(lesson);
-                    }
-                }
-
+                // this part is always similar
                 recyclerViewLesson = findViewById(R.id.rvListLesson);
-
                 layoutManager = new LinearLayoutManager(this);
                 recyclerViewLesson.setLayoutManager(layoutManager);
 
-                lessonAdapter = new LessonAdapter(this, tempLesson, this);
-                System.out.println(tempLesson);
 
+                // create exercises' list of the exercise group
+                // get all manually created lessons for now
+//                ArrayList<Lesson> allLesson = Lesson.getLesson();
+//                // tempLesson
+//                // ArrayList<Lesson> tempLesson = new ArrayList<>();
+//
+//                for (Lesson lesson: allLesson) {
+//                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
+//                        lessonList.add(lesson);
+//                    }
+//                }
+
+                // create a new empty adapter
+                lessonAdapter = new LessonAdapter(this, lessonList, this);
+
+                /** execute an API call to get all lessons of that body part(muscle)*/
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://exercises-by-api-ninjas.p.rapidapi.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                ExerciseDBService service = retrofit.create(ExerciseDBService.class);
+                Call<ArrayList<Lesson>> exerciseCall = service.getExerciseByBody(message);
+
+                exerciseCall.enqueue(new Callback<ArrayList<Lesson>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Lesson>> call, Response<ArrayList<Lesson>> response) {
+                        Log.d(TAG, "API success");
+                        Log.d(TAG, response.toString());
+                        Log.d(TAG, String.valueOf(response.body()));
+                        // get the lessonlist here
+                        //lessonList = response.body();
+                        lessonList = response.body();
+                        Log.d(TAG, lessonList.get(0).getName());
+
+                        // udpate the lesson list in the adapater
+                        lessonAdapter.setData(lessonList);
+                        lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Lesson>> call, Throwable t) {
+                        Log.d(TAG, "API failure");
+                        Log.d(TAG, t.toString());
+                    }
+                });
+
+                // lessonAdapter = new LessonAdapter(this, lessonList, this);
                 recyclerViewLesson.setAdapter(lessonAdapter);
-
-
-
-
-
             }
         }
-
-
-
-
-
-
-
     }
 
 
