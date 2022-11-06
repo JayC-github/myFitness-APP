@@ -1,6 +1,7 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
+import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> implements Filterable {
 
@@ -47,9 +58,47 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         Lesson lesson = mLessonsFiltered.get(position);
         holder.tvLessonName.setText(lesson.getName());
         holder.tvLessonDifficulty.setText(lesson.getDifficulty());
-        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
-                "drawable", "au.edu.unsw.infs3634.unswlearning"));
         holder.itemView.setTag(lesson.getName());
+
+        // https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
+//        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
+//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
+        // for the lesson to get the image first
+
+        // Use another API to get the pic URL link of the name
+        /** execute an API call to get the youtube video id based on searched (muscle)*/
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl("https://www.googleapis.com/youtube/v3/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
+        // add an exercise keyword to get the actual exercise video haha
+        Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
+
+        youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
+            @Override
+            public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
+                Log.d("lESSON.JAVA TEST", "Second API success");
+                Log.d("lESSON.JAVA TEST", response.toString());
+                Log.d("lESSON.JAVA TEST", String.valueOf(response.body()));
+                // to handle exceed quota
+                if (response.code() == 200) {
+                    String image_url = response.body().getItems().get(0).getSnippet().getThumbnails().getHigh().getUrl();
+                    Log.d("lESSON.JAVA TEST", image_url);
+                    Picasso.get().load(image_url).into(holder.ivLesson);
+                } else {
+                    holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
+                            "drawable", "au.edu.unsw.infs3634.unswlearning"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YoutubeDataResponse> call, Throwable t) {
+                Log.d("lESSON.JAVA TEST", "API failure");
+                Log.d("lESSON.JAVA TEST", t.toString());
+            }
+        });
     }
 
     @Override
@@ -86,6 +135,13 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
                 notifyDataSetChanged();
             }
         };
+    }
+
+    /**Lesson adapter set data from week 08*/
+    public void setData(List<Lesson> lessons) {
+        mLessons.clear();
+        mLessons.addAll(lessons);
+        notifyDataSetChanged();
     }
 
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
