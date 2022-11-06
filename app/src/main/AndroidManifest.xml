@@ -15,7 +15,16 @@
         android:theme="@style/Theme.UNSWLearning"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ExerciseDetail"
+            android:exported="true"/>
+        <activity
+            android:name=".LessonLauncher"
+            android:exported="true"/>
+        <activity
+            android:name=".HubController"
+            android:exported="true"/>
+        <activity
+            android:name=".HomeLauncher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
 </manifest>
