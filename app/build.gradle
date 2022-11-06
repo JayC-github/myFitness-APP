@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // try to load imageView by using url
     implementation 'com.squareup.picasso:picasso:2.8'
-
-
+    //for database
+    implementation "androidx.room:room-runtime:2.4.3"
+    annotationProcessor "androidx.room:room-compiler:2.4.3"
 }

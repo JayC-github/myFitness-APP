@@ -19,10 +19,16 @@
             android:name=".ExerciseDetail"
             android:exported="true"/>
         <activity
+            android:name=".NoteDetail"
+            android:exported="true"/>
+        <activity
             android:name=".LessonLauncher"
             android:exported="true"/>
         <activity
             android:name=".HubController"
+            android:exported="true"/>
+        <activity
+            android:name=".NoteLauncher"
             android:exported="true"/>
         <activity
             android:name=".HomeLauncher"

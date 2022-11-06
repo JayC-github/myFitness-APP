@@ -16,6 +16,11 @@ public class HubController extends AppCompatActivity {
 
     private Button btnLaunchLesson;
     private Button btnLaunchQuiz;
+    
+    // for taking note API
+    private Button btnLaunchNote;
+    private TextView selectedGroup;
+    
     // selectedGroup -> Image, name
     private String selectedGroup;
     private ImageView selectedGroupPic;
@@ -54,6 +59,15 @@ public class HubController extends AppCompatActivity {
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
         startActivity(intent);
     }
+
+    public void startNoteHomePage(View view) {
+
+        String group = selectedGroup.getText().toString();
+        Intent intent = new Intent(HubController.this, NoteLauncher.class);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        startActivity(intent);
+    }
+
 
 
 

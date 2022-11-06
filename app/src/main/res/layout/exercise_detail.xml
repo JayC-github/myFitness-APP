@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ExerciseDetail">
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/ytPlayer"
@@ -77,6 +77,17 @@
         android:text="Difficulty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
+
+    <Button
+        android:id="@+id/btnTakeNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="56dp"
+        android:text="Button"
+        android:onClick="startNoteDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseInstruction" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
