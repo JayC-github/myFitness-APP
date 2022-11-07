@@ -34,4 +34,10 @@ public interface NotesDao {
     @Insert
     void insertNotes(Note... notes);
 
+    @Query("UPDATE Note SET noteTitle = :title where noteId == :id")
+    void updateNoteTitle(String id, String title);
+
+    @Query("UPDATE Note SET noteBody = :body where noteId == :id")
+    void updateNoteBody(String id, String body);
+
 }

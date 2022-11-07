@@ -52,38 +52,53 @@ public class NoteDetail extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(INTENT_MESSAGE);
         mNoteID.setText(message);
+        mNoteMuscleGroup.setText("");
         System.out.println(INTENT_MESSAGE + "hi");
 
 
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
+        //this is used to determine if the message passed is a note id
+        //or if it is an exercise group, if its less than 3 chars then its a note, so will fill fields in with note info
+        if (message.length() <= 3) {
+            Executors.newSingleThreadExecutor().execute(new Runnable() {
 
-            @Override
-            public void run() {
-                Note tempNote = noteDb.notesDao().getNotes(message);
-                mNoteMuscleGroup.setText(tempNote.getSelectedExercise());
-                mNoteTitleText.setText(tempNote.getNoteTitle());
-                mNoteBodyText.setText(tempNote.getNoteBody());
-            }
-        });
+                @Override
+                public void run() {
+                    Note tempNote = noteDb.notesDao().getNotes(message);
+                    mNoteMuscleGroup.setText(tempNote.getSelectedExercise());
+                    mNoteTitleText.setText(tempNote.getNoteTitle());
+                    mNoteBodyText.setText(tempNote.getNoteBody());
+                }
+            });
+        }
+
 
 
     }
 
     public void confirmNote(View view) {
 
-
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 int idCounter = noteDb.notesDao().getTableSize();
+                if (mNoteID.getText().length() <= 3){  //update note
+                    noteDb.notesDao().updateNoteTitle(mNoteID.getText().toString(), mNoteTitleText.getText().toString());
+                    noteDb.notesDao().updateNoteBody(mNoteID.getText().toString(), mNoteBodyText.getText().toString());
+                    System.out.println(mNoteID.getText().length());
+                } else {
 
-                idCounter = idCounter + 1;
-                Note newNote = new Note(String.valueOf(idCounter), mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
-                noteDb.notesDao().insertNotes(newNote);
-                noteDb.notesDao().getAllNotes();
+
+                    idCounter = idCounter + 1;
+                    System.out.println(idCounter);
+                    Note newNote = new Note(String.valueOf(idCounter), mNoteID.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
+                    noteDb.notesDao().insertNotes(newNote);
+                    noteDb.notesDao().getAllNotes();
+                }
+
+
+
             }
         });
-        //if statement here if note already exists it updates the note with the new fields
         Log.d(TAG, "note added");
         Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
         startActivity(intent);
