@@ -46,7 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         //System.out.println(note.getNoteTitle());
         //System.out.println(note.getNoteBody());
         holder.tvNoteBody.setText(note.getNoteBody());
-        holder.itemView.setTag(note.getNoteTitle());
+        holder.itemView.setTag(note.getNoteID());
     }
 
     @Override

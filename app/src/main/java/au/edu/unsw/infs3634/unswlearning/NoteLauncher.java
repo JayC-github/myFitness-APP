@@ -80,7 +80,6 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
                         @Override
                         public void run() {
                             noteAdapter.setNoteData((ArrayList<Note>) finalAllNote);
-                            System.out.println(noteAdapter.getItemCount() + "hi");
                             recyclerViewNote.setAdapter(noteAdapter);
                         }
                     });
@@ -90,13 +89,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
             });
 
             recyclerViewNote.setAdapter(noteAdapter);
-            System.out.println();
             }
         }
 
 
     public void launchNote(String msg) {
-        System.out.println(msg);
         Intent intent = new Intent(NoteLauncher.this, NoteDetail.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);

@@ -21,24 +21,29 @@ public class NoteDetail extends AppCompatActivity {
 
     private NotesDatabase noteDb;
 
+    private TextView mNoteID;
     private TextView mNoteMuscleGroup;
     private TextView mNoteTitleHeader;
     private TextView mNoteBodyHeader;
     private EditText mNoteTitleText;
     private EditText mNoteBodyText;
     private Button mSaveNote;
+    private Button mDeleteNote;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_detail);
 
+        mNoteID = findViewById(R.id.tvNoteID);
         mNoteMuscleGroup = findViewById(R.id.tvNoteMuscle);
         mNoteTitleHeader = findViewById(R.id.tvNoteTitleHeading);
         mNoteBodyHeader = findViewById(R.id.tvNoteBodyHeading);
         mNoteTitleText = findViewById(R.id.editTextNoteTitle);
         mNoteBodyText = findViewById(R.id.editTextNoteBody);
         mSaveNote = findViewById(R.id.btnConfirmNote);
+        mDeleteNote = findViewById(R.id.btnDeleteNote);
+
 
         noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
                 .fallbackToDestructiveMigration()
@@ -46,10 +51,22 @@ public class NoteDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(INTENT_MESSAGE);
-        //System.out.println(INTENT_MESSAGE);
-        mNoteMuscleGroup.setText(message);
-        //mNoteTitleText.setText(noteDb.notesDao().get);
-        //mNoteBodyText.setText();
+        mNoteID.setText(message);
+        System.out.println(INTENT_MESSAGE + "hi");
+
+
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+
+            @Override
+            public void run() {
+                Note tempNote = noteDb.notesDao().getNotes(message);
+                mNoteMuscleGroup.setText(tempNote.getSelectedExercise());
+                mNoteTitleText.setText(tempNote.getNoteTitle());
+                mNoteBodyText.setText(tempNote.getNoteBody());
+            }
+        });
+
+
     }
 
     public void confirmNote(View view) {
@@ -59,25 +76,29 @@ public class NoteDetail extends AppCompatActivity {
             @Override
             public void run() {
                 int idCounter = noteDb.notesDao().getTableSize();
-                System.out.println(idCounter);
+
                 idCounter = idCounter + 1;
                 Note newNote = new Note(String.valueOf(idCounter), mNoteMuscleGroup.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
                 noteDb.notesDao().insertNotes(newNote);
-                System.out.print(noteDb.notesDao().getAllNotes());
                 noteDb.notesDao().getAllNotes();
             }
         });
-
+        //if statement here if note already exists it updates the note with the new fields
         Log.d(TAG, "note added");
         Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
         startActivity(intent);
 
     }
 
+
     public void deleteNote(View view) {
-
-
-
+        String message = (String) mNoteID.getText();
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDb.notesDao().deleteFromNotes(message);
+            }
+        });
 
         Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
         startActivity(intent);
