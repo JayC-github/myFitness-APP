@@ -56,7 +56,7 @@ public class HubController extends AppCompatActivity {
 
     public void startQuizHomePage(View view) {
         String group = selectedGroupName.getText().toString();
-        Intent intent = new Intent(HubController.this, MainActivity.class);
+        Intent intent = new Intent(HubController.this, QuizLauncher.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
         startActivity(intent);
     }

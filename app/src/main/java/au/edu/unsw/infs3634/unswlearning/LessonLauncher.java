@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface{
+public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface {
     private static final String TAG = "LessonLauncher";
     public static final String INTENT_MESSAGE = "intent_message";
 
