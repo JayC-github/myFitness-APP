@@ -66,6 +66,8 @@
         android:layout_marginEnd="16dp"
         android:onClick="confirmNote"
         android:text="Confirm"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNoteID" />
 
@@ -104,6 +106,8 @@
         android:layout_marginEnd="16dp"
         android:onClick="deleteNote"
         android:text="Delete Note"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextNoteTitle"
         app:layout_constraintTop_toBottomOf="@+id/btnConfirmNote" />
