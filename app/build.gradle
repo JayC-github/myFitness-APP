@@ -51,4 +51,6 @@ dependencies {
     //for database
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
+    // for capitalize
+    implementation 'org.apache.commons:commons-lang3:3.6'
 }

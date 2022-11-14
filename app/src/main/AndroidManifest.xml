@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="au.edu.unsw.infs3634.unswlearning">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -16,22 +23,43 @@
         android:theme="@style/Theme.UNSWLearning"
         tools:targetApi="31">
         <activity
+            android:name=".QuizResult"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".QuizDetail"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".QuizLauncher"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ExerciseDetail"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".NoteDetail"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".LessonLauncher"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".HubController"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".NoteLauncher"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name=".HomeLauncher"
+            android:name=".ExerciseGroupLauncher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,13 +67,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
-    <queries>
-        <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
-        </intent>
-    </queries>
 
 </manifest>

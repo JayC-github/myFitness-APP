@@ -4,6 +4,6 @@
     android:id="@+id/rvListHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeLauncher">
+    tools:context=".ExerciseGroupLauncher">
 
 </androidx.recyclerview.widget.RecyclerView>
