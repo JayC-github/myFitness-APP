@@ -1,7 +1,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-
+//adapter for note recyclerview
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> implements Filterable {
 
+    //declared context for note adapter
     Context mContextNotes;
     private ArrayList<Note> mNotes, mNotesFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
-    public static final int SORT_METHOD_DIFFICULTY = 2;
 
-
+    //constructor method
     public NoteAdapter(Context context, ArrayList<Note> notes, RecyclerViewInterface rvInterface) {
         mContextNotes = context;
         mNotes = notes;
@@ -37,26 +34,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @NonNull
     @Override
     public NoteAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //set list row for lesson recyclerview
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_home_list_row, parent, false);
         return new NoteViewHolder(view, recyclerViewInterface);
 
     }
 
+    //assign value ot each row in recyclerview based on position
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
         Note note = mNotesFiltered.get(position);
         holder.tvNoteTitle.setText(note.getNoteTitle());
-        //System.out.println(note.getNoteTitle());
-        //System.out.println(note.getNoteBody());
         holder.tvNoteBody.setText(note.getNoteBody());
+        holder.itemView.setTag(note.getNoteID());
     }
 
+    //return number of items in recyclerview
     @Override
     public int getItemCount() {
         return mNotesFiltered.size();
     }
 
-
+    //returns updated list when searched
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -88,13 +87,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         };
     }
 
+    //find handle to view items from note_home_list_row.xml layout
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView tvNoteTitle;
         TextView tvNoteBody;
 
         public NoteViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-            tvNoteTitle = itemView.findViewById(R.id.tvNoteExerciseGroup);
+            tvNoteTitle = itemView.findViewById(R.id.tvNoteTitle);
             tvNoteBody = itemView.findViewById(R.id.tvNoteContent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,7 +107,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
 
     }
-
+    //sort methods for list
     public void sort(final int sortMethod) {
         if (mNotesFiltered.size() > 0) {
             Collections.sort(mNotesFiltered, new Comparator<Note>() {
@@ -124,6 +124,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
+    //set data to the adapter
     public void setNoteData(ArrayList<Note> notes) {
         mNotes.addAll(notes);
         notifyDataSetChanged();

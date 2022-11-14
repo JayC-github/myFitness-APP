@@ -27,15 +27,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+//adapter for lesson recyclerview
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> implements Filterable {
 
+    //declared context for lesson adapter
     Context mContextLessons;
     private List<Lesson> mLessons, mLessonsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
-    public static final int SORT_METHOD_DIFFICULTY = 2;
 
+    //constructor method
     public LessonAdapter(Context context, List<Lesson> lessons, RecyclerViewInterface rvInterface) {
         mContextLessons = context;
         mLessons = lessons;
@@ -47,22 +48,22 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     @NonNull
     @Override
     public LessonAdapter.LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //set list row for lesson recyclerview
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lesson_home_list_row, parent, false);
         return new LessonViewHolder(view, recyclerViewInterface);
     }
 
 
-
+    //assign value ot each row in recyclerview based on position
     @Override
     public void onBindViewHolder(@NonNull LessonAdapter.LessonViewHolder holder, int position) {
+        //update lesson detail
         Lesson lesson = mLessonsFiltered.get(position);
         holder.tvLessonName.setText(lesson.getName());
         holder.tvLessonDifficulty.setText(lesson.getDifficulty());
         holder.itemView.setTag(lesson.getName());
 
         // https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-//        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
-//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
         // for the lesson to get the image first
 
         // Use another API to get the pic URL link of the name
@@ -75,7 +76,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
         // add an exercise keyword to get the actual exercise video haha
         Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
-
+    
         youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
             @Override
             public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
@@ -101,11 +102,13 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         });
     }
 
+    //return number of items in recyclerview
     @Override
     public int getItemCount() {
         return mLessonsFiltered.size();
     }
 
+    //returns updated list when searched
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -137,13 +140,14 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         };
     }
 
-    /**Lesson adapter set data from week 08*/
+    //set data to the adapter
     public void setData(List<Lesson> lessons) {
         mLessons.clear();
         mLessons.addAll(lessons);
         notifyDataSetChanged();
     }
 
+    //find handle to view items from lesson_home_list_row.xml layout
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
         ImageView ivLesson;
         TextView tvLessonName;
@@ -166,6 +170,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
     }
 
+    //sort methods for list
     public void sort(final int sortMethod) {
         if (mLessonsFiltered.size() > 0) {
             Collections.sort(mLessonsFiltered, new Comparator<Lesson>() {
