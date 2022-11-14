@@ -16,10 +16,13 @@ import java.security.PrivateKey;
 import java.util.concurrent.Executors;
 
 public class NoteDetail extends AppCompatActivity {
+
+    //Strings to check intents and msgs
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "NoteDetail";
 
     private NotesDatabase noteDb;
+
 
     private TextView mNoteID;
     private TextView mNoteMuscleGroup;
@@ -33,8 +36,10 @@ public class NoteDetail extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set view with note_detail.xml
         setContentView(R.layout.note_detail);
 
+        //get handle for view elements
         mNoteID = findViewById(R.id.tvNoteID);
         mNoteMuscleGroup = findViewById(R.id.tvNoteMuscle);
         mNoteTitleHeader = findViewById(R.id.tvNoteTitleHeading);
@@ -44,26 +49,28 @@ public class NoteDetail extends AppCompatActivity {
         mSaveNote = findViewById(R.id.btnConfirmNote);
         mDeleteNote = findViewById(R.id.btnDeleteNote);
 
-
+        //instantiate new maindatabase object for "main-database"
         noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
                 .fallbackToDestructiveMigration()
                 .build();
 
+        //get intent that started this activity and extract string
         Intent intent = getIntent();
         String message = intent.getStringExtra(INTENT_MESSAGE);
+
         mNoteID.setText(message);
         mNoteMuscleGroup.setText("");
-        System.out.println(INTENT_MESSAGE + "hi");
-
 
         //this is used to determine if the message passed is a note id
-        //or if it is an exercise group, if its less than 3 chars then its a note, so will fill fields in with note info
+        //or if it is an exercise group, if its less than 3 chars then its a note,
+        //will fill fields in with note info
         if (message.length() <= 3) {
             Executors.newSingleThreadExecutor().execute(new Runnable() {
 
                 @Override
                 public void run() {
                     Note tempNote = noteDb.notesDao().getNotes(message);
+                    //updates fields in notedetail to show note information
                     mNoteMuscleGroup.setText(tempNote.getSelectedExercise());
                     mNoteTitleText.setText(tempNote.getNoteTitle());
                     mNoteBodyText.setText(tempNote.getNoteBody());
@@ -75,19 +82,20 @@ public class NoteDetail extends AppCompatActivity {
 
     }
 
+    //method to add note to database
     public void confirmNote(View view) {
 
+        //create asynchronous database call using Java Runnable
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 int idCounter = noteDb.notesDao().getTableSize();
+                //similar logic to determine if message passed is noteID used as above
                 if (mNoteID.getText().length() <= 3){  //update note
                     noteDb.notesDao().updateNoteTitle(mNoteID.getText().toString(), mNoteTitleText.getText().toString());
                     noteDb.notesDao().updateNoteBody(mNoteID.getText().toString(), mNoteBodyText.getText().toString());
                     System.out.println(mNoteID.getText().length());
-                } else {
-
-
+                } else { //adds note
                     idCounter = idCounter + 1;
                     System.out.println(idCounter);
                     Note newNote = new Note(String.valueOf(idCounter), mNoteID.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
@@ -95,17 +103,17 @@ public class NoteDetail extends AppCompatActivity {
                     noteDb.notesDao().getAllNotes();
                 }
 
-
-
             }
         });
         Log.d(TAG, "note added");
+
+        //once note is added/updated returns to home
         Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
         startActivity(intent);
 
     }
 
-
+    //method to delete selected note from database and return to home
     public void deleteNote(View view) {
         String message = (String) mNoteID.getText();
         Executors.newSingleThreadExecutor().execute(new Runnable() {

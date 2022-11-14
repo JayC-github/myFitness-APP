@@ -11,9 +11,6 @@
             <item
                 android:id="@+id/lessonSortName"
                 android:title="Name" />
-            <item
-                android:id="@+id/lessonSortDifficulty"
-                android:title="Difficulty" />
         </menu>
     </item>
     <item

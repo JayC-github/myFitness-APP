@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseGroupAdapter.MyViewHolder> implements Filterable {
-    // not sure what is this for
+    //declared context for exercise group adapter
     Context mContextExerciseGroups;
     // two attributes: the data list and listener interface
     // one list for exercise group, one list for filtered exercise group
@@ -28,12 +28,10 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
     public static final int SORT_METHOD_NAME = 1;
 
     // constructor for the ExerciseGroup adapter
-    // not sure why we need the context for
     public HomeExerciseGroupAdapter(Context context, ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface) {
         mExerciseGroups = exerciseGroups;
         mExerciseGroupsFiltered = exerciseGroups;
         recyclerViewInterface = rvInterface;
-        // context is for ??
         mContextExerciseGroups = context;
     }
 
@@ -51,7 +49,6 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
     @Override
     public void onBindViewHolder(@NonNull HomeExerciseGroupAdapter.MyViewHolder holder, int position) {
         ExerciseGroup exerciseGroup = mExerciseGroupsFiltered.get(position);
-        // Below can be improved
         // set TextView:TargetArea by name
         holder.tvTargetArea.setText(exerciseGroup.getName());
         // set ImageView: TargetArea
@@ -66,6 +63,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
         return mExerciseGroupsFiltered.size();
     }
 
+    //returns updated list when searched
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -104,7 +102,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
      */
     // create a ViewHolder pattern
     // provide a reference to the type of view that you are using
-    // contains the code to link the XML files with the Adapter
+    // find handle to view items from home_list_row.xml layout
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivExerciseGroup;
         TextView tvTargetArea;
@@ -113,7 +111,6 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
             super(itemView);
             ivExerciseGroup = itemView.findViewById(R.id.ivTargetArea);
             tvTargetArea = itemView.findViewById(R.id.tvTargetArea);
-            // this part I'm not sure how it works
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -126,6 +123,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
 
     }
 
+    //sort methods for list
     public void sort(final int sortMethod) {
         if (mExerciseGroupsFiltered.size() > 0) {
             Collections.sort(mExerciseGroupsFiltered, new Comparator<ExerciseGroup>() {

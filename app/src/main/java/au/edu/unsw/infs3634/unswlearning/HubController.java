@@ -19,7 +19,6 @@ public class HubController extends AppCompatActivity {
     
     // for taking note API
     private Button btnLaunchNote;
-    //private TextView selectedGroup;
     
     // selectedGroup -> Image, name
     private String selectedGroup;
@@ -39,7 +38,7 @@ public class HubController extends AppCompatActivity {
 
         // get the name of the exercise group, set selectGroup, image and name
         Intent intent = getIntent();
-        // String msg = intent.getStringExtra(INTENT_MESSAGE);
+
         selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
         // set pic and name
         selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
@@ -47,6 +46,7 @@ public class HubController extends AppCompatActivity {
         selectedGroupName.setText(selectedGroup);
     }
 
+    //method to launch lesson homepage from hub
     public void startLessonHomePage(View view) {
         String group = selectedGroupName.getText().toString();
         Intent intent = new Intent(HubController.this, LessonLauncher.class);
@@ -54,13 +54,15 @@ public class HubController extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //method to launch quiz homepage from hub
     public void startQuizHomePage(View view) {
         String group = selectedGroupName.getText().toString();
-        Intent intent = new Intent(HubController.this, MainActivity.class);
+        Intent intent = new Intent(HubController.this, HomeLauncher.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
         startActivity(intent);
     }
 
+    //method to launch note homepage from hub
     public void startNoteHomePage(View view) {
         String group = selectedGroupName.getText().toString();
         Intent intent = new Intent(HubController.this, NoteLauncher.class);

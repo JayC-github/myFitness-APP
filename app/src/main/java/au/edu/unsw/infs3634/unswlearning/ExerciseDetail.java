@@ -28,10 +28,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExerciseDetail extends YouTubeBaseActivity {
 
+    //api key for youtube api
     String api_key = "AIzaSyCvTBA8V3W0z7v8m9aTMj_U0EoEEpKIFEk";
 
+    //Strings to check intents and msgs
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "ExerciseDetail";
+
 
     private TextView mName;
     private TextView mType;
@@ -40,16 +43,14 @@ public class ExerciseDetail extends YouTubeBaseActivity {
     private TextView mDifficulty;
     private TextView mInstructions;
     private Button mNoteLaunch;
-    //private YouTubePlayerView mPlayer;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set view with note_detail.xml
         setContentView(R.layout.exercise_detail);
 
-        Log.d(TAG, "WHY IT'S NOT SHOWING IN THE logcat");
-
+        //get handle for view elements
         mName = findViewById(R.id.tvExerciseName);
         mType = findViewById(R.id.tvExerciseType);
         mMuscle = findViewById(R.id.tvExerciseMuscle);
@@ -57,18 +58,15 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         mDifficulty = findViewById(R.id.tvExerciseDifficulty);
         mInstructions = findViewById(R.id.tvExerciseInstruction);
         mNoteLaunch = findViewById(R.id.btnTakeNote);
-        //mPlayer = findViewById(R.id.ytPlayer);
-
-
 
         // Get reference to the view of Video player
         YouTubePlayerView ytPlayer = (YouTubePlayerView)findViewById(R.id.ytPlayer);
 
+        //get intent that started this activity and extract string
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             String message = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Intent Message = " + message);
-            // Lesson lesson = Lesson.findLesson(message);
             /** Execute an API call to get exercise detail with the exercise name */
             /** execute an API call to get all lessons of that body part(muscle)*/
             Retrofit retrofit = new Retrofit.Builder()
@@ -86,7 +84,6 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                     Log.d(TAG, response.toString());
                     Log.d(TAG, String.valueOf(response.body()));
                     // get the lesson here
-                    //lessonList = response.body();
                     Lesson lesson = response.body().get(0);
                     // get the lesson's info, set it
                     setTitle(lesson.getName());
@@ -105,7 +102,6 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                             .build();
 
                     YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
-                    // add an exercise keyword to get the actual exercise video haha
                     Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
 
                     youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
@@ -172,6 +168,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
     }
 
+    //method to launch note detail
     public void startNoteDetail(View view) {
         String group = mMuscle.getText().toString();
         Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);//not sure about where this leads tbh

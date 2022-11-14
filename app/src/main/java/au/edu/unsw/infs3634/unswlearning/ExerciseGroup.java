@@ -3,10 +3,12 @@ package au.edu.unsw.infs3634.unswlearning;
 import java.sql.Array;
 import java.util.ArrayList;
 
+//exercise group object declaration
 public class ExerciseGroup {
 
     private String name;
 
+    //getters and setters
     public ExerciseGroup(String name) {
         this.name = name;
     }
@@ -15,6 +17,7 @@ public class ExerciseGroup {
 
     public void setName(String name) {this.name = name;}
 
+    //hardcoded exercise groups for prototype, chose most important groups
     public static ArrayList<ExerciseGroup> getExerciseGroup() {
         ArrayList<ExerciseGroup> groups = new ArrayList<>();
         groups.add(new ExerciseGroup("abdominals"));
@@ -29,6 +32,7 @@ public class ExerciseGroup {
 
     }
 
+    //method to return searched group based on string query
     public static ExerciseGroup findGroup(String query) {
         ArrayList<ExerciseGroup> groups = ExerciseGroup.getExerciseGroup();
         for (final ExerciseGroup group: groups) {

@@ -20,6 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 // @Generated("jsonschema2pojo")
+//lesson object declaration
 public class Lesson {
 
     @SerializedName("name")
@@ -54,7 +55,7 @@ public class Lesson {
         this.instructions = instructions;
     }
 
-
+    //getters and setters
     public String getName() {
         return name;
     }
@@ -115,6 +116,7 @@ public class Lesson {
         return lessons;
     }
 
+    //method to return searched lesson based on string query
     public static Lesson findLesson(String query) {
         ArrayList<Lesson> lessons = Lesson.getLesson();
         for(final Lesson lesson: lessons) {

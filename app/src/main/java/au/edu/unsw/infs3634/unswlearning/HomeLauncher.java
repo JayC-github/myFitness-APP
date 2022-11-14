@@ -16,13 +16,13 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
-// RecyclerViewInterface can be used by all recyleView aye
+
 public class HomeLauncher extends AppCompatActivity implements RecyclerViewInterface {
-    // actually allows to implement view, the view object
+    // implements the recyclerview object
     private RecyclerView recyclerViewHome;
-    // the adapter class that handles conversion between data and recycleView
+    // implements the exercisegroup adapter class that handles conversion between data and recyclerView
     private HomeExerciseGroupAdapter exerciseGroupAdapter;
-    // can store layoutManager here or just build below
+    // stores layoutManager
     private RecyclerView.LayoutManager layoutManager;
 
 
@@ -30,38 +30,37 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // This is the place to load the home_page.xml
+        //set view with home_page.xml
         setContentView(R.layout.home_page);
 
-
-        // Initialise the Recycler view, this part is always similar
+        // get handle to corresponding recyclerview
         recyclerViewHome = findViewById(R.id.rvListHome);
-        // Not sure why use this instead of getApplicationContext()?
-        // In general it's better to use this, but careful about memory leak
+
+        // Initialise the Recycler view layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerViewHome.setLayoutManager(layoutManager);
 
         // Initialise the adapter with a list of exercise group data
-        // need to check how does it actually work
         exerciseGroupAdapter = new HomeExerciseGroupAdapter(this, ExerciseGroup.getExerciseGroup(), this);
+
+        //Connect the adapter to the recyclerview
         recyclerViewHome.setAdapter(exerciseGroupAdapter);
     }
 
-    // can just put in the onItemClick but ok to leave it here
-    public void launchLesson(String msg) {
-        // HomeLauncher.this = this, (HubController = DetailActivity kinda)
+    //method to launch hub controller
+    public void launchHub(String msg) {
         Intent intent = new Intent(HomeLauncher.this, HubController.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 
+    //calls launchHub method when item in recyclerview is clicked
     @Override
     public void onItemClick(String group) {
-        // need to change the function name from launch lesson to launch hub
-        launchLesson(group);
+        launchHub(group);
     }
 
-
+    //instantiates the menu for exercisegroups
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -84,6 +83,7 @@ public class HomeLauncher extends AppCompatActivity implements RecyclerViewInter
         return true;
     }
 
+    //reacts to user interaction with the menu when sorting
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

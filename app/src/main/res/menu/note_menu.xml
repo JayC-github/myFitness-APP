@@ -9,9 +9,6 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/noteSortCategory"
-                android:title="Category" />
-            <item
                 android:id="@+id/noteSortName"
                 android:title="Name" />
         </menu>
