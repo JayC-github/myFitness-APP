@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/drawable/divider.xml" value="0.223" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/exercise_detail.xml" value="0.1" />
+        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/exercise_detail.xml" value="0.264" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/home_list_row.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/home_page.xml" value="0.21603260869565216" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/hub_page.xml" value="0.20436083796494228" />
@@ -14,7 +14,7 @@
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/lesson_detail.xml" value="0.2" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/lesson_home_list_row.xml" value="0.20436083796494228" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/lesson_home_page.xml" value="0.20436083796494228" />
-        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/note_detail.xml" value="0.20350577169730655" />
+        <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/note_detail.xml" value="0.264" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/note_home_list_row.xml" value="0.4" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/note_home_page.xml" value="0.20350577169730655" />
         <entry key="..\:/Users/kevin/StudioProjects/unsw-learning-app-group-w11a-6/app/src/main/res/layout/quiz_home_list_row.xml" value="0.20436083796494228" />
