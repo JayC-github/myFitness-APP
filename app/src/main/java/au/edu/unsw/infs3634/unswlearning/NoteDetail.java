@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import java.security.PrivateKey;
 import java.util.concurrent.Executors;
 
 public class NoteDetail extends AppCompatActivity {
@@ -66,7 +65,7 @@ public class NoteDetail extends AppCompatActivity {
         });
 
 
-        Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
+        Intent intent = new Intent(NoteDetail.this, ExerciseGroupLauncher.class);
         startActivity(intent);
     }
 

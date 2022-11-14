@@ -10,13 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseGroupAdapter.MyViewHolder> implements Filterable {
+public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdapter.MyViewHolder> implements Filterable {
     // not sure what is this for
     Context mContextExerciseGroups;
     // two attributes: the data list and listener interface
@@ -29,7 +32,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
 
     // constructor for the ExerciseGroup adapter
     // not sure why we need the context for
-    public HomeExerciseGroupAdapter(Context context, ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface) {
+    public ExerciseGroupAdapter(ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface, Context context) {
         mExerciseGroups = exerciseGroups;
         mExerciseGroupsFiltered = exerciseGroups;
         recyclerViewInterface = rvInterface;
@@ -41,7 +44,7 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public HomeExerciseGroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExerciseGroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_list_row, parent, false);
         return new MyViewHolder(view, recyclerViewInterface);
     }
@@ -49,14 +52,17 @@ public class HomeExerciseGroupAdapter extends RecyclerView.Adapter<HomeExerciseG
     // this method is to programmatically change the text values of the list row layout
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(@NonNull HomeExerciseGroupAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExerciseGroupAdapter.MyViewHolder holder, int position) {
         ExerciseGroup exerciseGroup = mExerciseGroupsFiltered.get(position);
         // Below can be improved
         // set TextView:TargetArea by name
-        holder.tvTargetArea.setText(exerciseGroup.getName());
+        holder.tvTargetArea.setText(StringUtils.capitalize(exerciseGroup.getName()));
         // set ImageView: TargetArea
+        // using context seems like the most efficient say
+//        holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
+//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
         holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
-                "drawable", "au.edu.unsw.infs3634.unswlearning"));
+                "drawable", mContextExerciseGroups.getPackageName()));
         holder.itemView.setTag(exerciseGroup.getName());
     }
 

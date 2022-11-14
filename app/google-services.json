@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "522269179366",
+    "project_id": "cryptoprofileinfs3634-50b89",
+    "storage_bucket": "cryptoprofileinfs3634-50b89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522269179366:android:748155853621d4763bea27",
+        "android_client_info": {
+          "package_name": "au.edu.unsw.infs3634.cryptoprofile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522269179366-dhatqmruq20rjf98sb1p1odkl05j3rbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Q9FXcYktTjbSCxoOKLJ_DaDP024ZItc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522269179366-dhatqmruq20rjf98sb1p1odkl05j3rbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522269179366:android:2df1760cfca3e16b3bea27",
+        "android_client_info": {
+          "package_name": "au.edu.unsw.infs3634.unswlearning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522269179366-dhatqmruq20rjf98sb1p1odkl05j3rbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Q9FXcYktTjbSCxoOKLJ_DaDP024ZItc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522269179366-dhatqmruq20rjf98sb1p1odkl05j3rbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -59,7 +59,7 @@
             android:name=".NoteLauncher"
             android:exported="true" />
         <activity
-            android:name=".HomeLauncher"
+            android:name=".ExerciseGroupLauncher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
