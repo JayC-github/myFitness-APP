@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -103,6 +104,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
                 }
 
             });
+
+            //adding in divider to recyclerview
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+            recyclerViewNote.addItemDecoration(dividerItemDecoration);
 
             recyclerViewNote.setAdapter(noteAdapter);
             }

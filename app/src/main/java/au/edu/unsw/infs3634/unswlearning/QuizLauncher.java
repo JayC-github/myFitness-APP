@@ -1,6 +1,7 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,13 +41,17 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
             layoutManager = new LinearLayoutManager(this);
             recyclerViewQuiz.setLayoutManager(layoutManager);
 
-            // generate a quiz list based on the muscule module;
+            // generate a quiz list based on the muscle module;
             quizList = Quiz.getQuizzes_on_module(message);
             quizAdapter = new QuizAdapter(quizList, this);
 
             // create a database here for storing all the generated data later
-            // also update all the data in quizAdapater
+            // also update all the data in quizAdapter
 
+            //adding in divider to recyclerview
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+            recyclerViewQuiz.addItemDecoration(dividerItemDecoration);
 
             recyclerViewQuiz.setAdapter(quizAdapter);
         }

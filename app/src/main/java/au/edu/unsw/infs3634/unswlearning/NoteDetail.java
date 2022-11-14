@@ -107,7 +107,7 @@ public class NoteDetail extends AppCompatActivity {
         Log.d(TAG, "note added");
 
         //once note is added/updated returns to home
-        Intent intent = new Intent(NoteDetail.this, HomeLauncher.class);
+        Intent intent = new Intent(NoteDetail.this, ExerciseGroupLauncher.class);
         startActivity(intent);
 
     }

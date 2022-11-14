@@ -2,6 +2,7 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +16,11 @@ import android.widget.SearchView;
 
 // RecyclerViewInterface will be used by all Launcher need RecyclerView
 public class ExerciseGroupLauncher extends AppCompatActivity implements RecyclerViewInterface {
-    // actually allows to implement view, the view object
+    //implements the recyclerview object
     private RecyclerView recyclerViewHome;
-    // the adapter class that handles conversion between data and recycleView
+    //implements the exercisegroup adapter class that handles conversion between data and recyclerview
     private ExerciseGroupAdapter exerciseGroupAdapter;
-    // can store layoutManager here or just build below
+    //stores layoutManager
     private RecyclerView.LayoutManager layoutManager;
     // intent message
     private static final String INTENT_MESSAGE = "intent_message";
@@ -32,19 +33,26 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         // load the home_page.xml
         setContentView(R.layout.home_page);
 
-        // Initialise the Recycler view, this part is always similar
+        // get handle to correspoding recyclerview
         recyclerViewHome = findViewById(R.id.rvListHome);
-        // Not sure why use this instead of getApplicationContext()?
-        // In general it's better to use "this", but careful about memory leak
+
+        //initialise the recyclerview layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerViewHome.setLayoutManager(layoutManager);
 
         // Initialise the adapter with a list of exercise group data
         exerciseGroupAdapter = new ExerciseGroupAdapter(ExerciseGroup.getExerciseGroup(), this, this);
+
+        //adding in divider to recyclerview
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+        recyclerViewHome.addItemDecoration(dividerItemDecoration);
+
+        //connect the adapter to the recyclerview
         recyclerViewHome.setAdapter(exerciseGroupAdapter);
     }
 
-    // can just put in the onItemClick but ok to leave it here
+    //method to launch hub controller
     public void launchHub(String exerciseGroup) {
         // ExerciseGroupLauncher.this = this, (HubController = DetailActivity kinda)
         Intent intent = new Intent(ExerciseGroupLauncher.this, HubController.class);
@@ -52,13 +60,13 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         startActivity(intent);
     }
 
+    //calls launchHub method when item in recyclerview is clicked
     @Override
     public void onItemClick(String exerciseGroup) {
-        // click each exercise group -> load to exercise group hub
         launchHub(exerciseGroup);
     }
 
-
+    //instantiates the menu for exercisegroups
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -81,6 +89,7 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         return true;
     }
 
+    //reacts to user interaction with the menu when sorting
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
