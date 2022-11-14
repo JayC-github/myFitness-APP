@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
         if (intent.hasExtra(INTENT_MESSAGE)) {
             // this message will get used for quiz database too
             String message = intent.getStringExtra(INTENT_MESSAGE);
-            setTitle(message + " Quiz");
+            setTitle(StringUtils.capitalize(message) + " Quiz");
             Log.d(TAG, "Exercise Group name = " + message);
 
             // this part is always similar

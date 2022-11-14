@@ -26,9 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="24dp"
-        android:text="Name"
-        android:textSize="24sp"
         android:fontFamily="sans-serif-medium"
+        android:text="Name"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,6 +41,7 @@
         android:layout_marginEnd="28dp"
         android:fontFamily="sans-serif-medium"
         android:text="Type"
+        android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
@@ -50,9 +52,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
-        android:text="MuscleGroup"
-        android:textSize="16sp"
         android:fontFamily="sans-serif-medium"
+        android:text="MuscleGroup"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
 
@@ -64,6 +67,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-medium"
         android:text="Equipment"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseDifficulty" />
 
@@ -73,8 +77,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="24dp"
-        android:text="Difficulty"
         android:fontFamily="sans-serif-medium"
+        android:text="Difficulty"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseMuscle" />
 
@@ -83,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="28dp"
         android:onClick="startNoteDetail"
         android:text="Add Note"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +119,8 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Instructions" />
+                android:text="Instructions"
+                android:textColor="#000000" />
         </LinearLayout>
     </ScrollView>
 

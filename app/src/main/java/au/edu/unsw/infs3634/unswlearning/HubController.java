@@ -48,7 +48,7 @@ public class HubController extends AppCompatActivity {
         selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
 
         // setTitle
-        setTitle(StringUtils.capitalize(selectedGroup) + " Group");
+        setTitle(StringUtils.capitalize(selectedGroup));
 
         // set Group pictures and all the other pics
         selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,

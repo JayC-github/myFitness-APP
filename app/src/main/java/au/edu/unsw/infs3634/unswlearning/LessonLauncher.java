@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
             if (exerciseGroup != null) {
                 Log.d(TAG, "exerciseGroup exist");
                 //update activity title with extracted string
-                setTitle(exerciseGroup.getName());
+                setTitle(StringUtils.capitalize(exerciseGroup.getName()) + " Lessons");
 
                 //get handle to corresponding recyclerview
                 recyclerViewLesson = findViewById(R.id.rvListLesson);
