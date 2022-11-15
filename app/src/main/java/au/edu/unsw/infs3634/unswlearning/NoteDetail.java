@@ -18,7 +18,7 @@ public class NoteDetail extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "NoteDetail";
 
-    private NotesDatabase noteDb;
+    private MainDatabase noteDb;
 
     private TextView mNoteMuscleGroup;
     private TextView mNoteTitleHeader;
@@ -39,7 +39,7 @@ public class NoteDetail extends AppCompatActivity {
         mNoteBodyText = findViewById(R.id.editTextNoteBody);
         mSaveNote = findViewById(R.id.btnConfirmNote);
 
-        noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
+        noteDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database")
                 .fallbackToDestructiveMigration()
                 .build();
 

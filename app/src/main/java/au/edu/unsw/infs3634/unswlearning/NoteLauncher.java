@@ -24,7 +24,7 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
     private RecyclerView recyclerViewNote;
     private NoteAdapter noteAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private NotesDatabase noteDb;
+    private MainDatabase noteDb;
 
 
     @Override
@@ -43,7 +43,7 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         List<Note> allNote = new ArrayList<>();
         List<Note> finalNote = new ArrayList<>();
 
-        noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
+        noteDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database")
                 .fallbackToDestructiveMigration()
                 .build();
 

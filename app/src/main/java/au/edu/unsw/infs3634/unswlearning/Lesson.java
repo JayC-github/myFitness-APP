@@ -3,6 +3,11 @@ package au.edu.unsw.infs3634.unswlearning;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
 // import javax.annotation.Generated;
@@ -19,9 +24,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// @Generated("jsonschema2pojo")
+@Entity // make java class an entity
 public class Lesson {
-
+    // use name as the primary key
+    @PrimaryKey // specify primary key
+    @NonNull
     @SerializedName("name")
     @Expose
     private String name;
@@ -40,8 +47,12 @@ public class Lesson {
     @SerializedName("instructions")
     @Expose
     private String instructions;
-    // try to get an image for the exercise
+    // give each exercise a groupType to distinguished them
+    private String group;
+    // try to get and store image url for the exercise
     private String image_url;
+    // try to get and store video id for the exercise
+    private String videoId;
 
 
     public Lesson(String name, String type, String muscle, String equipment, String difficulty,
@@ -108,6 +119,22 @@ public class Lesson {
     }
 
     public void setImage_url(String image_url) { this.image_url = image_url; }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
 
     // this was used to generate lesson but useless now
     public static ArrayList<Lesson> getLesson() {

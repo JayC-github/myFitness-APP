@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
 import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
@@ -29,12 +32,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> implements Filterable {
-
+    private static final String TAG = "LessonAdapter";
     Context mContextLessons;
     private List<Lesson> mLessons, mLessonsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
     public static final int SORT_METHOD_DIFFICULTY = 2;
+    // a lesson table in database
+    private MainDatabase lessonDb;
 
     public LessonAdapter(Context context, List<Lesson> lessons, RecyclerViewInterface rvInterface) {
         mContextLessons = context;
@@ -51,8 +56,6 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         return new LessonViewHolder(view, recyclerViewInterface);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull LessonAdapter.LessonViewHolder holder, int position) {
         Lesson lesson = mLessonsFiltered.get(position);
@@ -61,44 +64,62 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         holder.itemView.setTag(lesson.getName());
 
         // https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-//        holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
-//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
-        // for the lesson to get the image first
+        // check if lesson has image_url
+        // if image_url is empty, then try to use the API to get the image url
+        // then update it into the database
+        if (lesson.getImage_url() == null || lesson.getVideoId() == null) {
+            Log.d(TAG, "ImageURL or lessonID is null, need to call API and update db");
+            lessonDb = Room.databaseBuilder(mContextLessons, MainDatabase.class, "main-database").fallbackToDestructiveMigration().build();
 
-        // Use another API to get the pic URL link of the name
-        /** execute an API call to get the youtube video id based on searched (muscle)*/
-        Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl("https://www.googleapis.com/youtube/v3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            // Use API to get the pic URL link of the name
+            /** execute an API call to get the youtube video id based on searched (muscle)*/
+            Retrofit retrofit2 = new Retrofit.Builder()
+                    .baseUrl("https://www.googleapis.com/youtube/v3/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
-        YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
-        // add an exercise keyword to get the actual exercise video haha
-        Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
+            YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
+            // add an exercise keyword to get the actual exercise video haha
+            Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
 
-        youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
-            @Override
-            public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
-                Log.d("lESSON.JAVA TEST", "Second API success");
-                Log.d("lESSON.JAVA TEST", response.toString());
-                Log.d("lESSON.JAVA TEST", String.valueOf(response.body()));
-                // to handle exceed quota
-                if (response.code() == 200) {
-                    String image_url = response.body().getItems().get(0).getSnippet().getThumbnails().getHigh().getUrl();
-                    Log.d("lESSON.JAVA TEST", image_url);
-                    Picasso.get().load(image_url).into(holder.ivLesson);
-                } else {
-                    holder.ivLesson.setImageResource(mContextLessons.getResources().getIdentifier("biceps",
-                            "drawable", "au.edu.unsw.infs3634.unswlearning"));
+            youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
+                @Override
+                public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
+                    Log.d(TAG, "Youtube API success");
+                    // Log.d(TAG, response.toString());
+                    // Log.d(TAG, String.valueOf(response.body()));
+                    // to handle exceed quota
+                    if (response.code() == 200) {
+                        String image_url = response.body().getItems().get(0).getSnippet().getThumbnails().getHigh().getUrl();
+                        String videoId = response.body().getItems().get(0).getId().getVideoId();
+                        Log.d(TAG, image_url);
+                        Log.d(TAG, videoId);
+                        // update the data in database too
+                        Executors.newSingleThreadExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                lessonDb.lessonDao().updateImage(image_url, lesson.getName());
+                                lessonDb.lessonDao().updateVideo(videoId, lesson.getName());
+                            }
+                        });
+                        // also load it to the holder view
+                        Picasso.get().load(image_url).into(holder.ivLesson);
+                    } else {
+                        holder.ivLesson.setImageDrawable(ContextCompat.getDrawable(mContextLessons, R.drawable.img_fail));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<YoutubeDataResponse> call, Throwable t) {
-                Log.d("lESSON.JAVA TEST", "API failure");
-                Log.d("lESSON.JAVA TEST", t.toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<YoutubeDataResponse> call, Throwable t) {
+                    Log.d(TAG, "API failure");
+                    Log.d(TAG, t.toString());
+                }
+            });
+
+        } else { // store in the database already, just load it
+            Log.d(TAG, "Not null, load image url into the view");
+            Picasso.get().load(lesson.getImage_url()).into(holder.ivLesson);
+        }
     }
 
     @Override

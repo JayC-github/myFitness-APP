@@ -27,5 +27,4 @@ public interface NotesDao {
 
     @Insert
     void insertNotes(Note... notes);
-
 }

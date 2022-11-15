@@ -88,8 +88,8 @@ public class Quiz {
 
 
 
-        quizzes.add(new Quiz(1, "back1", quesionts1, options1, answers1));
-        quizzes.add(new Quiz(2, "back2", quesionts1, options1, answers1));
+        quizzes.add(new Quiz(1, "abdominals", quesionts1, options1, answers1));
+        quizzes.add(new Quiz(2, "abdominals", quesionts1, options1, answers1));
 
         return  quizzes;
     }
