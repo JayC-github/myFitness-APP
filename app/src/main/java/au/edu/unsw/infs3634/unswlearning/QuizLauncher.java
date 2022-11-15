@@ -1,12 +1,15 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
         if (intent.hasExtra(INTENT_MESSAGE)) {
             // this message will get used for quiz database too
             String message = intent.getStringExtra(INTENT_MESSAGE);
-            setTitle(message + " Quiz");
+            setTitle(StringUtils.capitalize(message) + " Quiz");
             Log.d(TAG, "Exercise Group name = " + message);
 
             // this part is always similar
@@ -40,13 +43,17 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
             layoutManager = new LinearLayoutManager(this);
             recyclerViewQuiz.setLayoutManager(layoutManager);
 
-            // generate a quiz list based on the muscule module;
+            // generate a quiz list based on the muscle module;
             quizList = Quiz.getQuizzes_on_module(message);
             quizAdapter = new QuizAdapter(quizList, this);
 
             // create a database here for storing all the generated data later
-            // also update all the data in quizAdapater
+            // also update all the data in quizAdapter
 
+            //adding in divider to recyclerview
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+            recyclerViewQuiz.addItemDecoration(dividerItemDecoration);
 
             recyclerViewQuiz.setAdapter(quizAdapter);
         }

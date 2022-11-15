@@ -40,7 +40,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     }
 
-    //assign value ot each row in recyclerview based on position
+    //assign value to each row in recyclerview based on position
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
         Note note = mNotesFiltered.get(position);

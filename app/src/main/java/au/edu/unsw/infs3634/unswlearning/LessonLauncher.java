@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,53 +29,52 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface {
+    //Strings to check intents and msgs
     private static final String TAG = "LessonLauncher";
     public static final String INTENT_MESSAGE = "intent_message";
 
+    // implements the recyclerview object
     private RecyclerView recyclerViewLesson;
+
+    // implements the lessonadapter class that handles conversion between data and recyclerView
     private LessonAdapter lessonAdapter;
+
+    // stores layoutManager
     private RecyclerView.LayoutManager layoutManager;
 
-    // a list of exercise/lesson
+    // an empty list of lessons
     private List<Lesson> lessonList = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set view with lesson_home_page.xml
         setContentView(R.layout.lesson_home_page);
 
+        //get intent that started this activity and extract string
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             // get the name of the exerciseGroup
             String message = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Exercise Group name = " + message);
 
-
+            //find exercise group of the selected exercise from previous launcher
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
             if (exerciseGroup != null) {
                 Log.d(TAG, "exerciseGroup exist");
-                setTitle(exerciseGroup.getName());
+                //update activity title with extracted string
+                setTitle(StringUtils.capitalize(exerciseGroup.getName()) + " Lessons");
 
-                // this part is always similar
+                //get handle to corresponding recyclerview
                 recyclerViewLesson = findViewById(R.id.rvListLesson);
+
+                //initialise the recyclerview layout manager
                 layoutManager = new LinearLayoutManager(this);
                 recyclerViewLesson.setLayoutManager(layoutManager);
 
 
-                // create exercises' list of the exercise group
-                // get all manually created lessons for now
-//                ArrayList<Lesson> allLesson = Lesson.getLesson();
-//                // tempLesson
-//                // ArrayList<Lesson> tempLesson = new ArrayList<>();
-//
-//                for (Lesson lesson: allLesson) {
-//                    if (lesson.getMuscle().toLowerCase().contains(message.toLowerCase())) {
-//                        lessonList.add(lesson);
-//                    }
-//                }
-
-                // create a new empty adapter
+                //initialise the adapter with an empty list
                 lessonAdapter = new LessonAdapter(this, lessonList, this);
 
                 /** execute an API call to get all lessons of that body part(muscle)*/
@@ -91,11 +93,9 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                         Log.d(TAG, response.toString());
                         Log.d(TAG, String.valueOf(response.body()));
                         // get the lessonlist here
-                        //lessonList = response.body();
                         lessonList = response.body();
-                        //Log.d(TAG, lessonList.get(0).getName());
 
-                        // udpate the lesson list in the adapater
+                        // update the lesson list in the adapter
                         lessonAdapter.setData(lessonList);
                         lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
                     }
@@ -107,25 +107,31 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                     }
                 });
 
-                // lessonAdapter = new LessonAdapter(this, lessonList, this);
+                //adding in divider to recyclerview
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+                dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+                recyclerViewLesson.addItemDecoration(dividerItemDecoration);
+
+                //connect the adapter to the recyclerview
                 recyclerViewLesson.setAdapter(lessonAdapter);
             }
         }
     }
 
-
+    //method to launch exercise detail
     public void launchLesson(String msg) {
         Intent intent = new Intent(LessonLauncher.this, ExerciseDetail.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 
+    //calls launchLesson method when item in recyclerview is clicked
     @Override
     public void onItemClick(String lesson) {
         launchLesson(lesson);
     }
 
-
+    //instantiates the menu for lessons
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -148,14 +154,12 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
         return true;
     }
 
+    //reacts to user interaction with the menu when sorting
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lessonSortName:
                 lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
-                return true;
-            case R.id.lessonSortDifficulty:
-                lessonAdapter.sort(LessonAdapter.SORT_METHOD_DIFFICULTY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

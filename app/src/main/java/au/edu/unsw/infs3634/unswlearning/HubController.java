@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 import org.apache.commons.lang3.StringUtils;
 
 public class HubController extends AppCompatActivity {
-
+    //Strings to check intents and msgs
     private static final String TAG = "HubController";
     private static final String INTENT_MESSAGE = "intent_message";
 
@@ -28,7 +28,6 @@ public class HubController extends AppCompatActivity {
     private String selectedGroup;
     private ImageView selectedGroupPic, hubLesson, hubQuiz, hubNote;
 
-    // instead of calling selectedGroup, call it selectedGroupName
     private TextView selectedGroupName;
 
     @Override
@@ -42,16 +41,14 @@ public class HubController extends AppCompatActivity {
         hubLesson = findViewById(R.id.ivHubLesson);
         hubQuiz = findViewById(R.id.ivHubQuiz);
         hubNote = findViewById(R.id.ivHubNote);
-        // selectedGroupName = findViewById(R.id.tvSelectedGroup);
 
 
         // get the name of the exercise group, set selectGroup, image and name
         Intent intent = getIntent();
-        // String msg = intent.getStringExtra(INTENT_MESSAGE);
         selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
 
         // setTitle
-        setTitle(StringUtils.capitalize(selectedGroup) + " Group");
+        setTitle(StringUtils.capitalize(selectedGroup));
 
         // set Group pictures and all the other pics
         selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
@@ -59,9 +56,12 @@ public class HubController extends AppCompatActivity {
         hubLesson.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.lesson2));
         hubQuiz.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.quiz2));
         hubNote.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.note2));
-        //selectedGroupName.setText(selectedGroup);
+
+
+
     }
 
+    //method to launch lesson homepage from hub
     public void startLessonHomePage(View view) {
         String group = selectedGroup;
         Intent intent = new Intent(HubController.this, LessonLauncher.class);
@@ -69,6 +69,7 @@ public class HubController extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //method to launch quiz homepage from hub
     public void startQuizHomePage(View view) {
         String group = selectedGroup;
         Intent intent = new Intent(HubController.this, QuizLauncher.class);
@@ -76,6 +77,7 @@ public class HubController extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //method to launch note homepage from hub
     public void startNoteHomePage(View view) {
         String group = selectedGroup;
         Intent intent = new Intent(HubController.this, NoteLauncher.class);

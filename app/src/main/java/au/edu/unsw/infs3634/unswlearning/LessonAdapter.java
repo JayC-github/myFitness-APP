@@ -54,7 +54,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     }
 
 
-    //assign value ot each row in recyclerview based on position
+    //assign value to each row in recyclerview based on position
     @Override
     public void onBindViewHolder(@NonNull LessonAdapter.LessonViewHolder holder, int position) {
         //update lesson detail

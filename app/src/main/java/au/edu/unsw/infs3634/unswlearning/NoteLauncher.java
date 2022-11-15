@@ -11,9 +11,12 @@ import android.widget.AdapterView;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,7 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
             Log.d(TAG, "Intent Message = " + message);
             ExerciseGroup exerciseGroup = ExerciseGroup.findGroup(message);
             //update activity title with extracted string
-            setTitle(exerciseGroup.getName());
+            setTitle(StringUtils.capitalize(exerciseGroup.getName()) + " Notes");
 
             //create asynchronous database call using Java Runnable
             Executors.newSingleThreadExecutor().execute(new Runnable() {
@@ -103,6 +106,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
                 }
 
             });
+
+            //adding in divider to recyclerview
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+            recyclerViewNote.addItemDecoration(dividerItemDecoration);
 
             recyclerViewNote.setAdapter(noteAdapter);
             }
