@@ -248,7 +248,9 @@ public class ExerciseDetail extends YouTubeBaseActivity {
     public void startNoteDetail(View view) {
         String group = mMuscle.getText().toString();
         Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);//not sure about where this leads tbh
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        intent.putExtra(INTENT_MESSAGE, group);
+        // add a flag to check noteDetail is load from exerciseDetail or noteAdapter
+        intent.putExtra("FLAG", "exercise");
         startActivity(intent);
     }
 }

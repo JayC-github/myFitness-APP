@@ -81,10 +81,10 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         // make if default color
         // set all color default color
         // set tickCross to empty
-        choice1.setBackgroundColor(Color.GRAY);
-        choice2.setBackgroundColor(Color.GRAY);
-        choice3.setBackgroundColor(Color.GRAY);
-        choice4.setBackgroundColor(Color.GRAY);
+        choice1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
 
         // important part
         choice1.setOnClickListener(this);
@@ -105,39 +105,39 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         choice3.setClickable(false);
         choice4.setClickable(false);
 
-        choice1.setBackgroundColor(Color.GRAY);
-        choice2.setBackgroundColor(Color.GRAY);
-        choice3.setBackgroundColor(Color.GRAY);
-        choice4.setBackgroundColor(Color.GRAY);
+        choice1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
 
         switch (quiz.getAnswers()[flag]) {
             case 0:
-                choice1.setBackgroundColor(Color.GREEN);
+                choice1.setBackground(ContextCompat.getDrawable(this, R.drawable.border_correct));
                 break;
             case 1:
-                choice2.setBackgroundColor(Color.GREEN);
+                choice2.setBackground(ContextCompat.getDrawable(this, R.drawable.border_correct));
                 break;
             case 2:
-                choice3.setBackgroundColor(Color.GREEN);
+                choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border_correct));
                 break;
             case 3:
-                choice4.setBackgroundColor(Color.GREEN);
+                choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border_correct));
                 break;
         }
 
         if (selectedOptionID != quiz.getAnswers()[flag]) {
             switch (selectedOptionID) {
                 case 0:
-                    choice1.setBackgroundColor(Color.RED);
+                    choice1.setBackground(ContextCompat.getDrawable(this, R.drawable.border_wrong));
                     break;
                 case 1:
-                    choice2.setBackgroundColor(Color.RED);
+                    choice2.setBackground(ContextCompat.getDrawable(this, R.drawable.border_wrong));
                     break;
                 case 2:
-                    choice3.setBackgroundColor(Color.RED);
+                    choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border_wrong));
                     break;
                 case 3:
-                    choice4.setBackgroundColor(Color.RED);
+                    choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border_wrong));
                     break;
             }
         }
@@ -183,10 +183,10 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         // set all color default color
-        choice1.setBackgroundColor(Color.GRAY);
-        choice2.setBackgroundColor(Color.GRAY);
-        choice3.setBackgroundColor(Color.GRAY);
-        choice4.setBackgroundColor(Color.GRAY);
+        choice1.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice2.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
+        choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
 
 
         Button clickBtn = (Button) view;
@@ -216,12 +216,12 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
                     if (selectedOptionID == currentAnswerID) {
                         total_score++;
                         Log.d(TAG, "Answer correct ++" + total_score);
-                        tick_cross.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.green_tick));
+                        tick_cross.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.tick));
                         score.setText("Total score: " + String.valueOf(total_score) + "/" + String.valueOf(totalQuestion));
 
                     } else {
                         Log.d(TAG, "Answer not correct");
-                        tick_cross.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_cross));
+                        tick_cross.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.cross));
                     }
 
                     // And also update the progress
@@ -259,7 +259,7 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
             selectedOptionID = Integer.parseInt(clickBtn.getTag().toString());
             Log.d(TAG, String.valueOf(selectedOptionID));
             // also change the color from grey to purple
-            clickBtn.setBackgroundColor(Color.parseColor("#FF3700B3"));
+            clickBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.border3));
         }
     }
 }

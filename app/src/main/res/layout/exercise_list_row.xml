@@ -3,10 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    >
 
     <ImageView
-        android:id="@+id/ivTargetArea"
+        android:id="@+id/ivLesson"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -18,15 +23,28 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/tvTargetArea"
+        android:id="@+id/tvLessonName"
         android:layout_width="175dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Target Area"
+        android:text="Lesson Name"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivTargetArea"
+        app:layout_constraintStart_toEndOf="@+id/ivLesson"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLessonDifficulty"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Lesson Difficulty"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivLesson"
+        app:layout_constraintTop_toBottomOf="@+id/tvLessonName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

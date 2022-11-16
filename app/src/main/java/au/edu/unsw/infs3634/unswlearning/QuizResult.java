@@ -43,7 +43,8 @@ public class QuizResult extends AppCompatActivity {
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QuizResult.this, ExerciseGroupLauncher.class);
+                Intent intent = new Intent(QuizResult.this, HomePage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }

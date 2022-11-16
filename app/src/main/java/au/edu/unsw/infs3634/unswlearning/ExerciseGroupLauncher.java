@@ -2,7 +2,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 // RecyclerViewInterface will be used by all Launcher need RecyclerView
@@ -31,7 +31,10 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // load the home_page.xml
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.lesson_page);
+
+        // set Title
+        setTitle("Exercise Group");
 
         // get handle to correspoding recyclerview
         recyclerViewHome = findViewById(R.id.rvListHome);
@@ -43,19 +46,15 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         // Initialise the adapter with a list of exercise group data
         exerciseGroupAdapter = new ExerciseGroupAdapter(ExerciseGroup.getExerciseGroup(), this, this);
 
-        //adding in divider to recyclerview
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
-        recyclerViewHome.addItemDecoration(dividerItemDecoration);
-
         //connect the adapter to the recyclerview
         recyclerViewHome.setAdapter(exerciseGroupAdapter);
     }
 
     //method to launch hub controller
     public void launchHub(String exerciseGroup) {
-        // ExerciseGroupLauncher.this = this, (HubController = DetailActivity kinda)
-        Intent intent = new Intent(ExerciseGroupLauncher.this, HubController.class);
+        // ExerciseGroupLauncher.this = this, (HomePage = DetailActivity kinda)
+        // replace HomePage by LessonLauncher
+        Intent intent = new Intent(ExerciseGroupLauncher.this, LessonLauncher.class);
         intent.putExtra(INTENT_MESSAGE, exerciseGroup);
         startActivity(intent);
     }
@@ -99,6 +98,17 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // just to get a proper search symbol
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem searchViewMenuItem = menu.findItem(R.id.homeSearch);
+        SearchView mSearchView = (SearchView) searchViewMenuItem.getActionView();
+        int searchImgId = getResources().getIdentifier("android:id/search_button", null, null);
+        ImageView v = (ImageView) mSearchView.findViewById(searchImgId);
+        v.setImageResource(R.drawable.search_small);
+        return super.onPrepareOptionsMenu(menu);
     }
 
 

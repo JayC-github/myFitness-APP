@@ -35,7 +35,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public NoteAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //set list row for lesson recyclerview
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_home_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_list_row, parent, false);
         return new NoteViewHolder(view, recyclerViewInterface);
 
     }
@@ -45,7 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
         Note note = mNotesFiltered.get(position);
         holder.tvNoteTitle.setText(note.getNoteTitle());
-        holder.tvNoteBody.setText(note.getNoteBody());
+        //holder.tvNoteBody.setText(note.getNoteBody());
         holder.itemView.setTag(note.getNoteID());
     }
 
@@ -95,7 +95,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         public NoteViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             tvNoteTitle = itemView.findViewById(R.id.tvNoteTitle);
-            tvNoteBody = itemView.findViewById(R.id.tvNoteContent);
+            // tvNoteBody = itemView.findViewById(R.id.tvNoteContent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

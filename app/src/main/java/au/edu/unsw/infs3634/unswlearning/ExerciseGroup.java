@@ -27,10 +27,10 @@ public class ExerciseGroup {
         groups.add(new ExerciseGroup("chest"));
         groups.add(new ExerciseGroup("forearms"));
         groups.add(new ExerciseGroup("glutes"));
-        groups.add(new ExerciseGroup("hamstring"));
+        // groups.add(new ExerciseGroup("hamstring"));
         groups.add(new ExerciseGroup("lats"));
-        groups.add(new ExerciseGroup("lowerback"));
-        groups.add(new ExerciseGroup("middleback"));
+        // groups.add(new ExerciseGroup("lowerback"));
+        // groups.add(new ExerciseGroup("middleback"));
         groups.add(new ExerciseGroup("neck"));
         groups.add(new ExerciseGroup("quadriceps"));
         groups.add(new ExerciseGroup("traps"));

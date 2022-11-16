@@ -42,7 +42,7 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
     @NonNull
     @Override
     public ExerciseGroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lesson_list_row, parent, false);
         return new MyViewHolder(view, recyclerViewInterface);
     }
 
@@ -55,7 +55,7 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
         holder.tvTargetArea.setText(StringUtils.capitalize(exerciseGroup.getName()));
         // set ImageView: TargetArea
 
-        holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName(),
+        holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName() + "1",
                 "drawable", mContextExerciseGroups.getPackageName()));
         holder.itemView.setTag(exerciseGroup.getName());
     }

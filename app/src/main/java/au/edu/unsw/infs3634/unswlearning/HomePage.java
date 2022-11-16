@@ -10,11 +10,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import org.apache.commons.lang3.StringUtils;
-
-public class HubController extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
     //Strings to check intents and msgs
-    private static final String TAG = "HubController";
+    private static final String TAG = "HomePage";
     private static final String INTENT_MESSAGE = "intent_message";
 
     private Button btnLaunchLesson;
@@ -33,7 +31,7 @@ public class HubController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hub_page);
+        setContentView(R.layout.home_page);
 
 
         // get the elements from the hub_page we need
@@ -44,15 +42,16 @@ public class HubController extends AppCompatActivity {
 
 
         // get the name of the exercise group, set selectGroup, image and name
-        Intent intent = getIntent();
-        selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
+        //Intent intent = getIntent();
+        //selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
 
-        // setTitle
-        setTitle(StringUtils.capitalize(selectedGroup));
+        // setTitle - change the name later
+        setTitle("UNSW FITNESS");
 
         // set Group pictures and all the other pics
-        selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
-                "drawable", "au.edu.unsw.infs3634.unswlearning"));
+//        selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
+//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
+        selectedGroupPic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.homepage_symbol));
         hubLesson.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.lesson2));
         hubQuiz.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.quiz2));
         hubNote.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.note2));
@@ -63,21 +62,19 @@ public class HubController extends AppCompatActivity {
 
     //method to launch lesson homepage from hub
     public void startLessonHomePage(View view) {
-        Intent intent = new Intent(HubController.this, LessonLauncher.class);
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
+        Intent intent = new Intent(HomePage.this, ExerciseGroupLauncher.class);
         startActivity(intent);
     }
 
     //method to launch quiz homepage from hub
     public void startQuizHomePage(View view) {
-        Intent intent = new Intent(HubController.this, QuizLauncher.class);
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
+        Intent intent = new Intent(HomePage.this, QuizLauncher.class);
         startActivity(intent);
     }
 
     //method to launch note homepage from hub
     public void startNoteHomePage(View view) {
-        Intent intent = new Intent(HubController.this, NoteLauncher.class);
+        Intent intent = new Intent(HomePage.this, NoteLauncher.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
         startActivity(intent);
     }

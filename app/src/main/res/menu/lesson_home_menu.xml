@@ -4,10 +4,13 @@
 
     <item
         android:id="@+id/lessonSort"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/sort2"
         android:title="Sort"
         app:showAsAction="always">
-        <menu >
+        <menu>
+            <item
+                android:id="@+id/lessonSortLevel"
+                android:title="Level" />
             <item
                 android:id="@+id/lessonSortName"
                 android:title="Name" />
