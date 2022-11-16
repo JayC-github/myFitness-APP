@@ -16,9 +16,6 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import org.w3c.dom.Text;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
@@ -33,10 +30,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExerciseDetail extends YouTubeBaseActivity {
 
+    //api key for youtube api
     String api_key = "AIzaSyCvTBA8V3W0z7v8m9aTMj_U0EoEEpKIFEk";
 
+    //Strings to check intents and msgs
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "ExerciseDetail";
+
 
     private TextView mName;
     private TextView mType;
@@ -48,12 +48,14 @@ public class ExerciseDetail extends YouTubeBaseActivity {
     //private YouTubePlayerView mPlayer;
     private MainDatabase lessonDb;
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set view with note_detail.xml
         setContentView(R.layout.exercise_detail);
 
+        // get handle for view elements
         mName = findViewById(R.id.tvExerciseName);
         mType = findViewById(R.id.tvExerciseType);
         mMuscle = findViewById(R.id.tvExerciseMuscle);
@@ -61,10 +63,11 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         mDifficulty = findViewById(R.id.tvExerciseDifficulty);
         mInstructions = findViewById(R.id.tvExerciseInstruction);
         mNoteLaunch = findViewById(R.id.btnTakeNote);
-        //mPlayer = findViewById(R.id.ytPlayer);
+
         // Get reference to the view of Video player
         YouTubePlayerView ytPlayer = (YouTubePlayerView)findViewById(R.id.ytPlayer);
 
+        //get intent that started this activity and extract string
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             String message = intent.getStringExtra(INTENT_MESSAGE);
@@ -241,6 +244,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
     }
 
+    //method to launch note detail
     public void startNoteDetail(View view) {
         String group = mMuscle.getText().toString();
         Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);//not sure about where this leads tbh

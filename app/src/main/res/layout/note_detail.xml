@@ -10,30 +10,38 @@
         android:id="@+id/tvNoteTitleHeading"
         android:layout_width="193dp"
         android:layout_height="31dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Title"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNoteMuscle" />
 
     <TextView
         android:id="@+id/tvNoteBodyHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="47dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Notes"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNoteTitle" />
 
     <EditText
         android:id="@+id/editTextNoteTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNoteTitleHeading" />
 
@@ -41,11 +49,12 @@
         android:id="@+id/editTextNoteBody"
         android:layout_width="324dp"
         android:layout_height="420dp"
-        android:layout_marginStart="43dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNoteBodyHeading" />
 
@@ -53,21 +62,54 @@
         android:id="@+id/btnConfirmNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:onClick="confirmNote"
-        android:text="Add Note"
+        android:text="Confirm"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNoteID" />
 
     <TextView
         android:id="@+id/tvNoteMuscle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Muscle Group"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNoteID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Note ID"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDeleteNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="deleteNote"
+        android:text="Delete Note"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextNoteTitle"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmNote" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.squareup.picasso.Picasso;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +33,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface {
+    //Strings to check intents and msgs
     private static final String TAG = "LessonLauncher";
     public static final String INTENT_MESSAGE = "intent_message";
 
+    // implements the recyclerview object
     private RecyclerView recyclerViewLesson;
-    private LessonAdapter lessonAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
+    // implements the lessonadapter class that handles conversion between data and recyclerView
+    private LessonAdapter lessonAdapter;
+
+    // stores layoutManager
+    private RecyclerView.LayoutManager layoutManager;
     // selected exercise group
     private String selectedGroup;
     // a list of exercise/lesson
@@ -49,8 +56,10 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set view with lesson_home_page.xml
         setContentView(R.layout.lesson_home_page);
 
+        //get intent that started this activity and extract string
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             // get the name of the exerciseGroup
@@ -135,12 +144,18 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                 }
             });
 
+            // adding in divider to recyclerview
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+            recyclerViewLesson.addItemDecoration(dividerItemDecoration);
+
             // lessonAdapter = new LessonAdapter(this, lessonList, this);
+            // connec the adapter to the recyclerview
             recyclerViewLesson.setAdapter(lessonAdapter);
         }
     }
 
-
+    //method to launch exercise detail
     public void launchLesson(String msg) {
         Intent intent = new Intent(LessonLauncher.this, ExerciseDetail.class);
         intent.putExtra(INTENT_MESSAGE, msg);
@@ -148,12 +163,13 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
         startActivity(intent);
     }
 
+    //calls launchLesson method when item in recyclerview is clicked
     @Override
     public void onItemClick(String lesson) {
         launchLesson(lesson);
     }
 
-
+    //instantiates the menu for lessons
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -176,14 +192,12 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
         return true;
     }
 
+    //reacts to user interaction with the menu when sorting
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lessonSortName:
                 lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
-                return true;
-            case R.id.lessonSortDifficulty:
-                lessonAdapter.sort(LessonAdapter.SORT_METHOD_DIFFICULTY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

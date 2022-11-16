@@ -3,7 +3,6 @@ package au.edu.unsw.infs3634.unswlearning;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +33,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     public void onBindViewHolder(@NonNull QuizAdapter.QuizViewHolder holder, int position) {
         Quiz quiz = quizListFiltered.get(position);
         holder.quizName.setText(quiz.getName());
-        // holder.quizPic.setImageURI("");
         holder.itemView.setTag(quiz.getName());
     }
 
@@ -45,12 +43,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     class QuizViewHolder extends RecyclerView.ViewHolder {
         private TextView quizName;
-        private ImageView quizPic;
 
         public QuizViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             quizName = itemView.findViewById(R.id.tvQuizName);
-            quizPic = itemView.findViewById(R.id.ivQuiz);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

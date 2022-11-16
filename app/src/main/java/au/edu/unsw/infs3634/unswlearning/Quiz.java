@@ -69,10 +69,10 @@ public class Quiz {
     // return array of questions with solution
     public static ArrayList<Quiz> getQuizzes() {
         ArrayList<Quiz> quizzes = new ArrayList<>();
-        // munually generate a bunch of questions
+        // manually generate a bunch of questions
         // with solutions
 
-        String quesionts1[]  = {
+        String questions1[]  = {
                 "Who's the best",
                 "Which sport do you play",
                 "Why life's so hard",
@@ -80,16 +80,16 @@ public class Quiz {
 
         String options1[] = {
                 "KOBE", "YAO", "Michael", "JO MAMA",
-                "Basketabll", "Swimming", "Cross Country", "Football",
+                "Basketball", "Swimming", "Cross Country", "Football",
                 "Work", "Study", "Exercise", "Lazy",
         };
 
         int answers1[] = {0, 3, 2};
 
 
-
-        quizzes.add(new Quiz(1, "abdominals", quesionts1, options1, answers1));
-        quizzes.add(new Quiz(2, "abdominals", quesionts1, options1, answers1));
+        // add quizzes
+        quizzes.add(new Quiz(1, "abdominals", questions1, options1, answers1));
+        quizzes.add(new Quiz(2, "abdominals", questions1, options1, answers1));
 
         return  quizzes;
     }

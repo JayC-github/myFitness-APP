@@ -13,6 +13,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="38dp"
         android:text="Question Here"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,8 @@
         android:layout_marginTop="28dp"
         android:text="Choice 1"
         android:tag="0"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionText" />
 
@@ -37,6 +40,8 @@
         android:layout_marginTop="24dp"
         android:text="Choice 2"
         android:tag="1"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choice1" />
 
@@ -48,6 +53,8 @@
         android:layout_marginTop="24dp"
         android:text="Choice 3"
         android:tag="2"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choice2" />
 
@@ -59,6 +66,8 @@
         android:layout_marginTop="24dp"
         android:tag="3"
         android:text="Choice 4"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choice3" />
 
@@ -68,6 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="SUBMIT"
+        android:background="@color/yellow"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivTickCross" />
@@ -79,6 +90,7 @@
         android:layout_marginStart="38dp"
         android:layout_marginTop="36dp"
         android:text="TextView"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,6 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/question_index"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
