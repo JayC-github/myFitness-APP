@@ -87,9 +87,9 @@ public class Quiz {
         int answers1[] = {0, 3, 2};
 
 
-
-        quizzes.add(new Quiz(1, "chest1", questions1, options1, answers1));
-        quizzes.add(new Quiz(2, "chest2", questions1, options1, answers1));
+        // add quizzes
+        quizzes.add(new Quiz(1, "abdominals", questions1, options1, answers1));
+        quizzes.add(new Quiz(2, "abdominals", questions1, options1, answers1));
 
         return  quizzes;
     }

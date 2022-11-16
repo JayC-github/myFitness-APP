@@ -63,25 +63,22 @@ public class HubController extends AppCompatActivity {
 
     //method to launch lesson homepage from hub
     public void startLessonHomePage(View view) {
-        String group = selectedGroup;
         Intent intent = new Intent(HubController.this, LessonLauncher.class);
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
         startActivity(intent);
     }
 
     //method to launch quiz homepage from hub
     public void startQuizHomePage(View view) {
-        String group = selectedGroup;
         Intent intent = new Intent(HubController.this, QuizLauncher.class);
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
         startActivity(intent);
     }
 
     //method to launch note homepage from hub
     public void startNoteHomePage(View view) {
-        String group = selectedGroup;
         Intent intent = new Intent(HubController.this, NoteLauncher.class);
-        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, group);
+        intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);
         startActivity(intent);
     }
 }

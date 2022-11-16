@@ -20,7 +20,7 @@ public class NoteDetail extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "NoteDetail";
 
-    private NotesDatabase noteDb;
+    private MainDatabase noteDb;
 
 
     private TextView mNoteID;
@@ -48,8 +48,7 @@ public class NoteDetail extends AppCompatActivity {
         mSaveNote = findViewById(R.id.btnConfirmNote);
         mDeleteNote = findViewById(R.id.btnDeleteNote);
 
-        //instantiate new maindatabase object for "main-database"
-        noteDb = Room.databaseBuilder(getApplicationContext(), NotesDatabase.class, "notes-database")
+        noteDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database")
                 .fallbackToDestructiveMigration()
                 .build();
 
@@ -65,7 +64,6 @@ public class NoteDetail extends AppCompatActivity {
         //will fill fields in with note info
         if (message.length() <= 3) {
             Executors.newSingleThreadExecutor().execute(new Runnable() {
-
                 @Override
                 public void run() {
                     Note tempNote = noteDb.notesDao().getNotes(message);

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class Note {
     @PrimaryKey
     @NonNull
-
     private String noteID;
     private String selectedExercise;
     private String noteBody;
