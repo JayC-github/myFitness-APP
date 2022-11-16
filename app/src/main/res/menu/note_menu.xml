@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/noteSort"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/sort2"
         android:title="noteSort"
         app:showAsAction="always">
         <menu>

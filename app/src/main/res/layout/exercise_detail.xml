@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ExerciseDetail">
 
     <com.google.android.youtube.player.YouTubePlayerView
@@ -20,16 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svExerciseDetail" />
 
+
     <TextView
         android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Name"
         android:textColor="#000000"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,14 +40,14 @@
         android:id="@+id/tvExerciseType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginStart="25dp"
         android:fontFamily="sans-serif-medium"
         android:text="Type"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvExerciseMuscle"
+        app:layout_constraintTop_toTopOf="@+id/tvExerciseMuscle" />
 
     <TextView
         android:id="@+id/tvExerciseMuscle"
@@ -56,6 +59,7 @@
         android:text="MuscleGroup"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
 
@@ -63,51 +67,48 @@
         android:id="@+id/tvExerciseEquipment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-medium"
         android:text="Equipment"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseDifficulty" />
+        app:layout_constraintStart_toStartOf="@+id/tvExerciseDifficulty"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/tvExerciseDifficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Difficulty"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseMuscle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <Button
         android:id="@+id/btnTakeNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_width="68dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="28dp"
+        android:background="@drawable/border2"
         android:onClick="startNoteDetail"
         android:text="Add Note"
-        android:background="@color/yellow"
         android:textColor="@color/black"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tvExerciseName" />
 
     <ScrollView
         android:id="@+id/svExerciseDetail"
         android:layout_width="347dp"
         android:layout_height="173dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="36dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="18dp"
+        android:background="#FAE988"
         app:layout_constraintBottom_toTopOf="@+id/ytPlayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExerciseEquipment">
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,6 +126,40 @@
                 android:textColor="#000000" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Exercise Level:"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvExerciseMuscle"
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseMuscle" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Equipment:"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Instruction"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

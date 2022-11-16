@@ -11,8 +11,8 @@
         android:layout_height="84dp"
         android:layout_marginTop="76dp"
         android:layout_marginBottom="36dp"
+        android:background="@drawable/border"
         android:text="Home"
-        android:background="@color/yellow"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,10 +38,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
+        android:theme="@style/RatingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
+        app:layout_constraintTop_toBottomOf="@+id/tvResult"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView"
@@ -63,6 +65,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/trophy" />
+        app:srcCompat="@drawable/win" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

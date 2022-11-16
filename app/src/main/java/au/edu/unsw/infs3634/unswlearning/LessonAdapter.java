@@ -39,7 +39,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     private List<Lesson> mLessons, mLessonsFiltered;
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
-    public static final int SORT_METHOD_DIFFICULTY = 2; // remove this later
+    public static final int SORT_METHOD_LEVEL = 2; // remove this later
     // a lesson table in database
     private MainDatabase lessonDb;
 
@@ -56,7 +56,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     @Override
     public LessonAdapter.LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //set list row for lesson recyclerview
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lesson_home_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_list_row, parent, false);
         return new LessonViewHolder(view, recyclerViewInterface);
     }
 
@@ -204,6 +204,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
                 public int compare(Lesson l1, Lesson l2) {
                     if (sortMethod == SORT_METHOD_NAME) {
                         return l1.getName().compareTo(l2.getName());
+                    } else if (sortMethod == SORT_METHOD_LEVEL) {
+                        return l1.getDifficulty().compareTo(l2.getDifficulty());
                     }
                     // By default sort the list by coin name
                     return l1.getName().compareTo(l2.getName());

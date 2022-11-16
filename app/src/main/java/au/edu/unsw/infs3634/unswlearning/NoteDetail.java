@@ -32,6 +32,10 @@ public class NoteDetail extends AppCompatActivity {
     private Button mSaveNote;
     private Button mDeleteNote;
 
+    // to store note ID
+    private String noteID;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,6 @@ public class NoteDetail extends AppCompatActivity {
 
     //method to add note to database
     public void confirmNote(View view) {
-
         //create asynchronous database call using Java Runnable
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
@@ -105,7 +108,8 @@ public class NoteDetail extends AppCompatActivity {
         Log.d(TAG, "note added");
 
         //once note is added/updated returns to home
-        Intent intent = new Intent(NoteDetail.this, ExerciseGroupLauncher.class);
+        Intent intent = new Intent(NoteDetail.this, HomePage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
     }
@@ -120,8 +124,10 @@ public class NoteDetail extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(NoteDetail.this, ExerciseGroupLauncher.class);
+        Intent intent = new Intent(NoteDetail.this, HomePage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
 

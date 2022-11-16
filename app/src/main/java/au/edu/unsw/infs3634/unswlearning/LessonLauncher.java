@@ -6,15 +6,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,9 +21,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import au.edu.unsw.infs3634.unswlearning.API.ExerciseDBService;
-import au.edu.unsw.infs3634.unswlearning.API.VideoItem;
-import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataResponse;
-import au.edu.unsw.infs3634.unswlearning.API.YoutubeDataService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +52,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set view with lesson_home_page.xml
-        setContentView(R.layout.lesson_home_page);
+        setContentView(R.layout.exercise_page);
 
         //get intent that started this activity and extract string
         Intent intent = getIntent();
@@ -65,7 +60,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
             // get the name of the exerciseGroup
             selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Exercise Group name = " + selectedGroup);
-            setTitle(selectedGroup);
+            setTitle(StringUtils.capitalize(selectedGroup) + " Exercise");
 
             // this part is always similar
             recyclerViewLesson = findViewById(R.id.rvListLesson);
@@ -96,7 +91,7 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                     // get the lesson list (a list of lesson object)
                     // lessonList = response.body();
                     List<Lesson> lessons = response.body();
-                    String first_lesson_name = lessons.get(0).getName();
+                    // String first_lesson_name = lessons.get(0).getName();
                     //Log.d(TAG, lessonList.get(0).getName());
 
                     Executors.newSingleThreadExecutor().execute(new Runnable() {
@@ -143,11 +138,6 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                     Log.d(TAG, t.toString());
                 }
             });
-
-            // adding in divider to recyclerview
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-            dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
-            recyclerViewLesson.addItemDecoration(dividerItemDecoration);
 
             // lessonAdapter = new LessonAdapter(this, lessonList, this);
             // connec the adapter to the recyclerview
@@ -199,9 +189,23 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
             case R.id.lessonSortName:
                 lessonAdapter.sort(LessonAdapter.SORT_METHOD_NAME);
                 return true;
+            case R.id.lessonSortLevel:
+                lessonAdapter.sort(LessonAdapter.SORT_METHOD_LEVEL);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // just to get a proper search symbol
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem searchViewMenuItem = menu.findItem(R.id.lessonHomeSearch);
+        SearchView mSearchView = (SearchView) searchViewMenuItem.getActionView();
+        int searchImgId = getResources().getIdentifier("android:id/search_button", null, null);
+        ImageView v = (ImageView) mSearchView.findViewById(searchImgId);
+        v.setImageResource(R.drawable.search_small);
+        return super.onPrepareOptionsMenu(menu);
     }
 
 

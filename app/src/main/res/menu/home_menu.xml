@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeSort"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/sort2"
         android:title="Sort"
         app:showAsAction="always">
         <menu>
@@ -14,7 +14,8 @@
     </item>
     <item
         android:id="@+id/homeSearch"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/search"
+        android:iconTint="@color/black"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
