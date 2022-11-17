@@ -87,6 +87,12 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         choice3.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
         choice4.setBackground(ContextCompat.getDrawable(this, R.drawable.border));
 
+        // make the text of choice not all capital letter
+        choice1.setTransformationMethod(null);
+        choice2.setTransformationMethod(null);
+        choice3.setTransformationMethod(null);
+        choice4.setTransformationMethod(null);
+
         // important part
         choice1.setOnClickListener(this);
         choice2.setOnClickListener(this);

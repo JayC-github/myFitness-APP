@@ -73,23 +73,79 @@ public class Quiz {
         // with solutions
 
         String questions1[]  = {
-                "Who's the best",
-                "Which sport do you play",
-                "Why life's so hard",
+                "Who's the best basketball player?",
+                "What's the most popular sport in the world?",
+                "How to live a healthy life?",
         };
 
         String options1[] = {
-                "KOBE", "YAO", "Michael", "JO MAMA",
+                "Kobe", "Yao", "Michael", "Lebron",
                 "Basketball", "Swimming", "Cross Country", "Football",
-                "Work", "Study", "Exercise", "Lazy",
+                "Eat junk food", "Sleep late", "Exercise", "Smoke & drink",
         };
 
         int answers1[] = {0, 3, 2};
 
+        String bicepsQuiz1[] = {
+                "Which exercise is most effective at improving bicep strength?",
+                "What is the most commonly used equipment in bicep exercises?",
+                "How many bicep curls should a beginner do in a set?",
+                "How many sets of bicep curls should a beginner do?",
+                "What part of your body are you most likely to injure when performing bicep exercises?"
+        };
+
+        String bicepsOptions1[] = {
+                "Hammer Curls", "Barbell Curls", "Concentration Curls", "EZ-Bar Curls",
+                "Barbells", "Dumbbells", "EZ-Curl Bar", "No equipment needed",
+                "5", "10", "15", "20",
+                "2", "5", "10", "20",
+                "Forearm", "Bicep", "Chest", "Elbow",
+        };
+
+        int bicepsAnswers1[] = {0, 1, 1, 2, 3};
+
+        String bicepsQuiz2[] = {
+                "Which of the following is a beginner level bicep exercise?",
+                "Which of the following is an intermediate level bicep exercise?",
+                "Which of the following is a health benefit of training biceps?",
+                "When performing hammer curls, how far away from you should each dumbbell be held?",
+                "When performing Incline Hammer Curls, what equipment is recommended to be used alongside dumbbells?"
+        };
+
+        String bicepsOptions2[] = {
+                "Biceps Curl to Shoulder Press", "EZ-Bar Curls", "Zottman Curls", "Hammer Curls",
+                "Flexor Incline Dumbbell Curls", "Wide-Grip Barbell Curls", "Incline Hammer Curls", "Concentration Curls",
+                "Look massive", "Flex on people", "Improve upper body strength", "Increase grip strength",
+                "As close as possible", "Arm's length", "As far away as possible", "Dumbbells aren't needed for this exercise",
+                "Barbell", "EZ-Curl Bar", "Incline Bench", "No other equipment needed"
+        };
+
+        int bicepsAnswers2[] = {0, 3, 2, 1, 2};
+
+        String chestQuiz1[] = {
+                "Which exercise is most effective at improving chest strength?",
+                "What is the most commonly used equipment in chest exercises?",
+                "Which of the following is a beginner level chest exercise?",
+                "Which of the following is a health benefit of training chest muscles?",
+                "What part of your body are you most likely to injure when performing chest exercises?"
+        };
+
+        String chestOptions1[] = {
+                "Dumbbell Bench Press", "Pushups", "Chest Dip", "Close-Grip Bench Press",
+                "Barbell", "Cable", "Dumbbell", "No equipment needed",
+                "Chest Dip", "Pushups", "Dumbbell Bench Press", "Bodyweight Flyes",
+                "Burn Calories", "Improve Posture", "Flex on people", "Look big in Tshirts",
+                "Chest", "Arms", "Legs", "Back"
+        };
+
+        int chestAnswers1[] = {0, 2, 3, 1, 3};
+
 
         // add quizzes
-        quizzes.add(new Quiz(1, "abdominals", questions1, options1, answers1));
-        quizzes.add(new Quiz(2, "abdominals", questions1, options1, answers1));
+        quizzes.add(new Quiz(1, "sample", questions1, options1, answers1));
+        quizzes.add(new Quiz(2, "Bicep quiz1", bicepsQuiz1, bicepsOptions1, bicepsAnswers1));
+        quizzes.add(new Quiz(3, "Bicep quiz2", bicepsQuiz2, bicepsOptions2, bicepsAnswers2));
+        quizzes.add(new Quiz(4, "Chest quiz1", chestQuiz1, chestOptions1, chestAnswers1));
 
         return  quizzes;
     }
