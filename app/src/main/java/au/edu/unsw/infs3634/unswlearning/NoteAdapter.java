@@ -46,6 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         Note note = mNotesFiltered.get(position);
         holder.tvNoteTitle.setText(note.getNoteTitle());
         //holder.tvNoteBody.setText(note.getNoteBody());
+        holder.tvNoteTime.setText(note.getLatestUpdate());
         holder.itemView.setTag(note.getNoteID());
     }
 
@@ -90,11 +91,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     //find handle to view items from note_home_list_row.xml layout
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView tvNoteTitle;
+        TextView tvNoteTime;
         TextView tvNoteBody;
 
         public NoteViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             tvNoteTitle = itemView.findViewById(R.id.tvNoteTitle);
+            tvNoteTime = itemView.findViewById(R.id.tvNoteTime);
             // tvNoteBody = itemView.findViewById(R.id.tvNoteContent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

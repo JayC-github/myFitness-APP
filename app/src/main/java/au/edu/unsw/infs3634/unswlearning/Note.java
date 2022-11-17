@@ -16,16 +16,15 @@ public class Note {
     private String selectedExercise;
     private String noteBody;
     private String noteTitle;
+    private String latestUpdate;
 
-    public Note(String noteID, String selectedExercise, String noteTitle, String noteBody) {
+    public Note(String noteID, String selectedExercise, String noteTitle, String noteBody, String latestUpdate) {
         this.noteID = noteID;
         this.selectedExercise = selectedExercise;
         this.noteTitle = noteTitle;
         this.noteBody= noteBody;
-
+        this.latestUpdate = latestUpdate;
     }
-
-
 
     public Note() {}
 
@@ -63,7 +62,11 @@ public class Note {
         this.noteBody = noteBody;
     }
 
+    public String getLatestUpdate() {
+        return latestUpdate;
+    }
 
-
-
+    public void setLatestUpdate(String latestUpdate) {
+        this.latestUpdate = latestUpdate;
+    }
 }

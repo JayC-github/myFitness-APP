@@ -7,33 +7,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.Executors;
 
 public class NoteDetail extends AppCompatActivity {
 
-    //Strings to check intents and msgs
+    // strings to check intents and messages
     public static final String INTENT_MESSAGE = "intent_message";
     private static final String TAG = "NoteDetail";
 
     private MainDatabase noteDb;
 
 
-    private TextView mNoteID;
-    private TextView mNoteMuscleGroup;
-    private TextView mNoteTitleHeader;
-    private TextView mNoteBodyHeader;
+    // private TextView mNoteID;
     private EditText mNoteTitleText;
     private EditText mNoteBodyText;
-    private Button mSaveNote;
-    private Button mDeleteNote;
+    private Button mSaveBtn;
+    private Button mDeleteBtn;
 
     // to store note ID
     private String noteID;
+    // current time
+    private String currentDataTime;
 
 
     @Override
@@ -42,15 +44,12 @@ public class NoteDetail extends AppCompatActivity {
         //set view with note_detail.xml
         setContentView(R.layout.note_detail);
 
-        //get handle for view elements
-        mNoteID = findViewById(R.id.tvNoteID);
-        mNoteMuscleGroup = findViewById(R.id.tvNoteMuscle);
-        mNoteTitleHeader = findViewById(R.id.tvNoteTitleHeading);
-        mNoteBodyHeader = findViewById(R.id.tvNoteBodyHeading);
+        // get handle for view elements
+        // mNoteID = findViewById(R.id.tvNoteID);
         mNoteTitleText = findViewById(R.id.editTextNoteTitle);
         mNoteBodyText = findViewById(R.id.editTextNoteBody);
-        mSaveNote = findViewById(R.id.btnConfirmNote);
-        mDeleteNote = findViewById(R.id.btnDeleteNote);
+        mSaveBtn = findViewById(R.id.btnConfirmNote);
+        mDeleteBtn = findViewById(R.id.btnDeleteNote);
 
         noteDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database")
                 .fallbackToDestructiveMigration()
@@ -58,77 +57,103 @@ public class NoteDetail extends AppCompatActivity {
 
         //get intent that started this activity and extract string
         Intent intent = getIntent();
+        // the message will be either noteID or exercise name
         String message = intent.getStringExtra(INTENT_MESSAGE);
+        String flag = intent.getStringExtra("FLAG");
+        Log.d(TAG, message + flag);
 
-        mNoteID.setText(message);
-        mNoteMuscleGroup.setText("");
-
-        //this is used to determine if the message passed is a note id
-        //or if it is an exercise group, if its less than 3 chars then its a note,
-        //will fill fields in with note info
-        if (message.length() <= 3) {
+//       mNoteID.setText(message);
+//       mNoteMuscleGroup.setText("");
+        // this is used to determine if the note detail page is open from exercise detail or note home page
+        // or if it is an exercise group, if its less than 3 chars then its a note,
+        // will fill fields in with note info
+        if (flag.equals("note")) { // which means message = id
+//            mDeleteBtn.setVisibility(View.VISIBLE);
+            mSaveBtn.setText("EDIT");
             Executors.newSingleThreadExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
+                    // get the note from database by using noteID
                     Note tempNote = noteDb.notesDao().getNotes(message);
-                    //updates fields in notedetail to show note information
-                    mNoteMuscleGroup.setText(tempNote.getSelectedExercise());
+                    // updates fields in noteDetail to show note information
+                    setTitle("Note for " + tempNote.getSelectedExercise());
                     mNoteTitleText.setText(tempNote.getNoteTitle());
                     mNoteBodyText.setText(tempNote.getNoteBody());
                 }
             });
+        } else { // flag == "exercise"
+            setTitle("Add note for " + message);
+            mDeleteBtn.setVisibility(View.GONE); // or can do invisible
+            mSaveBtn.setText("SUBMIT");
         }
 
-
-
-    }
-
-    //method to add note to database
-    public void confirmNote(View view) {
-        //create asynchronous database call using Java Runnable
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                int idCounter = noteDb.notesDao().getTableSize();
-                //similar logic to determine if message passed is noteID used as above
-                if (mNoteID.getText().length() <= 3){  //update note
-                    noteDb.notesDao().updateNoteTitle(mNoteID.getText().toString(), mNoteTitleText.getText().toString());
-                    noteDb.notesDao().updateNoteBody(mNoteID.getText().toString(), mNoteBodyText.getText().toString());
-                    System.out.println(mNoteID.getText().length());
-                } else { //adds note
-                    idCounter = idCounter + 1;
-                    System.out.println(idCounter);
-                    Note newNote = new Note(String.valueOf(idCounter), mNoteID.getText().toString(), mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString());
-                    noteDb.notesDao().insertNotes(newNote);
-                    noteDb.notesDao().getAllNotes();
+            public void onClick(View view) {
+                // get the current Date nad time
+                SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
+                Date date = new Date(System.currentTimeMillis());
+                String currentDateTime = formatter.format(date);
+                Log.d(TAG, "current date time " + currentDateTime);
+
+                // check if the title and note are empty
+                // if empty, warn user with toast message
+                if (mNoteTitleText.getText().toString().length() == 0) {
+                    Toast.makeText(NoteDetail.this, "Please fill in the title!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
+                if (mNoteBodyText.getText().toString().length() == 0) {
+                    Toast.makeText(NoteDetail.this, "Please fill in the body!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // create asynchronous database call using Java Runnable
+                Executors.newSingleThreadExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int counter = noteDb.notesDao().getTableSize();
+                        //similar logic to determine if flag passed is "exercise" or "note"
+                        if (flag.equals("note")) {  //update note
+                            noteDb.notesDao().updateNoteTitle(message, mNoteTitleText.getText().toString());
+                            noteDb.notesDao().updateNoteBody(message, mNoteBodyText.getText().toString());
+                            noteDb.notesDao().updateNoteTime(message, currentDateTime);
+                        } else { //adds note
+                            counter = counter + 1;
+//                            System.out.println(counter);
+                            Note newNote = new Note(String.valueOf(counter), message, mNoteTitleText.getText().toString(), mNoteBodyText.getText().toString(), currentDateTime);
+                            noteDb.notesDao().insertNotes(newNote);
+                            noteDb.notesDao().getAllNotes();
+                        }
+
+                    }
+                });
+
+                //once note is added/updated returns to home
+                Intent intent = new Intent(NoteDetail.this, HomePage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
-        Log.d(TAG, "note added");
 
-        //once note is added/updated returns to home
-        Intent intent = new Intent(NoteDetail.this, HomePage.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
-    }
-
-    //method to delete selected note from database and return to home
-    public void deleteNote(View view) {
-        String message = (String) mNoteID.getText();
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
+        // can only call it when it's from node, so message = id
+        mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                noteDb.notesDao().deleteFromNotes(message);
+            public void onClick(View view) {
+                // we have the noteID from message
+                Executors.newSingleThreadExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        noteDb.notesDao().deleteFromNotes(message);
+                    }
+                });
+
+                Intent intent = new Intent(NoteDetail.this, HomePage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
 
-        Intent intent = new Intent(NoteDetail.this, HomePage.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
     }
-
-
 }

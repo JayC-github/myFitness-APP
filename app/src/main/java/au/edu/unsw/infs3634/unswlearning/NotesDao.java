@@ -49,4 +49,8 @@ public interface NotesDao {
     //Updates existing note body with provided noteID
     @Query("UPDATE Note SET noteBody = :body where noteId == :id")
     void updateNoteBody(String id, String body);
+
+    //Updates existing note time with provided noteID
+    @Query("UPDATE Note SET latestUpdate = :currentDateTime where noteId == :id")
+    void updateNoteTime(String id, String currentDateTime);
 }

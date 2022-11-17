@@ -16,6 +16,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
@@ -93,8 +95,8 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                 mName.setText(lesson.getName());
                                 mType.setText(lesson.getType());
                                 mMuscle.setText(lesson.getMuscle());
-                                mEquipment.setText(lesson.getEquipment());
-                                mDifficulty.setText(lesson.getDifficulty());
+                                mEquipment.setText(StringUtils.capitalize(lesson.getEquipment()));
+                                mDifficulty.setText(StringUtils.capitalize(lesson.getDifficulty()));
                                 mInstructions.setText(lesson.getInstructions());
 
                                 ytPlayer.initialize(api_key, new YouTubePlayer.OnInitializedListener() {
@@ -157,8 +159,8 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                         mName.setText(lesson.getName());
                                         mType.setText(lesson.getType());
                                         mMuscle.setText(lesson.getMuscle());
-                                        mEquipment.setText(lesson.getEquipment());
-                                        mDifficulty.setText(lesson.getDifficulty());
+                                        mEquipment.setText(StringUtils.capitalize(lesson.getEquipment()));
+                                        mDifficulty.setText(StringUtils.capitalize(lesson.getDifficulty()));
                                         mInstructions.setText(lesson.getInstructions());
 
                                         // Use another API to get the URL link of the name
@@ -244,12 +246,13 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
     }
 
-    //method to launch note detail
+    // method to launch note detail
     public void startNoteDetail(View view) {
-        String group = mMuscle.getText().toString();
-        Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);//not sure about where this leads tbh
-        intent.putExtra(INTENT_MESSAGE, group);
+        String exercise_name = mName.getText().toString();
+        Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);
+        intent.putExtra(INTENT_MESSAGE, exercise_name);
         // add a flag to check noteDetail is load from exerciseDetail or noteAdapter
+        // from here then we know the note is launch from exercise detail
         intent.putExtra("FLAG", "exercise");
         startActivity(intent);
     }

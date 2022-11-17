@@ -23,6 +23,8 @@ public class QuizResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_results_page);
 
+        setTitle("Result page");
+
         home_btn = findViewById(R.id.btnResult);
         final_result = findViewById(R.id.tvResult);
         ratingBar = findViewById(R.id.ratingBar);

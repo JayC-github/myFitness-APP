@@ -17,6 +17,8 @@ import androidx.room.Room;
 
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,7 +68,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         //update lesson detail
         Lesson lesson = mLessonsFiltered.get(position);
         holder.tvLessonName.setText(lesson.getName());
-        holder.tvLessonDifficulty.setText(lesson.getDifficulty());
+        holder.tvLessonDifficulty.setText(StringUtils.capitalize(lesson.getDifficulty()));
         holder.itemView.setTag(lesson.getName());
 
         // https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android

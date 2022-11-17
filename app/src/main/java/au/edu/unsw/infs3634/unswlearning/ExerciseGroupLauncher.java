@@ -34,9 +34,9 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         setContentView(R.layout.lesson_page);
 
         // set Title
-        setTitle("Exercise Group");
+        setTitle("Muscle Group");
 
-        // get handle to correspoding recyclerview
+        // get handle to corresponding recyclerview
         recyclerViewHome = findViewById(R.id.rvListHome);
 
         //initialise the recyclerview layout manager

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/white"
     tools:context=".ExerciseDetail">
 
     <com.google.android.youtube.player.YouTubePlayerView
@@ -21,13 +21,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svExerciseDetail" />
 
-
     <TextView
         android:id="@+id/tvExerciseName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
+        android:background="@color/yellow"
         android:fontFamily="sans-serif-medium"
         android:text="Name"
         android:textColor="#000000"
@@ -41,7 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:background="@drawable/border"
         android:fontFamily="sans-serif-medium"
+        android:padding="5dp"
         android:text="Type"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -55,7 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/border"
         android:fontFamily="sans-serif-medium"
+        android:padding="5dp"
         android:text="MuscleGroup"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -80,31 +84,31 @@
         android:fontFamily="sans-serif-medium"
         android:text="Difficulty"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/tvExerciseType"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <Button
         android:id="@+id/btnTakeNote"
         android:layout_width="68dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="25dp"
         android:background="@drawable/border2"
         android:onClick="startNoteDetail"
         android:text="Add Note"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvExerciseName" />
+        app:layout_constraintTop_toTopOf="@+id/tvExerciseMuscle" />
 
     <ScrollView
         android:id="@+id/svExerciseDetail"
         android:layout_width="347dp"
         android:layout_height="173dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="18dp"
-        android:background="#FAE988"
+        android:background="@drawable/border_grey"
         app:layout_constraintBottom_toTopOf="@+id/ytPlayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,8 +123,8 @@
                 android:id="@+id/tvExerciseInstruction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Instructions"
                 android:textColor="#000000" />
@@ -132,8 +136,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@color/yellow"
         android:text="Exercise Level:"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvExerciseMuscle"
         app:layout_constraintTop_toBottomOf="@+id/tvExerciseMuscle" />
@@ -143,8 +149,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@color/yellow"
         android:text="Equipment:"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -154,6 +162,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@color/yellow"
         android:text="Instruction"
         android:textColor="#000000"
         android:textSize="16sp"
