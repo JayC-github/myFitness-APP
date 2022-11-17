@@ -78,5 +78,6 @@ public class LoginActivity extends AppCompatActivity {
     private void launchMainActivity() {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
+        finish();
     }
 }
