@@ -59,8 +59,6 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
 
         //create asynchronous database call using Java Runnable
         Executors.newSingleThreadExecutor().execute(new Runnable() {
-
-
             @Override
             public void run() {
                 List<Note> allNotes = noteDb.notesDao().getAllNotes();

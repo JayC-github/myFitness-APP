@@ -46,7 +46,7 @@ public class HomePage extends AppCompatActivity {
         //selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
 
         // setTitle - change the name later
-        setTitle("UNSW FITNESS");
+        setTitle("myUNSW Fitness");
 
         // set Group pictures and all the other pics
 //        selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,

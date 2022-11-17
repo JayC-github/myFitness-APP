@@ -55,6 +55,7 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
 
         Intent intent = getIntent();
         String quizName = intent.getStringExtra(INTENT_MESSAGE);
+        setTitle(quizName);
 
         // start getting a list of data
         // get the quiz and the lenght of quiz
@@ -199,7 +200,7 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
             if (clickBtn.getText().toString().equals("SUBMIT")) {
                 // make sure user select an option
                 if (selectedOption == "") {
-                    Toast.makeText(QuizDetail.this, "Please select an Answer!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizDetail.this, "Please choose an option!", Toast.LENGTH_SHORT).show();
                 } else {
                     // COMPARE the answer
                     Log.d(TAG, selectedOption);
