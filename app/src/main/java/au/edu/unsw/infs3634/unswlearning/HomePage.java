@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomePage extends AppCompatActivity {
     //Strings to check intents and msgs
     private static final String TAG = "HomePage";
@@ -26,7 +28,7 @@ public class HomePage extends AppCompatActivity {
     private String selectedGroup;
     private ImageView selectedGroupPic, hubLesson, hubQuiz, hubNote;
 
-    private TextView selectedGroupName;
+    private TextView user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class HomePage extends AppCompatActivity {
 
         // get the elements from the hub_page we need
         selectedGroupPic = findViewById(R.id.ivSelectedGroup);
+        user_name = findViewById(R.id.user_name);
         hubLesson = findViewById(R.id.ivHubLesson);
         hubQuiz = findViewById(R.id.ivHubQuiz);
         hubNote = findViewById(R.id.ivHubNote);
@@ -52,12 +55,10 @@ public class HomePage extends AppCompatActivity {
 //        selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
 //                "drawable", "au.edu.unsw.infs3634.unswlearning"));
         selectedGroupPic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.homepage_symbol));
+        user_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         hubLesson.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.lesson2));
         hubQuiz.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.quiz2));
         hubNote.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.note2));
-
-
-
     }
 
     //method to launch lesson homepage from hub

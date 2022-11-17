@@ -94,8 +94,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
                 @Override
                 public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
                     Log.d(TAG, "Youtube API success");
-                    // Log.d(TAG, response.toString());
-                    // Log.d(TAG, String.valueOf(response.body()));
+                     Log.d(TAG, response.toString());
+                     Log.d(TAG, String.valueOf(response.body()));
                     // to handle exceed quota
                     if (response.code() == 200) {
                         String image_url = response.body().getItems().get(0).getSnippet().getThumbnails().getHigh().getUrl();
