@@ -40,7 +40,6 @@ public class QuizResult extends AppCompatActivity {
         final_result.setText(msg);
         // get total question
         int total_question = intent.getIntExtra("total_question", 0);
-        Log.d("QuizResult", "Is it chaing the rating bar?" + total_question);
         ratingBar.setNumStars(total_question);
         // get the total score
         int score = intent.getIntExtra("total_score", 0);

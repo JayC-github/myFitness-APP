@@ -221,8 +221,8 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         // user clicked the submit btn
         // need to check if it's submit or next
         if (clickBtn.getId() == R.id.quiz_submit) {
-            Log.d(TAG, "Click submit/next btn");
-            Log.d(TAG, clickBtn.getText().toString());
+            // Log.d(TAG, "Click submit/next btn");
+            // Log.d(TAG, clickBtn.getText().toString());
             // if the btn is submit
             if (clickBtn.getText().toString().equals("SUBMIT")) {
                 // make sure user select an option

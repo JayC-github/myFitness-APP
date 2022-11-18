@@ -83,7 +83,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             String message = intent.getStringExtra(INTENT_MESSAGE);
-            Log.d(TAG, "Intent Message = " + message);
+            Log.d(TAG, "Exercise name = " + message);
 
             // get the database
             lessonDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database").fallbackToDestructiveMigration().build();
@@ -95,7 +95,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                 @Override
                 public void run() {
                     if (lessonDb.lessonDao().getLesson(message) != null) {
-                        Log.d(TAG, "Exist in database, just load it!!");
+                        Log.d(TAG, "Lesson exist in database, just load them!");
                         Lesson lesson = lessonDb.lessonDao().getLesson(message);
                         runOnUiThread(new Runnable() {
                             @Override

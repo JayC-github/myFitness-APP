@@ -68,7 +68,6 @@ public class NoteDetail extends AppCompatActivity {
         // the message will be either noteID or exercise name
         String message = intent.getStringExtra(INTENT_MESSAGE);
         String flag = intent.getStringExtra("FLAG");
-        Log.d(TAG, message + flag);
 
 
         // this is used to determine if the note detail page is open from exercise detail or note home page

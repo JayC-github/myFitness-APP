@@ -105,10 +105,10 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                             // if lessonList exist already, it means already load into database, no need to call API
                             // else need to get the youtube url of the exercise and store into LessonList too
                             if (lessonDb.lessonDao().getLessonGroupNum(selectedGroup) > 0) {
-                                Log.d(TAG, "data exist in the database, no need to load it again");
+                                Log.d(TAG, "Data exist in the database, no need to load it again");
                             // need to load data into database
                             } else {
-                                Log.d(TAG, "data does not exist in the database, need to load it with group and image");
+                                Log.d(TAG, "Data does not exist in the database, need to load it with group and image");
                                 for (Lesson lesson: lessons) {
                                     // set group for each lesson at least
                                     lesson.setGroup(selectedGroup);
@@ -118,7 +118,6 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                             }
 
                             lessonList = lessonDb.lessonDao().getLessonGroup(selectedGroup);
-                            Log.d(TAG, "the database should work" + lessonList.toString());
 
                             runOnUiThread(new Runnable() {
                                 @Override

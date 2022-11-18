@@ -110,7 +110,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
                 @Override
                 public void onResponse(Call<YoutubeDataResponse> call, Response<YoutubeDataResponse> response) {
-                    Log.d(TAG, "Youtube API success");
+                     Log.d(TAG, "Youtube API success");
                      Log.d(TAG, response.toString());
                      Log.d(TAG, String.valueOf(response.body()));
                     // to handle exceed quota
