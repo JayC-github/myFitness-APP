@@ -89,7 +89,7 @@ public class Quiz {
         String questions1[]  = {
                 "Who's the best basketball player?",
                 "What's the most popular sport in the world?",
-                "How to live a healthy life?",
+                "How to live a healthy lifestyle?",
         };
 
         String options1[] = {
