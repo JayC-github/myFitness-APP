@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * class for home page of the application
+ */
 public class HomePage extends AppCompatActivity {
     //Strings to check intents and msgs
     private static final String TAG = "HomePage";
@@ -22,14 +25,16 @@ public class HomePage extends AppCompatActivity {
     
     // for taking note API
     private Button btnLaunchNote;
-    //private TextView selectedGroup;
-    
-    // selectedGroup -> Image, name
+
     private String selectedGroup;
     private ImageView selectedGroupPic, hubLesson, hubQuiz, hubNote;
 
     private TextView user_name;
 
+    /**
+     * on create method for home page with user name
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +49,11 @@ public class HomePage extends AppCompatActivity {
         hubNote = findViewById(R.id.ivHubNote);
 
 
-        // get the name of the exercise group, set selectGroup, image and name
-        //Intent intent = getIntent();
-        //selectedGroup = intent.getStringExtra(INTENT_MESSAGE);
 
-        // setTitle - change the name later
+        // setTitle
         setTitle("myUNSW Fitness");
 
         // set Group pictures and all the other pics
-//        selectedGroupPic.setImageResource(getResources().getIdentifier(selectedGroup,
-//                "drawable", "au.edu.unsw.infs3634.unswlearning"));
         selectedGroupPic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.homepage_symbol));
         user_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         hubLesson.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.lesson2));
@@ -61,19 +61,28 @@ public class HomePage extends AppCompatActivity {
         hubNote.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.note2));
     }
 
-    //method to launch lesson homepage from hub
+    /**
+     * method to launch lesson homepage from hub
+     * @param view      current view
+     */
     public void startLessonHomePage(View view) {
         Intent intent = new Intent(HomePage.this, ExerciseGroupLauncher.class);
         startActivity(intent);
     }
 
-    //method to launch quiz homepage from hub
+    /**
+     * method to launch quiz homepage from hub
+     * @param view      current view
+     */
     public void startQuizHomePage(View view) {
         Intent intent = new Intent(HomePage.this, QuizLauncher.class);
         startActivity(intent);
     }
 
-    //method to launch note homepage from hub
+    /**
+     * method to launch notes homepage from hub
+     * @param view      current view
+     */
     public void startNoteHomePage(View view) {
         Intent intent = new Intent(HomePage.this, NoteLauncher.class);
         intent.putExtra(ExerciseDetail.INTENT_MESSAGE, selectedGroup);

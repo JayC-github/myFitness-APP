@@ -30,6 +30,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * The ExerciseDetail class is used to update the corresponding .XML file
+ * with the correct exercise details
+ */
 public class ExerciseDetail extends YouTubeBaseActivity {
 
     //api key for youtube api
@@ -47,10 +51,16 @@ public class ExerciseDetail extends YouTubeBaseActivity {
     private TextView mDifficulty;
     private TextView mInstructions;
     private Button mNoteLaunch;
-    //private YouTubePlayerView mPlayer;
     private MainDatabase lessonDb;
 
-
+    /**
+     * onCreate method for ExerciseDetail that assigns views and updates views with corresponding
+     * lesson details using intent from ExerciseGroupLauncher by sending API call and receiving data
+     * from API, which is stored locally. If lessons have been loaded before, these details are
+     * pulled directly from local database. Concurrently initialize YoutubePlayer using Youtube API,
+     * which will notify user if initialization fails
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +90,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
 
             // if lesson detail not exist in the database
             // very unlikely
-            // if exist, just load everything from databse
+            // if exist, just load everything from database
             Executors.newSingleThreadExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -129,12 +139,9 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                             }
                         });
                     } else {
-                        // this part should not touch
-                        // but if did should also run on unithread
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                // Lesson lesson = Lesson.findLesson(message);
                                 /** Execute an API call to get exercise detail with the exercise name */
                                 /** execute an API call to get all lessons of that body part(muscle)*/
                                 Retrofit retrofit = new Retrofit.Builder()
@@ -152,7 +159,6 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                         Log.d(TAG, response.toString());
                                         Log.d(TAG, String.valueOf(response.body()));
                                         // get the lesson here
-                                        //lessonList = response.body();
                                         Lesson lesson = response.body().get(0);
                                         // get the lesson's info, set it
                                         setTitle(lesson.getName());
@@ -171,7 +177,7 @@ public class ExerciseDetail extends YouTubeBaseActivity {
                                                 .build();
 
                                         YoutubeDataService service2 = retrofit2.create(YoutubeDataService.class);
-                                        // add an exercise keyword to get the actual exercise video haha
+                                        // add an exercise keyword to get the actual exercise video
                                         Call<YoutubeDataResponse> youtubeCall = service2.getVideoByName(lesson.getName() + " Exercise");
 
                                         youtubeCall.enqueue(new Callback<YoutubeDataResponse>() {
@@ -245,14 +251,15 @@ public class ExerciseDetail extends YouTubeBaseActivity {
         }
 
     }
-
-    // method to launch note detail
+    /**
+     * method to launch note when button clicked, with flag to check if noteDetail is loaded from
+     * exerciseDetail or noteAdapter
+     * @param view      the current exerciseDetail view
+     */
     public void startNoteDetail(View view) {
         String exercise_name = mName.getText().toString();
         Intent intent = new Intent(ExerciseDetail.this, NoteDetail.class);
         intent.putExtra(INTENT_MESSAGE, exercise_name);
-        // add a flag to check noteDetail is load from exerciseDetail or noteAdapter
-        // from here then we know the note is launch from exercise detail
         intent.putExtra("FLAG", "exercise");
         startActivity(intent);
     }

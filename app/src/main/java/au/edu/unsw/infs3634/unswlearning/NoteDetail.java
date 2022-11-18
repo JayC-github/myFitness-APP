@@ -17,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Executors;
 
+/**
+ * The NoteDetail class is used to update the corresponding .XML file
+ * with the correct note details
+ */
 public class NoteDetail extends AppCompatActivity {
 
     // strings to check intents and messages
@@ -37,7 +41,11 @@ public class NoteDetail extends AppCompatActivity {
     // current time
     private String currentDataTime;
 
-
+    /**
+     * oncreate method to assign views and update them with corresponding note details using intent
+     * from NoteLauncher and database stored locally using room database
+     * @param savedInstanceState reference to bundle object passed into on create method
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +70,7 @@ public class NoteDetail extends AppCompatActivity {
         String flag = intent.getStringExtra("FLAG");
         Log.d(TAG, message + flag);
 
-//       mNoteID.setText(message);
-//       mNoteMuscleGroup.setText("");
+
         // this is used to determine if the note detail page is open from exercise detail or note home page
         // or if it is an exercise group, if its less than 3 chars then its a note,
         // will fill fields in with note info
@@ -87,10 +94,13 @@ public class NoteDetail extends AppCompatActivity {
             mSaveBtn.setText("SUBMIT");
         }
 
+        /**
+         * saves current time and updates database with updated note details
+         */
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get the current Date nad time
+                // get the current Date and time
                 SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
                 Date date = new Date(System.currentTimeMillis());
                 String currentDateTime = formatter.format(date);
@@ -136,7 +146,11 @@ public class NoteDetail extends AppCompatActivity {
             }
         });
 
-        // can only call it when it's from node, so message = id
+
+        /**
+         *  can only call it when it's from node, so message = id
+         *  deletes note from database
+         */
         mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

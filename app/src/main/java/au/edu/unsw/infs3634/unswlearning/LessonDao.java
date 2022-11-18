@@ -9,6 +9,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Dao interface for sql queries for lessons
+ */
 @Dao
 public interface LessonDao {
     // return list of lesson from the table
@@ -43,7 +46,9 @@ public interface LessonDao {
     @Delete
     void deleteLesson(Lesson... lessons);
 
-    // insert list of lesson into lesson table
+    /**
+     * insert list of lesson into lesson table
+     */
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insertLessons(Lesson... lessons);
 }

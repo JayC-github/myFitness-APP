@@ -10,6 +10,9 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to manage launching of quiz recyclerview
+ */
 public class QuizLauncher extends AppCompatActivity implements RecyclerViewInterface{
     private static final String TAG = "QuizLauncher";
     public static final String INTENT_MESSAGE = "intent_message";
@@ -21,6 +24,11 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
     // a list of quizzes will generated manually
     private List<Quiz> quizList = new ArrayList<>();
 
+    /**
+     * on create method for this class, sets up adapters for recyclerview and initialises it with
+     * quiz data, and connects it to the recyclerview, using locally stored arrays
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +37,7 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
         // this message will get used for quiz database too
         setTitle("Quiz Page");
 
-        // this part is always similar
         recyclerViewQuiz = findViewById(R.id.rvListQuiz);
-        // or getApplicationContext() instead of this, but same thing
         layoutManager = new LinearLayoutManager(this);
         recyclerViewQuiz.setLayoutManager(layoutManager);
 
@@ -39,15 +45,16 @@ public class QuizLauncher extends AppCompatActivity implements RecyclerViewInter
         quizList = Quiz.getQuizzes();
         quizAdapter = new QuizAdapter(quizList, this);
 
-        // create a database here for storing all the generated data later
-        // also update all the data in quizAdapter
-
 
         recyclerViewQuiz.setAdapter(quizAdapter);
 
 
     }
 
+    /**
+     * method that launches quiz when item in recyclerview is clicked
+     * @param group     string quiz that was clicked
+     */
     @Override
     public void onItemClick(String group) {
         Intent intent = new Intent(this, QuizDetail.class);

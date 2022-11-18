@@ -7,6 +7,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Dao interface for sql queries for notes
+ */
 @Dao
 public interface NotesDao {
 

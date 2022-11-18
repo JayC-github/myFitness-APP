@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+/**
+ * class to manage quiz results
+ */
 public class QuizResult extends AppCompatActivity {
 
     // get the home btn and all the other elements
@@ -17,7 +20,10 @@ public class QuizResult extends AppCompatActivity {
     private RatingBar ratingBar;
     private TextView final_result;
 
-
+    /**
+     * on create method to set up the quiz with the questions, options, and score
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +35,6 @@ public class QuizResult extends AppCompatActivity {
         final_result = findViewById(R.id.tvResult);
         ratingBar = findViewById(R.id.ratingBar);
 
-        // get the final message, and that's all.
         Intent intent = getIntent();
         String msg = intent.getStringExtra("final_result");
         final_result.setText(msg);
@@ -41,7 +46,9 @@ public class QuizResult extends AppCompatActivity {
         int score = intent.getIntExtra("total_score", 0);
         ratingBar.setRating(score);
 
-
+        /**
+         * method to return user to home page after theyve finished viewing their results
+         */
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,17 +59,7 @@ public class QuizResult extends AppCompatActivity {
             }
         });
 
-        // set it not changeable
-        //ratingBar.setIsIndicator(true);
 
-
-//        home_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(QuizResult.this, ExerciseGroupLauncher.class);
-//                startActivity(intent);
-//            }
-//        });
 
     }
 }

@@ -9,6 +9,9 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/**
+ * This Interface is
+ */
 public interface ExerciseDBService {
     @Headers("X-RapidAPI-Key: e03f9eca93msh9033f0ab5b6deedp10422djsn9f01ea6f3970")
     @GET("v1/exercises")

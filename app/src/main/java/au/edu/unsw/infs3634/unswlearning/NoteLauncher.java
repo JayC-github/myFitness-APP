@@ -16,7 +16,9 @@ import androidx.room.Room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
-
+/**
+ * Class to manage launching of note recyclerview
+ */
 public class NoteLauncher extends AppCompatActivity implements RecyclerViewInterface{
     //Strings to check intents and msgs
     private static final String TAG = "NoteLauncher";
@@ -32,7 +34,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
     private RecyclerView.LayoutManager layoutManager;
     private MainDatabase noteDb;
 
-
+    /**
+     * on create method for this class, sets up adapters for recyclerview and initialises it with
+     * note data, and connects it to the recyclerview
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +55,6 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
 
         // Initialise the adapter with an empty arraylist
         noteAdapter = new NoteAdapter(this, new ArrayList<>(), this);
-
-
-        // List<Note> finalNote = new ArrayList<>();
 
         noteDb = Room.databaseBuilder(getApplicationContext(), MainDatabase.class, "main-database")
                 .fallbackToDestructiveMigration()
@@ -82,7 +85,10 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         recyclerViewNote.setAdapter(noteAdapter);
     }
 
-    //method to launch note detail
+    /**
+     * method to launch note detail
+     * @param msg   passed note that was clicked
+     */
     public void launchNote(String msg) {
         Intent intent = new Intent(NoteLauncher.this, NoteDetail.class);
         intent.putExtra(INTENT_MESSAGE, msg);
@@ -90,12 +96,19 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         startActivity(intent);
     }
 
-    //calls launchNote method when item in recyclerview is clicked
+    /**
+     * method that calls launchnote when item in recyclerview is clicked
+     * @param note     string note that was clicked
+     */
     @Override
     public void onItemClick(String note) { launchNote(note); }
 
 
-    //instantiates the menu for notes
+    /**
+     * method to instantiates the menu for notes
+     * @param menu      menu for note recyclerview
+     * @return          boolean of if menu was successfully created or if there were changes made
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -118,7 +131,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         return true;
     }
 
-    //reacts to user interaction with the menu when sorting
+    /**
+     * reacts to user interaction with the menu when sorting
+     * @param item      selected menu item
+     * @return          boolean of if the sort was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -130,7 +147,11 @@ public class NoteLauncher extends AppCompatActivity implements RecyclerViewInter
         }
     }
 
-    // just to get a proper search symbol
+    /**
+     * method to get a proper search symbol
+     * @param menu      menu for note recyclerview
+     * @return          boolean of if the search was successful
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem searchViewMenuItem = menu.findItem(R.id.noteSearch);

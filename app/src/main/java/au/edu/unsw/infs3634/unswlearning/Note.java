@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-//note object declaration
+/**
+ * Note object declaration
+ */
 @Entity
 public class Note {
     @PrimaryKey
@@ -18,6 +20,14 @@ public class Note {
     private String noteTitle;
     private String latestUpdate;
 
+    /**
+     * constructor for notes
+     * @param noteID            unique identifier for note
+     * @param selectedExercise  which exercise the note was made for
+     * @param noteTitle         note title
+     * @param noteBody          note contents
+     * @param latestUpdate      last updated time
+     */
     public Note(String noteID, String selectedExercise, String noteTitle, String noteBody, String latestUpdate) {
         this.noteID = noteID;
         this.selectedExercise = selectedExercise;

@@ -27,6 +27,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Class to manage launching of lesson recyclerview
+ */
 public class LessonLauncher extends AppCompatActivity implements RecyclerViewInterface {
     //Strings to check intents and msgs
     private static final String TAG = "LessonLauncher";
@@ -47,7 +50,12 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
     // a lesson table in database
     private MainDatabase lessonDb;
 
-
+    /**
+     * on create method for this class, sets up adapters for recyclerview and initialises it with
+     * lesson data, and connects it to the recyclerview, using API calls and storing them in the a
+     * database
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +70,6 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
             Log.d(TAG, "Exercise Group name = " + selectedGroup);
             setTitle(StringUtils.capitalize(selectedGroup) + " Exercise");
 
-            // this part is always similar
             recyclerViewLesson = findViewById(R.id.rvListLesson);
             layoutManager = new LinearLayoutManager(this);
             recyclerViewLesson.setLayoutManager(layoutManager);
@@ -89,10 +96,8 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                     Log.d(TAG, response.toString());
                     Log.d(TAG, String.valueOf(response.body()));
                     // get the lesson list (a list of lesson object)
-                    // lessonList = response.body();
+
                     List<Lesson> lessons = response.body();
-                    // String first_lesson_name = lessons.get(0).getName();
-                    //Log.d(TAG, lessonList.get(0).getName());
 
                     Executors.newSingleThreadExecutor().execute(new Runnable() {
                         @Override
@@ -101,7 +106,6 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                             // else need to get the youtube url of the exercise and store into LessonList too
                             if (lessonDb.lessonDao().getLessonGroupNum(selectedGroup) > 0) {
                                 Log.d(TAG, "data exist in the database, no need to load it again");
-                                // lessonDb.lessonDao().deleteAll();
                             // need to load data into database
                             } else {
                                 Log.d(TAG, "data does not exist in the database, need to load it with group and image");
@@ -113,12 +117,9 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                                 }
                             }
 
-                            // either way we'll get a list of exercise
-                            // try to get it by group
                             lessonList = lessonDb.lessonDao().getLessonGroup(selectedGroup);
                             Log.d(TAG, "the database should work" + lessonList.toString());
 
-                            // the rest should run on uni thread
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -139,27 +140,36 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
                 }
             });
 
-            // lessonAdapter = new LessonAdapter(this, lessonList, this);
-            // connec the adapter to the recyclerview
+            // connect the adapter to the recyclerview
             recyclerViewLesson.setAdapter(lessonAdapter);
         }
     }
 
-    //method to launch exercise detail
+
+    /**
+     * method to launch exercise detail
+     * @param msg     passed lesson name that was clicked
+     */
     public void launchLesson(String msg) {
         Intent intent = new Intent(LessonLauncher.this, ExerciseDetail.class);
         intent.putExtra(INTENT_MESSAGE, msg);
-        //intent.putExtra("Youtube_Link", msg);
         startActivity(intent);
     }
 
-    //calls launchLesson method when item in recyclerview is clicked
+    /**
+     * method that calls launchlesson when item in recyclerview is clicked
+     * @param lesson     string lesson that was clicked
+     */
     @Override
     public void onItemClick(String lesson) {
         launchLesson(lesson);
     }
 
-    //instantiates the menu for lessons
+    /**
+     * instantiates the menu for lessons
+     * @param       menu for lesson recyclerview
+     * @return      boolean of if menu was successfully created or if there were changes made
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -182,7 +192,11 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
         return true;
     }
 
-    //reacts to user interaction with the menu when sorting
+    /**
+     * reacts to user interaction with the menu when sorting
+     * @param item      selected menu item
+     * @return          boolean of if the sort was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -197,7 +211,11 @@ public class LessonLauncher extends AppCompatActivity implements RecyclerViewInt
         }
     }
 
-    // just to get a proper search symbol
+    /**
+     * method to get a proper search symbol
+     * @param menu      menu for exercise group recyclerview
+     * @return          boolean of if the search was successful
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem searchViewMenuItem = menu.findItem(R.id.lessonHomeSearch);

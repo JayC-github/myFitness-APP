@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Adapter class for exercise group recyclerview
+ */
 public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdapter.MyViewHolder> implements Filterable {
     //declared context for exercise group adapter
     Context mContextExerciseGroups;
@@ -29,7 +32,13 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
     // for sorting, now we only have one
     public static final int SORT_METHOD_NAME = 1;
 
-    // constructor for the ExerciseGroup adapter
+
+    /**
+     * constructor for the ExerciseGroup adapter
+     * @param exerciseGroups   list of exercise groups
+     * @param rvInterface      the exercise group recyclerview interface
+     * @param context          declared context for exercise groups
+     */
     public ExerciseGroupAdapter(ArrayList<ExerciseGroup> exerciseGroups, RecyclerViewInterface rvInterface, Context context) {
         mExerciseGroups = exerciseGroups;
         mExerciseGroupsFiltered = exerciseGroups;
@@ -37,8 +46,15 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
         mContextExerciseGroups = context;
     }
 
-    // the method to help construct list rows in the RecycleView
+    // the method to help construct list rows in the RecyclerView
     // Create new views (invoked by the layout manager)
+
+    /**
+     * method to help construct list rows in the RecyclerView
+     * @param parent    parent view
+     * @param viewType  viewType of parent
+     * @return          the updated ViewHolder
+     */
     @NonNull
     @Override
     public ExerciseGroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,27 +62,37 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
         return new MyViewHolder(view, recyclerViewInterface);
     }
 
-    // this method is to programmatically change the text values of the list row layout
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * method to update each list row item with corresponding exercise group name and image
+     * @param holder    viewholder for exercise group adapter
+     * @param position  position of corresponding exercise group in the recyclerview list
+     */
     @Override
     public void onBindViewHolder(@NonNull ExerciseGroupAdapter.MyViewHolder holder, int position) {
         ExerciseGroup exerciseGroup = mExerciseGroupsFiltered.get(position);
         // set TextView:TargetArea by name
         holder.tvTargetArea.setText(StringUtils.capitalize(exerciseGroup.getName()));
-        // set ImageView: TargetArea
 
+        // set ImageView: TargetArea
         holder.ivExerciseGroup.setImageResource(mContextExerciseGroups.getResources().getIdentifier(exerciseGroup.getName() + "1",
                 "drawable", mContextExerciseGroups.getPackageName()));
         holder.itemView.setTag(exerciseGroup.getName());
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * method to return size of dataset
+     * @return      size of dataset
+     */
     @Override
     public int getItemCount() {
         return mExerciseGroupsFiltered.size();
     }
 
-    //returns updated list when searched
+
+    /**
+     * method to return and update recyclerview with filtered list of exercise groups when searched
+     * @return      filterResults with values from filtered arrayList
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -99,13 +125,11 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
     }
 
 
+
+
     /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
+     * find handle to view items from home_list_row.xml layout
      */
-    // create a ViewHolder pattern
-    // provide a reference to the type of view that you are using
-    // contains the code to link the XML files with the Adapter
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivExerciseGroup;
         TextView tvTargetArea;
@@ -125,8 +149,10 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
         }
 
     }
-
-    //sort methods for list
+    /**
+     * method for sorting exercise groups and updating the recyclerview
+     * @param sortMethod    method to sort by name alphabetically
+     */
     public void sort(final int sortMethod) {
         if (mExerciseGroupsFiltered.size() > 0) {
             Collections.sort(mExerciseGroupsFiltered, new Comparator<ExerciseGroup>() {
@@ -135,7 +161,7 @@ public class ExerciseGroupAdapter extends RecyclerView.Adapter<ExerciseGroupAdap
                     if (sortMethod == SORT_METHOD_NAME) {
                         return g1.getName().compareTo(g2.getName());
                     } // else if sort by something else
-                    // By default sort the list by coin name
+                    // By default sort the list by group name
                     return g1.getName().compareTo(g2.getName());
                 }
 

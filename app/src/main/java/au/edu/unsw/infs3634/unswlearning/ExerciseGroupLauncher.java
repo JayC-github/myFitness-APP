@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-// RecyclerViewInterface will be used by all Launcher need RecyclerView
+/**
+ * Class to manage launching of exercise group recyclerview
+ */
 public class ExerciseGroupLauncher extends AppCompatActivity implements RecyclerViewInterface {
     //implements the recyclerview object
     private RecyclerView recyclerViewHome;
@@ -26,7 +28,11 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
     private static final String INTENT_MESSAGE = "intent_message";
 
 
-
+    /**
+     * on create method for this class, sets up adapters for recyclerview and initialises it with
+     * exercise group data, and connects it to the recyclerview
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +56,11 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         recyclerViewHome.setAdapter(exerciseGroupAdapter);
     }
 
-    //method to launch hub controller
+
+    /**
+     * method to launch hub controller
+     * @param exerciseGroup     passed exercise group that was clicked
+     */
     public void launchHub(String exerciseGroup) {
         // ExerciseGroupLauncher.this = this, (HomePage = DetailActivity kinda)
         // replace HomePage by LessonLauncher
@@ -59,13 +69,20 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         startActivity(intent);
     }
 
-    //calls launchHub method when item in recyclerview is clicked
+    /**
+     * method that calls launchhub when item in recyclerview is clicked
+     * @param exerciseGroup     string exercise group that was clicked
+     */
     @Override
     public void onItemClick(String exerciseGroup) {
         launchHub(exerciseGroup);
     }
 
-    //instantiates the menu for exercisegroups
+    /**
+     * method to instantiates the menu for exercise groups
+     * @param menu      menu for exercise group recyclerview
+     * @return          boolean of if menu was successfully created or if there were changes made
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -88,7 +105,13 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         return true;
     }
 
-    //reacts to user interaction with the menu when sorting
+
+
+    /**
+     * reacts to user interaction with the menu when sorting
+     * @param item      selected menu item
+     * @return          boolean of if the sort was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -100,7 +123,12 @@ public class ExerciseGroupLauncher extends AppCompatActivity implements Recycler
         }
     }
 
-    // just to get a proper search symbol
+
+    /**
+     * method to get a proper search symbol
+     * @param menu      menu for exercise group recyclerview
+     * @return          boolean of if the search was successful
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem searchViewMenuItem = menu.findItem(R.id.homeSearch);

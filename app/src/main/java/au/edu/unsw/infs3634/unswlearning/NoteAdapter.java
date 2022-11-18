@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-//adapter for note recyclerview
+
+/**
+ * adapter for note recyclerview
+ */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> implements Filterable {
 
     //declared context for note adapter
@@ -23,7 +26,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
 
-    //constructor method
+    /**
+     * constructor for lesson adapter
+     * @param context           declared context for notes
+     * @param notes             list of notes
+     * @param rvInterface       the note recyclerview interface
+     */
     public NoteAdapter(Context context, ArrayList<Note> notes, RecyclerViewInterface rvInterface) {
         mContextNotes = context;
         mNotes = notes;
@@ -31,6 +39,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         recyclerViewInterface = rvInterface;
     }
 
+    /**
+     * method to help construct list rows in the RecyclerView
+     * @param parent    parent view
+     * @param viewType  viewType of parent
+     * @return          the updated ViewHolder
+     */
     @NonNull
     @Override
     public NoteAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,23 +54,32 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     }
 
-    //assign value to each row in recyclerview based on position
+    /**
+     * method to update each list row item with corresponding note name and last updated time
+     * @param holder    viewholder for note adapter
+     * @param position  position of corresponding lesson in the recyclerview list
+     */
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
         Note note = mNotesFiltered.get(position);
         holder.tvNoteTitle.setText(note.getNoteTitle());
-        //holder.tvNoteBody.setText(note.getNoteBody());
         holder.tvNoteTime.setText(note.getLatestUpdate());
         holder.itemView.setTag(note.getNoteID());
     }
 
-    //return number of items in recyclerview
+    /**
+     * method to return size of dataset
+     * @return      size of dataset
+     */
     @Override
     public int getItemCount() {
         return mNotesFiltered.size();
     }
 
-    //returns updated list when searched
+    /**
+     * method to return and update recyclerview with filtered list of notes when searched
+     * @return      filterResults with values from filtered arrayList
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -88,7 +111,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         };
     }
 
-    //find handle to view items from note_home_list_row.xml layout
+    /**
+     * find handle to view items from note_list_row.xml layout
+     */
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView tvNoteTitle;
         TextView tvNoteTime;
@@ -110,7 +135,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
 
     }
-    //sort methods for list
+    /**
+     * method for sorting notes and updating the recyclerview
+     * @param sortMethod    method to sort by name alphabetically
+     */
     public void sort(final int sortMethod) {
         if (mNotesFiltered.size() > 0) {
             Collections.sort(mNotesFiltered, new Comparator<Note>() {
@@ -127,7 +155,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
-    //set data to the adapter
+    /**
+     * method to set data to adapter
+     * @param notes     arraylist of notes to be set to adapter
+     */
     public void setNoteData(ArrayList<Note> notes) {
         mNotes.addAll(notes);
         notifyDataSetChanged();

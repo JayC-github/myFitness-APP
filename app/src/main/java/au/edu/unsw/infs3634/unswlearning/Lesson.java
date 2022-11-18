@@ -24,6 +24,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Lesson object declaration
+ */
 @Entity // make java class an entity
 public class Lesson {
     // use name as the primary key
@@ -54,7 +57,15 @@ public class Lesson {
     // try to get and store video id for the exercise
     private String videoId;
 
-
+    /**
+     * constructor for lesson
+     * @param name          name of lesson
+     * @param type          type of lesson
+     * @param muscle        lesson muscle group
+     * @param equipment     equipment needed
+     * @param difficulty    lesson difficulty level
+     * @param instructions  instructions for lesson
+     */
     public Lesson(String name, String type, String muscle, String equipment, String difficulty,
                   String instructions) {
         this.name = name;
@@ -136,13 +147,22 @@ public class Lesson {
         this.videoId = videoId;
     }
 
-    // this was used to generate lesson but useless now
+    /**
+     * method to generate lesson
+     * @return arraylist of lessons
+     */
     public static ArrayList<Lesson> getLesson() {
         ArrayList<Lesson> lessons = new ArrayList<>();
         return lessons;
     }
 
     //method to return searched lesson based on string query
+
+    /**
+     * method to return searched lesson based on string query
+     * @param query     provided query
+     * @return          searched lesson
+     */
     public static Lesson findLesson(String query) {
         ArrayList<Lesson> lessons = Lesson.getLesson();
         for(final Lesson lesson: lessons) {

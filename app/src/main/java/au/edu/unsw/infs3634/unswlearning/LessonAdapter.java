@@ -32,7 +32,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-//adapter for lesson recyclerview
+/**
+ * Adapter class for lesson recyclerview
+ */
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> implements Filterable {
     private static final String TAG = "LessonAdapter";
 
@@ -45,7 +47,12 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     // a lesson table in database
     private MainDatabase lessonDb;
 
-    // constructor method
+    /**
+     * constructor for lesson adapter
+     * @param context           declared context for lessons
+     * @param lessons           list of lessons
+     * @param rvInterface       the lesson recyclerview interface
+     */
     public LessonAdapter(Context context, List<Lesson> lessons, RecyclerViewInterface rvInterface) {
         mContextLessons = context;
         mLessons = lessons;
@@ -54,6 +61,12 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     }
 
 
+    /**
+     * method to help construct list rows in the RecyclerView
+     * @param parent    parent view
+     * @param viewType  viewType of parent
+     * @return          the updated ViewHolder
+     */
     @NonNull
     @Override
     public LessonAdapter.LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -62,7 +75,11 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         return new LessonViewHolder(view, recyclerViewInterface);
     }
 
-    //assign value to each row in recyclerview based on position
+    /**
+     * method to update each list row item with corresponding lesson name and image
+     * @param holder    viewholder for lesson adapter
+     * @param position  position of corresponding lesson in the recyclerview list
+     */
     @Override
     public void onBindViewHolder(@NonNull LessonAdapter.LessonViewHolder holder, int position) {
         //update lesson detail
@@ -130,13 +147,19 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         }
     }
 
-    //return number of items in recyclerview
+    /**
+     * method to return size of dataset
+     * @return      size of dataset
+     */
     @Override
     public int getItemCount() {
         return mLessonsFiltered.size();
     }
 
-    //returns updated list when searched
+    /**
+     * method to return and update recyclerview with filtered list of lessons when searched
+     * @return      filterResults with values from filtered arrayList
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -168,14 +191,19 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         };
     }
 
-    //set data to the adapter
+    /**
+     * set data to the adapter
+     * @param lessons       list of lessons to be set to adapter
+     */
     public void setData(List<Lesson> lessons) {
         mLessons.clear();
         mLessons.addAll(lessons);
         notifyDataSetChanged();
     }
 
-    //find handle to view items from lesson_home_list_row.xml layout
+    /**
+     * find handle to view items from lesson_list_row.xml layout
+     */
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
         ImageView ivLesson;
         TextView tvLessonName;
@@ -198,7 +226,10 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
     }
 
-    //sort methods for list
+    /**
+     * method for sorting lessons and updating the recyclerview
+     * @param sortMethod    method to sort by name alphabetically or level
+     */
     public void sort(final int sortMethod) {
         if (mLessonsFiltered.size() > 0) {
             Collections.sort(mLessonsFiltered, new Comparator<Lesson>() {

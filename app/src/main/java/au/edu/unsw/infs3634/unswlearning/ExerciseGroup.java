@@ -3,7 +3,9 @@ package au.edu.unsw.infs3634.unswlearning;
 import java.sql.Array;
 import java.util.ArrayList;
 
-//exercise group object declaration
+/**
+ * ExerciseGroup object declaration
+ */
 public class ExerciseGroup {
 
     private String name;
@@ -17,7 +19,11 @@ public class ExerciseGroup {
 
     public void setName(String name) {this.name = name;}
 
-    //hardcoded exercise groups for prototype, chose most important groups
+    /**
+     * method to return a list of hardcoded exercise groups for our prototype,
+     * we chose the most relevant groups
+     * @return      ArrayList of hardcoded exercise groups
+     */
     public static ArrayList<ExerciseGroup> getExerciseGroup() {
         ArrayList<ExerciseGroup> groups = new ArrayList<>();
         groups.add(new ExerciseGroup("abdominals"));
@@ -27,10 +33,7 @@ public class ExerciseGroup {
         groups.add(new ExerciseGroup("chest"));
         groups.add(new ExerciseGroup("forearms"));
         groups.add(new ExerciseGroup("glutes"));
-        // groups.add(new ExerciseGroup("hamstring"));
         groups.add(new ExerciseGroup("lats"));
-        // groups.add(new ExerciseGroup("lowerback"));
-        // groups.add(new ExerciseGroup("middleback"));
         groups.add(new ExerciseGroup("neck"));
         groups.add(new ExerciseGroup("quadriceps"));
         groups.add(new ExerciseGroup("traps"));
@@ -40,7 +43,11 @@ public class ExerciseGroup {
 
     }
 
-    //method to return searched group based on string query
+    /**
+     * method to return a specific exercise group based on a searched query
+     * @param query     the search term
+     * @return          the matching ExerciseGroup
+     */
     public static ExerciseGroup findGroup(String query) {
         ArrayList<ExerciseGroup> groups = ExerciseGroup.getExerciseGroup();
         for (final ExerciseGroup group: groups) {

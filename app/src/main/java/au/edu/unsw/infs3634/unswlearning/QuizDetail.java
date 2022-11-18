@@ -18,6 +18,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The QuizDetail class is used to update the corresponding .XML file
+ * with the correct quiz details
+ */
 public class QuizDetail extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "QuizDetail";
     public static final String INTENT_MESSAGE = "intent_message";
@@ -47,6 +51,12 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
     // And the selection history of the quiz
     // ideally it would be: selectedOption, correctOption
     private List<Integer> answer_history = new ArrayList<Integer>();
+
+    /**
+     * oncreate method to assign views and update them with corresponding quiz questions using intent
+     * from QuizLauncher and quizzes stored and created locally and load progress bar and score
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +115,10 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         loadNewQuestion();
     }
 
-    // After user click submit btn, change the btn text to either next or finish
+    /**
+     * method to show correct and incorrect options to user after they click submit,
+     * and move onto next question or finish the quiz
+     */
     private void showSolution() {
         choice1.setClickable(false);
         choice2.setClickable(false);
@@ -151,7 +164,9 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    // load new question, if reach the end, finish the quiz
+    /**
+     * method to laod next question or finish the quiz if there are no questions left
+     */
     private void loadNewQuestion() {
         if (flag == totalQuestion) {
             Log.d(TAG, answer_history.toString());
@@ -176,6 +191,9 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    /**
+     * method to end quiz once end is reached
+     */
     private void finishQuiz() {
         // new AlertDialog.Builder(this).setTitle("Game done").show();
         Intent intent = new Intent(this, QuizResult.class);
@@ -185,7 +203,10 @@ public class QuizDetail extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
     }
 
-    // click the button
+    /**
+     * on click methods for user interaction with quiz
+     * @param view      current view
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onClick(View view) {

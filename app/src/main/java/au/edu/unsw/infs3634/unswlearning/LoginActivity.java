@@ -18,11 +18,17 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * class to manage login for users
+ */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "LoginActivity";
 
-
+    /**
+     * on create method for this class, sets up login poge for users using Firebase API
+     * @param savedInstanceState    reference to bundle object passed into on create method
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // See: https://developer.android.com/training/basics/intents/result
+    // See: https://developer.android.com/training/basics/intents/
+    /**
+     * method to attempt to login for user
+     */
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
@@ -59,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
             }
     );
 
+    /**
+     * method that sends login request to firebase
+     * @param result        whether user was successfully logged in or not
+     */
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
@@ -75,6 +88,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * method to launch home page once login is completed
+     */
     private void launchMainActivity() {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);

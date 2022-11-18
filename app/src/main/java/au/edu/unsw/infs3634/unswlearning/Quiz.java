@@ -2,6 +2,9 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import java.util.ArrayList;
 
+/**
+ * quiz object declaration
+ */
 public class Quiz {
     // id of the quiz
     private int quizID;
@@ -9,8 +12,6 @@ public class Quiz {
     private String name;
     // history score of the quiz
     private int history[];
-    // total number of questions in the quiz
-    // private String question_number;
     // question library
     private String questions[];
     // option library
@@ -18,6 +19,14 @@ public class Quiz {
     // answer library
     private int answers[];
 
+    /**
+     * constructor for quiz
+     * @param quizID        id of quiz
+     * @param name          name of quiz
+     * @param questions     string array of quiz questions
+     * @param options       string array of options for quiz
+     * @param answers       int array of the correct answers
+     */
     public Quiz(int quizID, String name, String[] questions, String[] options, int [] answers) {
         this.quizID = quizID;
         this.name = name;
@@ -67,6 +76,11 @@ public class Quiz {
     }
 
     // return array of questions with solution
+
+    /**
+     * method to setup all the quizzes in the recyclerview with answers and options
+     * @return arraylist of all the quizzes
+     */
     public static ArrayList<Quiz> getQuizzes() {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         // manually generate a bunch of questions
@@ -147,9 +161,14 @@ public class Quiz {
         quizzes.add(new Quiz(3, "Bicep quiz2", bicepsQuiz2, bicepsOptions2, bicepsAnswers2));
         quizzes.add(new Quiz(4, "Chest quiz1", chestQuiz1, chestOptions1, chestAnswers1));
 
-        return  quizzes;
+        return quizzes;
     }
 
+    /**
+     * method to get the quizzes for specific modules
+     * @param module        module that determines which quizzes are searched for
+     * @return              arraylist of corresponding quizzes
+     */
     public static ArrayList<Quiz> getQuizzes_on_module(String module) {
         ArrayList<Quiz> quizzes_list = new ArrayList<>();
         ArrayList<Quiz> quizzes = getQuizzes();
@@ -163,7 +182,12 @@ public class Quiz {
         return  quizzes_list;
     }
 
-    // this is for quiz detail to get the quiz info
+
+    /**
+     * method to get quiz information for quiz detail
+     * @param quizName      quiz name to search for quiz detail
+     * @return              corresponding quiz to quiz name
+     */
     public static Quiz getQuiz(String quizName) {
         ArrayList<Quiz> quizzes = getQuizzes();
         for (Quiz quiz: quizzes) {
