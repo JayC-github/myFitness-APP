@@ -1,10 +1,12 @@
 package au.edu.unsw.infs3634.unswlearning.API;
 
-// import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// @Generated("jsonschema2pojo")
+
+/**
+ * This class is for getting the Youtube Video ID to load in YouTube Player from YouTube Data API
+ */
 public class Id {
 
     @SerializedName("kind")

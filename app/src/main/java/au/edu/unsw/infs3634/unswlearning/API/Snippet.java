@@ -1,10 +1,11 @@
 package au.edu.unsw.infs3634.unswlearning.API;
 
-// import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// @Generated("jsonschema2pojo")
+/**
+ * This class is for loading and getting the required data from YouTube Data API
+ */
 public class Snippet {
 
     @SerializedName("publishedAt")

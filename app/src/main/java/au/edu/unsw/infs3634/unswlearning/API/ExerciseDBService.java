@@ -10,7 +10,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * This Interface is
+ * This Interface is for called methods to get exercise data from Exercise Database API
+ * by given target muscle area
  */
 public interface ExerciseDBService {
     @Headers("X-RapidAPI-Key: e03f9eca93msh9033f0ab5b6deedp10422djsn9f01ea6f3970")

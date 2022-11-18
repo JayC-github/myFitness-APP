@@ -5,7 +5,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// @Generated("jsonschema2pojo")
+/**
+ * This class is for loading and getting the required data from YouTube Data API
+ */
 public class YoutubeDataResponse {
 
     @SerializedName("kind")
@@ -20,9 +22,6 @@ public class YoutubeDataResponse {
     @SerializedName("regionCode")
     @Expose
     private String regionCode;
-//    @SerializedName("pageInfo")
-//    @Expose
-//    private PageInfo pageInfo;
     @SerializedName("items")
     @Expose
     private List<VideoItem> items = null;
@@ -58,14 +57,6 @@ public class YoutubeDataResponse {
     public void setRegionCode(String regionCode) {
         this.regionCode = regionCode;
     }
-
-//    public PageInfo getPageInfo() {
-//        return pageInfo;
-//    }
-//
-//    public void setPageInfo(PageInfo pageInfo) {
-//        this.pageInfo = pageInfo;
-//    }
 
     public List<VideoItem> getItems() {
         return items;

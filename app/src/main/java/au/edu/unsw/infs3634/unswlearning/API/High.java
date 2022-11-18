@@ -1,10 +1,10 @@
 package au.edu.unsw.infs3634.unswlearning.API;
-// this one is used to get the Picture of url
-// import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// @Generated("jsonschema2pojo")
+/**
+ * This class is for loading and getting the image url from YouTube Data API
+ */
 public class High {
 
     @SerializedName("url")

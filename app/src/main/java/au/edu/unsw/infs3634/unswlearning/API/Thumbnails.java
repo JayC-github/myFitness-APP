@@ -1,37 +1,15 @@
 package au.edu.unsw.infs3634.unswlearning.API;
 
-// import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// @Generated("jsonschema2pojo")
+/**
+ * This class is for loading and getting the required data from YouTube Data API
+ */
 public class Thumbnails {
-
-//    @SerializedName("default")
-//    @Expose
-//    private Default _default;
-//    @SerializedName("medium")
-//    @Expose
-//    private Medium medium;
     @SerializedName("high")
     @Expose
     private High high;
-
-//    public Default getDefault() {
-//        return _default;
-//    }
-//
-//    public void setDefault(Default _default) {
-//        this._default = _default;
-//    }
-//
-//    public Medium getMedium() {
-//        return medium;
-//    }
-//
-//    public void setMedium(Medium medium) {
-//        this.medium = medium;
-//    }
 
     public High getHigh() {
         return high;
